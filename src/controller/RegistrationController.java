@@ -60,7 +60,7 @@ public class RegistrationController {
     @FXML
     void SubmitRegistration(ActionEvent event) {
         // TODO: 28.05.2021 Data checking function or class?
-
+        starter.ReplaceShow((Stage)Pane_Registration.getScene().getWindow(), WindowStarter.windowType.User );
     }
 
 }

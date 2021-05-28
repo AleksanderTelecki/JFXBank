@@ -10,7 +10,7 @@ import java.io.IOException;
 public class  WindowStarter {
 
 
-    public enum windowType {None, LogIn, Registration, AdminLogIn}
+    public enum windowType {None, LogIn, Registration, AdminLogIn, User}
 
     public void ReplaceShow(Stage stage,windowType windowtype)
     {
@@ -32,6 +32,12 @@ public class  WindowStarter {
                      window = FXMLLoader.load(getClass().getResource("../view/Registration.fxml"));
                      currentStage = stage;
                     currentStage.setTitle("Registration");
+                }
+
+                case User-> {
+                    window = FXMLLoader.load(getClass().getResource("../view/User.fxml"));
+                    currentStage = stage;
+                    currentStage.setTitle("User Window");
                 }
 
 

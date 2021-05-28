@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="BorderPane_User" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="631.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserController">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem fx:id="MenuItem_SaveHistory" mnemonicParsing="false" onAction="#SaveHistory" text="Save History" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Operations">
+            <items>
+              <MenuItem fx:id="MenuItem_Operate" mnemonicParsing="false" onAction="#Operation" text="Operate" />
+                  <MenuItem fx:id="MenuItem_TransferTo" mnemonicParsing="false" onAction="#TransferTo" text="Transfer To" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Account">
+              <items>
+                  <MenuItem fx:id="MenuItem" mnemonicParsing="false" onAction="#ModifyAccount" text="Modify Account" />
+                <MenuItem fx:id="MenuItem_DeleteAccount" mnemonicParsing="false" onAction="#DeleteAccount" text="Delete Account" />
+              </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem fx:id="MenuItem_About" mnemonicParsing="false" onAction="#About" text="About" />
+                  <MenuItem fx:id="MenuItem_BankAccount" mnemonicParsing="false" onAction="#BankAccounts" text="Bank Accounts" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <left>
+      <ScrollPane prefHeight="374.0" prefWidth="450.0" BorderPane.alignment="CENTER">
+         <content>
+            <TableView fx:id="Table_UserDate" prefHeight="374.0" prefWidth="434.0">
+              <columns>
+                <TableColumn prefWidth="67.20000606775284" text="Date" />
+                  <TableColumn prefWidth="129.60003662109375" text="Description" />
+                <TableColumn prefWidth="79.20002746582031" text="Type" />
+                  <TableColumn prefWidth="66.39996337890625" text="Amount" />
+                  <TableColumn prefWidth="92.79998779296875" text="Balance" />
+              </columns>
+            </TableView>
+         </content>
+      </ScrollPane>
+   </left>
+   <center>
+      <Separator halignment="RIGHT" orientation="VERTICAL" prefHeight="374.0" prefWidth="11.0" BorderPane.alignment="CENTER_LEFT" />
+   </center>
+   <right>
+      <Pane prefHeight="374.0" prefWidth="169.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="TextBox_BanC" layoutX="1.0" layoutY="32.0" prefHeight="13.0" prefWidth="161.0">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="TextBox_Balance" layoutX="27.0" layoutY="77.0" prefHeight="11.0" prefWidth="116.0">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="TextBox_Invested" layoutX="1.0" layoutY="138.0" prefHeight="21.0" prefWidth="72.0">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="TextBox_Savings" layoutX="92.0" layoutY="138.0" prefHeight="21.0" prefWidth="71.0">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="TextBox_Credit" layoutX="24.0" layoutY="196.0" prefHeight="11.0" prefWidth="116.0">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="TextBox_Overdraft" layoutX="24.0" layoutY="245.0" prefHeight="16.0" prefWidth="116.0">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </TextField>
+            <Label layoutX="22.0" layoutY="14.0" text="Bank Account Number" />
+            <Label layoutX="64.0" layoutY="60.0" text="Balance" />
+            <Label layoutX="15.0" layoutY="120.0" text="Invested" />
+            <Label layoutX="106.0" layoutY="120.0" text="Savings" />
+            <Label layoutX="65.0" layoutY="179.0" text="Credit" />
+            <Label layoutX="55.0" layoutY="228.0" text="Overdraft" />
+            <Label layoutX="9.0" layoutY="307.0" text="Bank Date:" />
+            <Label fx:id="Label_BankDate" layoutX="78.0" layoutY="307.0" />
+         </children>
+      </Pane>
+   </right>
+</BorderPane>

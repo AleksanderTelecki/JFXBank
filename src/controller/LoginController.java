@@ -43,7 +43,7 @@ public class LoginController {
     @FXML
     void LogIn(ActionEvent event) {
         // TODO: 28.05.2021 Data checking function or class?
-
+        starter.ReplaceShow((Stage)Pane_LogIn.getScene().getWindow(), WindowStarter.windowType.User );
 
     }
 
