@@ -3,11 +3,10 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import utils.Message;
+import utils.WindowStarter;
 
 public class UserController {
 
@@ -31,6 +30,9 @@ public class UserController {
 
     @FXML
     private MenuItem MenuItem_About;
+
+    @FXML
+    private MenuItem MenuItem_Admin;
 
     @FXML
     private MenuItem MenuItem_BankAccount;
@@ -59,29 +61,40 @@ public class UserController {
     @FXML
     private Label Label_BankDate;
 
+    private WindowStarter starter = new WindowStarter();
+
     @FXML
     void About(ActionEvent event) {
 
+        starter.Show(WindowStarter.windowType.BankInfo);
     }
 
     @FXML
     void BankAccounts(ActionEvent event) {
-
+        starter.Show(WindowStarter.windowType.BankAccounts);
     }
 
     @FXML
     void DeleteAccount(ActionEvent event) {
 
+        Alert alert = Message.showMessageAndReturnAlertReference(Alert.AlertType.CONFIRMATION,
+                "Delete Account",
+                "Do you want to delete this account?");
+
+        if (alert.getResult().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
+            Message.showMessage(Alert.AlertType.ERROR, "Yes", "yes");
+        }
+
     }
 
     @FXML
     void ModifyAccount(ActionEvent event) {
-
+        starter.Show(WindowStarter.windowType.ModifyAccounts);
     }
 
     @FXML
     void Operation(ActionEvent event) {
-
+        starter.Show(WindowStarter.windowType.Operation);
     }
 
     @FXML
@@ -91,7 +104,12 @@ public class UserController {
 
     @FXML
     void TransferTo(ActionEvent event) {
+        starter.Show(WindowStarter.windowType.TransferTo);
+    }
 
+    @FXML
+    void AdminWindow(ActionEvent event) {
+        starter.Show(WindowStarter.windowType.AdminLogIn);
     }
 
 }

@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import model.WindowStarter;
+import utils.WindowStarter;
 
 public class LoginController {
 
@@ -36,21 +36,21 @@ public class LoginController {
 
     @FXML
     void AdminLogin(ActionEvent event) {
-        starter.ReplaceShow((Stage)Pane_LogIn.getScene().getWindow(), WindowStarter.windowType.AdminLogIn );
+        starter.Show((Stage)Pane_LogIn.getScene().getWindow(), WindowStarter.windowType.AdminLogIn );
 
     }
 
     @FXML
     void LogIn(ActionEvent event) {
         // TODO: 28.05.2021 Data checking function or class?
-        starter.ReplaceShow((Stage)Pane_LogIn.getScene().getWindow(), WindowStarter.windowType.User );
+        starter.Show((Stage)Pane_LogIn.getScene().getWindow(), WindowStarter.windowType.User );
 
     }
 
     @FXML
     void NewAccount(ActionEvent event) {
        // TODO: 28.05.2021 Data checking function or class?
-       starter.ReplaceShow((Stage)Pane_LogIn.getScene().getWindow(), WindowStarter.windowType.Registration );
+        starter.Show((Stage)Pane_LogIn.getScene().getWindow(), WindowStarter.windowType.Registration );
 
     }
 
