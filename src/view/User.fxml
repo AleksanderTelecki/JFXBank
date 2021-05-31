@@ -20,6 +20,7 @@
           <Menu mnemonicParsing="false" text="File">
             <items>
               <MenuItem fx:id="MenuItem_SaveHistory" mnemonicParsing="false" onAction="#SaveHistory" text="Save History" />
+                  <MenuItem fx:id="MenuItem_Refresh" mnemonicParsing="false" onAction="#Refresh" text="Refresh" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Operations">

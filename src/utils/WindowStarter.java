@@ -10,7 +10,7 @@ import java.io.IOException;
 public class WindowStarter {
 
 
-    public enum windowType {None, LogIn, Registration, AdminLogIn, User, Operation, TransferTo, BankAccounts, ModifyAccounts, BankInfo}
+    public enum windowType {None, LogIn, Registration, AdminLogIn, User, Operation, TransferTo, BankAccounts, ModifyAccounts, BankInfo, Admin, ManageAccounts,ShowHistory,SetValue}
 
     public void Show(Stage stage, windowType windowtype) {
 
@@ -33,7 +33,7 @@ public class WindowStarter {
 
                 case User -> {
                     window = FXMLLoader.load(getClass().getResource("../view/User.fxml"));
-                    currentStage.setTitle("User Window");
+                    currentStage.setTitle("User");
                 }
 
 
@@ -65,6 +65,26 @@ public class WindowStarter {
                 case BankInfo -> {
                     window = FXMLLoader.load(getClass().getResource("../view/BankInfo.fxml"));
                     currentStage.setTitle("Bank Information");
+                }
+
+                case Admin -> {
+                    window = FXMLLoader.load(getClass().getResource("../view/Admin.fxml"));
+                    currentStage.setTitle("Admin");
+                }
+
+                case ManageAccounts -> {
+                    window = FXMLLoader.load(getClass().getResource("../view/ManageAccounts.fxml"));
+                    currentStage.setTitle("Manage Account");
+                }
+
+                case ShowHistory -> {
+                    window = FXMLLoader.load(getClass().getResource("../view/ShowHistory.fxml"));
+                    currentStage.setTitle("History");
+                }
+
+                case SetValue -> {
+                    window = FXMLLoader.load(getClass().getResource("../view/SetValue.fxml"));
+                    currentStage.setTitle("Set Value");
                 }
 
                 default -> throw new NullPointerException();
@@ -107,7 +127,7 @@ public class WindowStarter {
 
                 case User -> {
                     window = FXMLLoader.load(getClass().getResource("../view/User.fxml"));
-                    newStage.setTitle("User Window");
+                    newStage.setTitle("User");
                 }
 
 
@@ -139,6 +159,26 @@ public class WindowStarter {
                 case BankInfo -> {
                     window = FXMLLoader.load(getClass().getResource("../view/BankInfo.fxml"));
                     newStage.setTitle("Bank Information");
+                }
+
+                case Admin -> {
+                    window = FXMLLoader.load(getClass().getResource("../view/Admin.fxml"));
+                    newStage.setTitle("Admin");
+                }
+
+                case ManageAccounts -> {
+                    window = FXMLLoader.load(getClass().getResource("../view/ManageAccounts.fxml"));
+                    newStage.setTitle("Manage Account");
+                }
+
+                case ShowHistory -> {
+                    window = FXMLLoader.load(getClass().getResource("../view/ShowHistory.fxml"));
+                    newStage.setTitle("History");
+                }
+
+                case SetValue -> {
+                    window = FXMLLoader.load(getClass().getResource("../view/SetValue.fxml"));
+                    newStage.setTitle("Set Value");
                 }
 
                 default -> throw new NullPointerException();

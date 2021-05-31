@@ -33,6 +33,7 @@ public class AdminLoginController {
     @FXML
     void SubmitLogIn(ActionEvent event) {
         // TODO: 28.05.2021 Data checking function or class?
+        starter.Show((Stage) Pane_AdminLogIn.getScene().getWindow(), WindowStarter.windowType.Admin);
 
 
     }

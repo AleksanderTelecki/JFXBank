@@ -17,6 +17,9 @@ public class UserController {
     private MenuItem MenuItem_SaveHistory;
 
     @FXML
+    private MenuItem MenuItem_Refresh;
+
+    @FXML
     private MenuItem MenuItem_Operate;
 
     @FXML
@@ -110,6 +113,11 @@ public class UserController {
     @FXML
     void AdminWindow(ActionEvent event) {
         starter.Show(WindowStarter.windowType.AdminLogIn);
+    }
+
+    @FXML
+    void Refresh(ActionEvent event) {
+
     }
 
 }

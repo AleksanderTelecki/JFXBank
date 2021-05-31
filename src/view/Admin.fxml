@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane fx:id="BorderPane_Admin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminController">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem fx:id="MenuItem_SaveHistory" mnemonicParsing="false" onAction="#SaveHistory" text="Save History" />
+                  <MenuItem fx:id="MenuItem_Refresh" mnemonicParsing="false" onAction="#Refresh" text="Refresh" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Manage">
+            <items>
+              <MenuItem fx:id="MenuItem_ManageAcc" mnemonicParsing="false" onAction="#ManageAccount" text="Manage Account" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <ScrollPane BorderPane.alignment="CENTER">
+         <content>
+            <TableView fx:id="TableView_UserInfo" prefHeight="471.0" prefWidth="696.0">
+              <columns>
+                <TableColumn prefWidth="67.2000076174736" text="Account ID" />
+                <TableColumn prefWidth="144.79999542236328" text="Bank Account Number" />
+                  <TableColumn prefWidth="88.80006408691406" text="Name" />
+                  <TableColumn prefWidth="74.39996337890625" text="Balance" />
+                  <TableColumn prefWidth="77.60003662109375" text="Invested" />
+                  <TableColumn prefWidth="78.39999389648438" text="Savings" />
+                  <TableColumn prefWidth="56.79998779296875" text="Credit" />
+                  <TableColumn prefWidth="120.00006103515625" text="Overdraft" />
+              </columns>
+            </TableView>
+         </content>
+      </ScrollPane>
+   </center>
+</BorderPane>
