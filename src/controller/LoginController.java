@@ -54,7 +54,7 @@ public class LoginController {
 
         try{
 
-            Message.showMessage(Alert.AlertType.INFORMATION,"inf",result.getString("Name"));
+            Message.showMessage(Alert.AlertType.INFORMATION,"inf",result.getString("Email"));
 
         }catch (Exception e){
 

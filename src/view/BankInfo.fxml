@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<Pane maxHeight="-Infinity" fx:controller="controller.BankInfoController" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" fx:controller="controller.BankInfoController" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="250.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" >
    <children>
       <Separator layoutY="41.0" prefHeight="2.0" prefWidth="257.0" />
       <Separator layoutX="-1.0" layoutY="273.0" prefHeight="2.0" prefWidth="257.0" />
