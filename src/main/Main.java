@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import utils.DBcontroller;
 
 public class Main extends Application {
 
@@ -14,6 +15,7 @@ public class Main extends Application {
         primaryStage.setTitle("Log In");
         primaryStage.setScene(new Scene(root, 275, 400));
         primaryStage.show();
+        DBcontroller.Connect();
     }
 
 

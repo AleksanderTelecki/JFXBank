@@ -6,6 +6,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 
+import java.util.UUID;
+
 public class SetValueController {
 
     @FXML
@@ -19,6 +21,11 @@ public class SetValueController {
 
     @FXML
     void SetValue(ActionEvent event) {
+
+        UUID uuid = UUID.randomUUID();
+        String uuidAsString = uuid.toString().substring(9,23);
+        TextBox_Value.setText(uuidAsString);
+
 
     }
 
