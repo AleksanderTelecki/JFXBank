@@ -52,6 +52,9 @@ public class LoginController {
         String sqlquery = "SELECT * FROM Bank";
         ResultSet result = DBcontroller.executeQuery(sqlquery);
 
+
+
+
         try{
 
             Message.showMessage(Alert.AlertType.INFORMATION,"inf",result.getString("Email"));
@@ -66,8 +69,10 @@ public class LoginController {
 
     @FXML
     void NewAccount(ActionEvent event) {
+
         // TODO: 28.05.2021 Data checking function or class?
         starter.Show((Stage) Pane_LogIn.getScene().getWindow(), WindowStarter.windowType.Registration);
+
 
     }
 
