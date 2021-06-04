@@ -1,10 +1,14 @@
-package utils;
+package utils.dbclasses;
 
+import controller.UserController;
 import javafx.scene.control.Alert;
+import utils.DBcontroller;
+import utils.Message;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 import java.util.logging.SimpleFormatter;
 import java.util.regex.Matcher;
@@ -26,7 +30,10 @@ public class BankUser {
     private double Balance;
     private String PostalCode;
 
-    private boolean catcherror=false;
+    private List<Savings> UserSavings;
+
+
+    private boolean catcherror = false;
 
     public static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
@@ -46,7 +53,7 @@ public class BankUser {
             = "^(\\+\\d{1,3}( )?)?((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}$"
             + "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?){2}\\d{3}$"
             + "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?)(\\d{2}[ ]?){2}\\d{2}$"
-            +"|^(\\d{3}[- .]?){2}\\d{3}$";
+            + "|^(\\d{3}[- .]?){2}\\d{3}$";
 
     //https://howtodoinjava.com/java/regex/java-regex-validate-email-address/
     String regexEmailPattern = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
@@ -63,7 +70,7 @@ public class BankUser {
         setEmail(email);
         setPassword(password);
         setPostalCode(postalCode);
-        if(catcherror==true)
+        if (catcherror == true)
             throw new IllegalArgumentException();
     }
 
@@ -81,11 +88,14 @@ public class BankUser {
         setBlocked(blocked);
         setBalance(balance);
         setPostalCode(postalCode);
-        if(catcherror==true)
+        if (catcherror == true)
             throw new IllegalArgumentException();
     }
 
     public int getID() {
+        if (ID == 0) {
+            setID(DBcontroller.getID(BAcN));
+        }
         return ID;
     }
 
@@ -285,6 +295,35 @@ public class BankUser {
 
 
     }
+
+
+
+    public List<Savings> getUserSavings() {
+
+        if(UserSavings==null)
+        {
+            setUserSavings(DBcontroller.getSavings(ID));
+        }
+
+        return UserSavings;
+    }
+
+    public void setUserSavings(List<Savings> userSavings) {
+        UserSavings = userSavings;
+    }
+
+    public double getInvested()
+    {
+        double result = 0.0;
+        for (Savings item : getUserSavings())
+        {
+          result+=item.getInvestment();
+        }
+
+        return result;
+    }
+
+
 
     @Override
     public String toString() {

@@ -1,12 +1,14 @@
 package utils;
 
 import javafx.scene.control.Alert;
+import utils.dbclasses.Bank;
+import utils.dbclasses.BankUser;
+import utils.dbclasses.Savings;
 
 import java.awt.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class DBcontroller {
 
@@ -41,10 +43,11 @@ public class DBcontroller {
         try {
             Statement statement = connection.createStatement();
             statement.execute(statementToExecute);
-            Message.showMessage(Alert.AlertType.INFORMATION, "Statment Info", "Success!");
+            System.out.println("ExecutedStatment: " + statementToExecute);
         } catch (SQLException e) {
+            System.out.println("Execute Statmnet() ->Unable to execute query");
             e.printStackTrace();
-            Message.showMessage(Alert.AlertType.INFORMATION, "Statment Info", "Failed!");
+
         }
     }
 
@@ -59,6 +62,7 @@ public class DBcontroller {
         try {
             Statement statement = connection.createStatement();
             resultSet = statement.executeQuery(queryToExecute);
+            System.out.println("ExecutedQuery: " + queryToExecute);
             return resultSet;
         } catch (SQLException e) {
             System.out.println("Execute Query() ->Unable to execute query");
@@ -84,7 +88,7 @@ public class DBcontroller {
                 "'" + bankUser.getBalance() + "'," +
                 "'" + bankUser.getPostalCode() + "')";
 
-        System.out.println(statment);
+        System.out.println("Inserting new BankUser to database");
         executeStatement(statment);
 
 
@@ -122,7 +126,71 @@ public class DBcontroller {
             e.printStackTrace();
         }
 
+        System.out.println("Getting BankUsers list from database");
         return bankUsers;
+
+    }
+
+    public static int getID(String BAcN) {
+        ResultSet result = executeQuery("SELECT ID_BankUser FROM BankUser WHERE BankUser.BAcN='" + BAcN + "'");
+        try {
+            System.out.println("Getting ID_BankUser from database");
+            return result.getInt("ID_BankUser");
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return 0;
+    }
+
+    public static List<Savings> getSavings(int ID) {
+
+        ResultSet result = executeQuery("SELECT * FROM Savings WHERE Savings.ID_BankUser=" + ID);
+        List<Savings> savingList = new ArrayList<Savings>();
+        try {
+            if (!result.isBeforeFirst()) {
+                System.out.println("Savings table null!");
+                System.out.println("Inserting initial values to Savings table in database ");
+                insertInvestment(ID,0.0);
+                savingList = getSavings(ID);
+            } else {
+
+                while (result.next()) {
+                    int ID_Savings = result.getInt("ID_Savings");
+                    double Investment = result.getDouble("Investment");
+                    String StartDate = result.getString("StartDate");
+                    double EardedSavings = result.getDouble("EarnedSavings");
+                    int ID_BankUser = result.getInt("ID_BankUser");
+                    Savings savings = new Savings(ID_Savings, Investment, StartDate, EardedSavings, ID_BankUser);
+                    savingList.add(savings);
+                }
+                System.out.println("Getting Savings from database");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return savingList;
+
+    }
+
+    public static void insertInvestment(int ID, double investment) {
+        executeStatement("INSERT INTO Savings (Investment, StartDate, EarnedSavings, ID_BankUser)" +
+                "VALUES ('" + investment + "', '" + Bank.getStringCurrentDate() + "','" + 0.0 + "', '" + ID + "')");
+        System.out.println("Inserting new Savings to database");
+
+    }
+
+    public static void initializeBank() {
+        ResultSet result = executeQuery("SELECT * FROM Bank WHERE Bank.ID=" + 1);
+        try {
+            Bank.initializeBank(result.getString("CurrentDate"), result.getString("Adress"), result.getString("Name"), result.getString("Phone"), result.getString("Email"), result.getString("PostalCode"), result.getString("Website"), result.getInt("UserCount"));
+            System.out.println("Getting Bank info from database");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
 
     }
 

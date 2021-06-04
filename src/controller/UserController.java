@@ -5,7 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
-import utils.BankUser;
+import utils.dbclasses.BankUser;
 import utils.Initializer;
 import utils.Message;
 import utils.WindowStarter;
@@ -134,7 +134,7 @@ public class UserController implements Initializer {
     {
         TextBox_BanC.setText(User.getBAcN());
         TextBox_Balance.setText(Double.toString(User.getBalance()));
-
+        TextBox_Invested.setText(Double.toString(User.getInvested()));
 
     }
 

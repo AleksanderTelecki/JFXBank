@@ -16,6 +16,7 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 275, 400));
         primaryStage.show();
         DBcontroller.Connect();
+        DBcontroller.initializeBank();
     }
 
 

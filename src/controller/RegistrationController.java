@@ -8,12 +8,10 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import utils.BankUser;
+import utils.dbclasses.BankUser;
 import utils.DBcontroller;
 import utils.Message;
 import utils.WindowStarter;
-
-import java.time.format.DateTimeFormatter;
 
 public class RegistrationController {
 

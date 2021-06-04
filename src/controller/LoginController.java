@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import utils.*;
+import utils.dbclasses.BankUser;
 
 import java.util.List;
 
