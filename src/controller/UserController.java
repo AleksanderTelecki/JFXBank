@@ -5,10 +5,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import utils.BankUser;
+import utils.Initializer;
 import utils.Message;
 import utils.WindowStarter;
 
-public class UserController {
+public class UserController implements Initializer {
 
     @FXML
     private BorderPane BorderPane_User;
@@ -66,6 +68,8 @@ public class UserController {
 
     private WindowStarter starter = new WindowStarter();
 
+    private BankUser User;
+
     @FXML
     void About(ActionEvent event) {
 
@@ -119,6 +123,21 @@ public class UserController {
     void Refresh(ActionEvent event) {
 
     }
+
+    @Override
+    public void Initialize(Object object) {
+         User = (BankUser)object;
+         setUser();
+    }
+
+    private void setUser()
+    {
+        TextBox_BanC.setText(User.getBAcN());
+        TextBox_Balance.setText(Double.toString(User.getBalance()));
+
+
+    }
+
 
 }
 

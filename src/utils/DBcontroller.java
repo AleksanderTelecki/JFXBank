@@ -4,6 +4,8 @@ import javafx.scene.control.Alert;
 
 import java.awt.*;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class DBcontroller {
@@ -39,10 +41,10 @@ public class DBcontroller {
         try {
             Statement statement = connection.createStatement();
             statement.execute(statementToExecute);
-            Message.showMessage(Alert.AlertType.INFORMATION,"Statment Info","Success!");
+            Message.showMessage(Alert.AlertType.INFORMATION, "Statment Info", "Success!");
         } catch (SQLException e) {
             e.printStackTrace();
-            Message.showMessage(Alert.AlertType.INFORMATION,"Statment Info","Failed!");
+            Message.showMessage(Alert.AlertType.INFORMATION, "Statment Info", "Failed!");
         }
     }
 
@@ -85,6 +87,42 @@ public class DBcontroller {
         System.out.println(statment);
         executeStatement(statment);
 
+
+    }
+
+    public static List<BankUser> getBankUserList() {
+
+        ResultSet result = executeQuery("SELECT * FROM BankUser");
+
+        List<BankUser> bankUsers = new ArrayList<BankUser>();
+
+        try {
+
+            while (result.next()) {
+
+                int ID_BankUser = result.getInt("ID_BankUser");
+                String firstname = result.getString("FirstName");
+                String lastname = result.getString("LastName");
+                String dob = result.getString("DOB");
+                String city = result.getString("City");
+                String street = result.getString("Street");
+                String phoneNumber = result.getString("PhoneNumber");
+                String email = result.getString("Email");
+                String password = result.getString("Password");
+                String bAcN = result.getString("BAcN");
+                String blocked = result.getString("Blocked");
+                double balance = result.getDouble("Balance");
+                String postalcode = result.getString("PostalCode");
+
+                bankUsers.add(new BankUser(ID_BankUser, firstname, lastname, dob, city, street, phoneNumber, email, password, bAcN, blocked, balance, postalcode));
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return bankUsers;
 
     }
 

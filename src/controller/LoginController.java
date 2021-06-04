@@ -2,19 +2,15 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import utils.DBcontroller;
-import utils.Message;
-import utils.WindowStarter;
+import utils.*;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.List;
 
-public class LoginController {
+public class LoginController implements Initializer {
 
     @FXML
     private Pane Pane_LogIn;
@@ -49,21 +45,16 @@ public class LoginController {
     @FXML
     void LogIn(ActionEvent event) {
         // TODO: 28.05.2021 Data checking function or class?
-        String sqlquery = "SELECT * FROM Bank";
-        ResultSet result = DBcontroller.executeQuery(sqlquery);
+        List<BankUser> bankUsers = DBcontroller.getBankUserList();
 
+        if (bankUsers.size() != 0) {
+            //starter.Show((Stage) Pane_LogIn.getScene().getWindow(), WindowStarter.windowType.User,bankUsers.get(0));
+            starter.Show(WindowStarter.windowType.User,bankUsers.get(0));
 
-
-
-        try{
-
-            Message.showMessage(Alert.AlertType.INFORMATION,"inf",result.getString("Email"));
-
-        }catch (Exception e){
+        }else{
 
         }
 
-        starter.Show((Stage) Pane_LogIn.getScene().getWindow(), WindowStarter.windowType.User);
 
     }
 
@@ -76,4 +67,10 @@ public class LoginController {
 
     }
 
+
+    @Override
+    public void Initialize(Object object) {
+        BankUser user = (BankUser) object;
+
+    }
 }
