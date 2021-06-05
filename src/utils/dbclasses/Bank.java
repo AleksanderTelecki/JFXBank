@@ -15,9 +15,13 @@ public class Bank {
     private static String Website;
     private static int UserCount;
 
+    private static double DepositPercentage;
+    private static double SavingsPercentage;
+
+
     public static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
-    public static void initializeBank(String currentdate,String adress,String name,String phone,String email,String postalcode,String website,int userCount) {
+    public static void initializeBank(String currentdate,String adress,String name,String phone,String email,String postalcode,String website,int userCount,double depositPercentage,double savingsPercentage)  {
 
         try {
             CurrentDate = dateFormat.parse(currentdate);
@@ -32,6 +36,8 @@ public class Bank {
         PostalCode=postalcode;
         Website=website;
         UserCount=userCount;
+        DepositPercentage=depositPercentage;
+        SavingsPercentage=savingsPercentage;
 
 
     }
@@ -82,4 +88,14 @@ public class Bank {
     public static int getUserCount() {
         return UserCount;
     }
+
+
+    public static double getDepositPercentage() {
+        return DepositPercentage;
+    }
+
+    public static double getSavingsPercentage() {
+        return SavingsPercentage;
+    }
+
 }

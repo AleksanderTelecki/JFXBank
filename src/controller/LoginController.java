@@ -2,11 +2,13 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import utils.*;
+import utils.dbclasses.Bank;
 import utils.dbclasses.BankUser;
 
 import java.util.List;
@@ -51,6 +53,7 @@ public class LoginController implements Initializer {
         if (bankUsers.size() != 0) {
             //starter.Show((Stage) Pane_LogIn.getScene().getWindow(), WindowStarter.windowType.User,bankUsers.get(0));
             starter.Show(WindowStarter.windowType.User,bankUsers.get(0));
+            Message.showMessage(Alert.AlertType.INFORMATION,"Inf",Double.toString(Bank.getDepositPercentage()));
 
         }else{
 

@@ -32,6 +32,7 @@ public class BankUser {
 
     private List<Savings> UserSavings;
 
+    private Credits UserCredits;
 
     private boolean catcherror = false;
 
@@ -322,6 +323,20 @@ public class BankUser {
 
         return result;
     }
+
+    public Credits getUserCredits() {
+        if(UserCredits==null)
+        {
+            setUserCredits(DBcontroller.getCredits(ID,BAcN));
+        }
+        return UserCredits;
+    }
+
+    public void setUserCredits(Credits userCredits) {
+        UserCredits = userCredits;
+    }
+
+
 
 
 

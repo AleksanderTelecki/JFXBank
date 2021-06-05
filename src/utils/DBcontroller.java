@@ -3,6 +3,7 @@ package utils;
 import javafx.scene.control.Alert;
 import utils.dbclasses.Bank;
 import utils.dbclasses.BankUser;
+import utils.dbclasses.Credits;
 import utils.dbclasses.Savings;
 
 import java.awt.*;
@@ -88,7 +89,7 @@ public class DBcontroller {
                 "'" + bankUser.getBalance() + "'," +
                 "'" + bankUser.getPostalCode() + "')";
 
-        System.out.println("Inserting new BankUser to database");
+        System.out.println("Inserting new BankUser row to database");
         executeStatement(statment);
 
 
@@ -152,7 +153,7 @@ public class DBcontroller {
             if (!result.isBeforeFirst()) {
                 System.out.println("Savings table null!");
                 System.out.println("Inserting initial values to Savings table in database ");
-                insertInvestment(ID,0.0);
+                insertInvestment(ID, 0.0);
                 savingList = getSavings(ID);
             } else {
 
@@ -178,19 +179,56 @@ public class DBcontroller {
     public static void insertInvestment(int ID, double investment) {
         executeStatement("INSERT INTO Savings (Investment, StartDate, EarnedSavings, ID_BankUser)" +
                 "VALUES ('" + investment + "', '" + Bank.getStringCurrentDate() + "','" + 0.0 + "', '" + ID + "')");
-        System.out.println("Inserting new Savings to database");
+        System.out.println("Inserting new Savings row to database");
 
     }
 
     public static void initializeBank() {
         ResultSet result = executeQuery("SELECT * FROM Bank WHERE Bank.ID=" + 1);
+        ResultSet percentage = executeQuery("SELECT * FROM Percentage");
         try {
-            Bank.initializeBank(result.getString("CurrentDate"), result.getString("Adress"), result.getString("Name"), result.getString("Phone"), result.getString("Email"), result.getString("PostalCode"), result.getString("Website"), result.getInt("UserCount"));
+            Bank.initializeBank(result.getString("CurrentDate"), result.getString("Adress"), result.getString("Name"), result.getString("Phone"), result.getString("Email"), result.getString("PostalCode"), result.getString("Website"), result.getInt("UserCount"),percentage.getDouble("Deposit"),percentage.getDouble("Savings"));
             System.out.println("Getting Bank info from database");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
+
+    }
+
+    public static Credits getCredits(int ID, String BAcN) {
+
+        ResultSet result = executeQuery("SELECT * FROM Credits WHERE Credits.BAcN='" + BAcN + "'");
+        Credits credits=null;
+        try {
+            if (!result.isBeforeFirst()) {
+                System.out.println("Credit table null!");
+                System.out.println("Inserting initial values to Credit table in database ");
+                insertCredits(ID, BAcN);
+                credits = getCredits(ID, BAcN);
+            } else {
+
+                int ID_Credit = result.getInt("ID_Credit");
+                double CreditBalance = result.getDouble("CreditBalance");
+                double CreditLimit = result.getDouble("CreditLimit");
+                double FinanceCharge = result.getDouble("FinanceCharge");
+                int ID_BankUser = result.getInt("ID_BankUser");
+                String bacn = result.getString("BAcN");
+                credits = new Credits(ID_Credit, CreditBalance, CreditLimit, FinanceCharge, ID_BankUser,bacn);
+                System.out.println("Getting Credits row from database");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return credits;
+
+    }
+
+    public static void insertCredits(int ID, String BAcN) {
+        executeStatement("INSERT INTO Credits (CreditBalance, CreditLimit, FinanceCharge, ID_BankUser,BAcN)" +
+                "VALUES ('" + 0.0 + "', '" + 5000.0 + "','" + 5.0 + "', '" + ID + "','" + BAcN + "')");
+        System.out.println("Inserting new Credits row to database");
 
     }
 

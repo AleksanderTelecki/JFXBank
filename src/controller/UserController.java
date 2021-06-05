@@ -135,6 +135,7 @@ public class UserController implements Initializer {
         TextBox_BanC.setText(User.getBAcN());
         TextBox_Balance.setText(Double.toString(User.getBalance()));
         TextBox_Invested.setText(Double.toString(User.getInvested()));
+        TextBox_Credit.setText(Double.toString(User.getUserCredits().getCreditLimit()));
 
     }
 
