@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="BorderPane_User" maxHeight="550.0" maxWidth="750.0" minHeight="550.0" minWidth="750.0" prefHeight="550.0" prefWidth="750.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.UserController">
+<BorderPane fx:id="BorderPane_User" maxHeight="550.0" maxWidth="750.0" minHeight="550.0" minWidth="750.0" prefHeight="550.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -50,10 +50,10 @@
          <content>
             <TableView fx:id="Table_UserDate" prefHeight="523.0" prefWidth="572.0">
               <columns>
-                <TableColumn prefWidth="96.80001217126846" text="Date" />
-                  <TableColumn prefWidth="201.60000610351562" text="Description" />
-                <TableColumn prefWidth="124.79998779296875" text="Type" />
-                  <TableColumn prefWidth="147.20001220703125" text="Amount" />
+                <TableColumn fx:id="Column_Date" prefWidth="96.80001217126846" style="-fx-alignment: CENTER;" text="Date" />
+                  <TableColumn fx:id="Column_Description" prefWidth="201.60000610351562" style="-fx-alignment: CENTER;" text="Description" />
+                <TableColumn fx:id="Column_Type" prefWidth="124.79998779296875" style="-fx-alignment: CENTER;" text="Type" />
+                  <TableColumn fx:id="Column_Amount" prefWidth="128.79998779296875" style="-fx-alignment: CENTER;" text="Amount" />
               </columns>
             </TableView>
          </content>

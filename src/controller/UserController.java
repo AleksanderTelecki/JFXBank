@@ -1,16 +1,21 @@
 package controller;
 
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import jdk.dynalink.Operation;
 import utils.DBcontroller;
 import utils.dbclasses.Bank;
 import utils.dbclasses.BankUser;
 import utils.Initializer;
 import utils.Message;
 import utils.WindowController;
+import utils.dbclasses.Operations;
 
 public class UserController implements Initializer {
 
@@ -45,7 +50,20 @@ public class UserController implements Initializer {
     private MenuItem MenuItem_BankAccount;
 
     @FXML
-    private TableView<String> Table_UserDate;
+    private TableView<Operations> Table_UserDate;
+
+
+    @FXML
+    private TableColumn<Operations,String> Column_Date;
+
+    @FXML
+    private TableColumn<Operations, String> Column_Description;
+
+    @FXML
+    private TableColumn<Operations, String> Column_Type;
+
+    @FXML
+    private TableColumn<Operations, Double> Column_Amount;
 
     @FXML
     private TextField TextBox_BanC;
@@ -130,6 +148,11 @@ public class UserController implements Initializer {
 
     @Override
     public void Initialize(Object object) {
+        Column_Date.setCellValueFactory(new PropertyValueFactory<Operations, String>("Sdate"));
+        Column_Description.setCellValueFactory(new PropertyValueFactory<Operations, String>("Description"));
+        Column_Type.setCellValueFactory(new PropertyValueFactory<Operations, String>("Type"));
+        Column_Amount.setCellValueFactory(new PropertyValueFactory<Operations, Double>("Amount"));
+
         ID = (Integer) object;
         update();
     }
@@ -146,6 +169,9 @@ public class UserController implements Initializer {
         TextBox_Overdraft.setText(Double.toString(User.getUserCredits().getOverdraft()));
 
         Label_BankDate.setText(Bank.getStringCurrentDate());
+        //Table_UserDate.setItems();
+        ObservableList<Operations> data = FXCollections.observableArrayList(DBcontroller.getOperationsList(ID));
+        Table_UserDate.setItems(data);
 
     }
 

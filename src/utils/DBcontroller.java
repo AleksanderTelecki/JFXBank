@@ -1,13 +1,12 @@
 package utils;
 
-import utils.dbclasses.Bank;
-import utils.dbclasses.BankUser;
-import utils.dbclasses.Credits;
-import utils.dbclasses.Savings;
+import utils.dbclasses.*;
 
 import java.awt.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class DBcontroller {
@@ -391,6 +390,42 @@ public class DBcontroller {
 
 
     }
+
+    public static List<Operations> getOperationsList(int ID)
+    {
+
+        ResultSet result = executeQuery("SELECT * FROM Operations WHERE Operations.ID_BankUser=" + ID);
+        List<Operations> operations = new ArrayList<Operations>();
+        try {
+            if (!result.isBeforeFirst()) {
+                System.out.println("Operations table null!");
+                System.out.println("Inserting initial values to Operations table in database ");
+                insertOperation(ID,"Initial operation","Init",0.0);
+                operations = getOperationsList(ID);
+            } else {
+                while (result.next()) {
+                    int ID_Operations = result.getInt("ID_Operation");
+                    String Date = result.getString("Date");
+                    String Description = result.getString("Description");
+                    String Type = result.getString("Type");
+                    double Amount = result.getDouble("Amount");
+                    int ID_BankUser = result.getInt("ID_BankUser");
+                    int Counter = result.getInt("Counter");
+                    operations.add(new Operations(Date,Description,Type,Amount,ID_BankUser,Counter));
+                }
+                System.out.println("Getting Operations from database");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        Collections.sort(operations,new Operations());
+        Collections.reverse(operations);
+        return operations;
+
+
+    }
+
 
 
 }
