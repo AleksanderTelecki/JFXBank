@@ -36,12 +36,12 @@ public class LoginController implements Initializer {
     @FXML
     private Button Button_NewAccount;
 
-    private WindowStarter starter = new WindowStarter();
+    private WindowController starter = new WindowController();
 
 
     @FXML
     void AdminLogin(ActionEvent event) {
-        starter.Show((Stage) Pane_LogIn.getScene().getWindow(), WindowStarter.windowType.AdminLogIn);
+        starter.Show((Stage) Pane_LogIn.getScene().getWindow(), WindowController.windowType.AdminLogIn);
 
     }
 
@@ -52,7 +52,7 @@ public class LoginController implements Initializer {
 
         if (bankUsers.size() != 0) {
             //starter.Show((Stage) Pane_LogIn.getScene().getWindow(), WindowStarter.windowType.User,bankUsers.get(0));
-            starter.Show(WindowStarter.windowType.User,bankUsers.get(0));
+            starter.Show(WindowController.windowType.User,bankUsers.get(0).getID());
             Message.showMessage(Alert.AlertType.INFORMATION,"Inf",Double.toString(Bank.getDepositPercentage()));
 
         }else{
@@ -66,7 +66,7 @@ public class LoginController implements Initializer {
     void NewAccount(ActionEvent event) {
 
         // TODO: 28.05.2021 Data checking function or class?
-        starter.Show((Stage) Pane_LogIn.getScene().getWindow(), WindowStarter.windowType.Registration);
+        starter.Show((Stage) Pane_LogIn.getScene().getWindow(), WindowController.windowType.Registration);
 
 
     }

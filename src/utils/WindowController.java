@@ -1,5 +1,6 @@
 package utils;
 
+import controller.UserController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -7,10 +8,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class WindowStarter {
+public class WindowController {
 
 
     public enum windowType {None, LogIn, Registration, AdminLogIn, User, Operation, TransferTo, BankAccounts, ModifyAccounts, BankInfo, Admin, ManageAccounts, ShowHistory, SetValue}
+
+   public static UserController userController;
 
     public void Show(Stage stage, windowType windowtype) {
 
@@ -224,6 +227,8 @@ public class WindowStarter {
                     loader = new FXMLLoader(getClass().getResource("../view/User.fxml"));
                     window = loader.load();
                     currentStage.setTitle("User");
+                    userController = loader.getController();
+
                 }
 
 
@@ -296,14 +301,11 @@ public class WindowStarter {
             currentStage.setResizable(false);
 
 
-
             Initializer controller = loader.getController();
             controller.Initialize(object);
 
             currentStage.setScene(new Scene(window));
             currentStage.show();
-
-
 
 
         } catch (IOException e) {
@@ -339,6 +341,7 @@ public class WindowStarter {
                     loader = new FXMLLoader(getClass().getResource("../view/User.fxml"));
                     window = loader.load();
                     newStage.setTitle("User");
+                    userController = loader.getController();
                 }
 
 
@@ -411,14 +414,11 @@ public class WindowStarter {
             newStage.setResizable(false);
 
 
-
             Initializer controller = loader.getController();
             controller.Initialize(object);
 
             newStage.setScene(new Scene(window));
             newStage.show();
-
-
 
 
         } catch (IOException e) {
@@ -427,6 +427,8 @@ public class WindowStarter {
 
 
     }
+
+
 
 
 }

@@ -1,6 +1,5 @@
 package utils.dbclasses;
 
-import controller.UserController;
 import javafx.scene.control.Alert;
 import utils.DBcontroller;
 import utils.Message;
@@ -8,9 +7,7 @@ import utils.Message;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
-import java.util.logging.SimpleFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,7 +27,7 @@ public class BankUser {
     private double Balance;
     private String PostalCode;
 
-    private List<Savings> UserSavings;
+    private Savings UserSavings;
 
     private Credits UserCredits;
 
@@ -299,7 +296,7 @@ public class BankUser {
 
 
 
-    public List<Savings> getUserSavings() {
+    public Savings getUserSavings() {
 
         if(UserSavings==null)
         {
@@ -309,20 +306,10 @@ public class BankUser {
         return UserSavings;
     }
 
-    public void setUserSavings(List<Savings> userSavings) {
+    public void setUserSavings(Savings userSavings) {
         UserSavings = userSavings;
     }
 
-    public double getInvested()
-    {
-        double result = 0.0;
-        for (Savings item : getUserSavings())
-        {
-          result+=item.getInvestment();
-        }
-
-        return result;
-    }
 
     public Credits getUserCredits() {
         if(UserCredits==null)

@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
-import utils.WindowStarter;
+import utils.WindowController;
 
 public class AdminController {
 
@@ -24,11 +24,11 @@ public class AdminController {
     @FXML
     private TableView<?> TableView_UserInfo;
 
-    private WindowStarter starter = new WindowStarter();
+    private WindowController starter = new WindowController();
 
     @FXML
     void ManageAccount(ActionEvent event) {
-        starter.Show(WindowStarter.windowType.ManageAccounts);
+        starter.Show(WindowController.windowType.ManageAccounts);
     }
 
     @FXML

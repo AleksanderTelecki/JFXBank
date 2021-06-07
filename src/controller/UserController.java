@@ -5,10 +5,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import utils.DBcontroller;
+import utils.dbclasses.Bank;
 import utils.dbclasses.BankUser;
 import utils.Initializer;
 import utils.Message;
-import utils.WindowStarter;
+import utils.WindowController;
 
 public class UserController implements Initializer {
 
@@ -43,7 +45,7 @@ public class UserController implements Initializer {
     private MenuItem MenuItem_BankAccount;
 
     @FXML
-    private TableView<?> Table_UserDate;
+    private TableView<String> Table_UserDate;
 
     @FXML
     private TextField TextBox_BanC;
@@ -66,19 +68,21 @@ public class UserController implements Initializer {
     @FXML
     private Label Label_BankDate;
 
-    private WindowStarter starter = new WindowStarter();
+    private WindowController starter = new WindowController();
 
     private BankUser User;
+
+    private int ID;
 
     @FXML
     void About(ActionEvent event) {
 
-        starter.Show(WindowStarter.windowType.BankInfo);
+        starter.Show(WindowController.windowType.BankInfo);
     }
 
     @FXML
     void BankAccounts(ActionEvent event) {
-        starter.Show(WindowStarter.windowType.BankAccounts);
+        starter.Show(WindowController.windowType.BankAccounts);
     }
 
     @FXML
@@ -96,12 +100,12 @@ public class UserController implements Initializer {
 
     @FXML
     void ModifyAccount(ActionEvent event) {
-        starter.Show(WindowStarter.windowType.ModifyAccounts);
+        starter.Show(WindowController.windowType.ModifyAccounts, User.getID());
     }
 
     @FXML
     void Operation(ActionEvent event) {
-        starter.Show(WindowStarter.windowType.Operation);
+        starter.Show(WindowController.windowType.Operation, User.getID());
     }
 
     @FXML
@@ -111,31 +115,37 @@ public class UserController implements Initializer {
 
     @FXML
     void TransferTo(ActionEvent event) {
-        starter.Show(WindowStarter.windowType.TransferTo);
+        starter.Show(WindowController.windowType.TransferTo, User.getID());
     }
 
     @FXML
     void AdminWindow(ActionEvent event) {
-        starter.Show(WindowStarter.windowType.AdminLogIn);
+        starter.Show(WindowController.windowType.AdminLogIn);
     }
 
     @FXML
     void Refresh(ActionEvent event) {
-
+        update();
     }
 
     @Override
     public void Initialize(Object object) {
-         User = (BankUser)object;
-         setUser();
+        ID = (Integer) object;
+        update();
     }
 
-    private void setUser()
-    {
+
+    public void update() {
+
+        User = DBcontroller.getBankUser(ID);
         TextBox_BanC.setText(User.getBAcN());
         TextBox_Balance.setText(Double.toString(User.getBalance()));
-        TextBox_Invested.setText(Double.toString(User.getInvested()));
-        TextBox_Credit.setText(Double.toString(User.getUserCredits().getCreditLimit()));
+        TextBox_Invested.setText(Double.toString(User.getUserSavings().getInvestment()));
+        TextBox_Credit.setText(Double.toString(User.getUserCredits().getCreditDiff()));
+        TextBox_Savings.setText(Double.toString(User.getUserSavings().getEarnedSavings()));
+        TextBox_Overdraft.setText(Double.toString(User.getUserCredits().getOverdraft()));
+
+        Label_BankDate.setText(Bank.getStringCurrentDate());
 
     }
 

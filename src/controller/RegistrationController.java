@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import utils.dbclasses.BankUser;
 import utils.DBcontroller;
 import utils.Message;
-import utils.WindowStarter;
+import utils.WindowController;
 
 public class RegistrationController {
 
@@ -54,11 +54,11 @@ public class RegistrationController {
     @FXML
     private Button Button_LogIn;
 
-    private WindowStarter starter = new WindowStarter();
+    private WindowController starter = new WindowController();
 
     @FXML
     void LogIn(ActionEvent event) {
-        starter.Show((Stage) Pane_Registration.getScene().getWindow(), WindowStarter.windowType.LogIn);
+        starter.Show((Stage) Pane_Registration.getScene().getWindow(), WindowController.windowType.LogIn);
     }
 
     @FXML
@@ -77,7 +77,7 @@ public class RegistrationController {
                     TextBox_PostalCode.getText());
 
             DBcontroller.registerUser(bankUser);
-            starter.Show((Stage) Pane_Registration.getScene().getWindow(), WindowStarter.windowType.User);
+            starter.Show((Stage) Pane_Registration.getScene().getWindow(), WindowController.windowType.User);
 
         } else {
             Message.showMessage(Alert.AlertType.ERROR, "Invalid Data", "Password does not match");

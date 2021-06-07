@@ -6,8 +6,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import utils.Initializer;
 
-public class TransferToController {
+public class TransferToController implements Initializer {
 
     @FXML
     private Pane Pane_TransferTo;
@@ -24,9 +25,15 @@ public class TransferToController {
     @FXML
     private TextField TextBox_BanC;
 
+    private int ID;
+
     @FXML
     void Submit(ActionEvent event) {
 
     }
 
+    @Override
+    public void Initialize(Object object) {
+        ID=(int)object;
+    }
 }

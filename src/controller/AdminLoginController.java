@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import utils.WindowStarter;
+import utils.WindowController;
 
 public class AdminLoginController {
 
@@ -23,17 +23,17 @@ public class AdminLoginController {
     @FXML
     private Button Button_LogIn;
 
-    private WindowStarter starter = new WindowStarter();
+    private WindowController starter = new WindowController();
 
     @FXML
     void LogIn(ActionEvent event) {
-        starter.Show((Stage) Pane_AdminLogIn.getScene().getWindow(), WindowStarter.windowType.LogIn);
+        starter.Show((Stage) Pane_AdminLogIn.getScene().getWindow(), WindowController.windowType.LogIn);
     }
 
     @FXML
     void SubmitLogIn(ActionEvent event) {
         // TODO: 28.05.2021 Data checking function or class?
-        starter.Show((Stage) Pane_AdminLogIn.getScene().getWindow(), WindowStarter.windowType.Admin);
+        starter.Show((Stage) Pane_AdminLogIn.getScene().getWindow(), WindowController.windowType.Admin);
 
 
     }

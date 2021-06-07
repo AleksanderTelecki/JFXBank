@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.TextField;
 import utils.Message;
-import utils.WindowStarter;
+import utils.WindowController;
 
 public class ManageAccountsController {
 
@@ -35,7 +35,7 @@ public class ManageAccountsController {
     @FXML
     private Button Button_Overdraft;
 
-    private WindowStarter starter = new WindowStarter();
+    private WindowController starter = new WindowController();
 
     @FXML
     void BlockAccount(ActionEvent event) {
@@ -61,27 +61,27 @@ public class ManageAccountsController {
 
     @FXML
     void Operation(ActionEvent event) {
-        starter.Show(WindowStarter.windowType.Operation);
+        starter.Show(WindowController.windowType.Operation);
     }
 
     @FXML
     void SetCreditLimit(ActionEvent event) {
-        starter.Show(WindowStarter.windowType.SetValue);
+        starter.Show(WindowController.windowType.SetValue);
     }
 
     @FXML
     void SetOverdraft(ActionEvent event) {
-        starter.Show(WindowStarter.windowType.SetValue);
+        starter.Show(WindowController.windowType.SetValue);
     }
 
     @FXML
     void ShowHistory(ActionEvent event) {
-        starter.Show(WindowStarter.windowType.ShowHistory);
+        starter.Show(WindowController.windowType.ShowHistory);
     }
 
     @FXML
     void Transfer(ActionEvent event) {
-        starter.Show(WindowStarter.windowType.TransferTo);
+        starter.Show(WindowController.windowType.TransferTo);
     }
 
 }

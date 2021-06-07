@@ -8,21 +8,28 @@ public class Credits {
     private double FinanceCharge;
     private int ID_BankUSer;
     private String BAcN;
+    private double Overdraft;
 
 
-    public Credits(int ID_Credit,double creditBalance, double creditLimit, double financeCharge, int ID_BankUSer, String BAcN) {
+    public Credits(int ID_Credit,double creditBalance, double creditLimit, double financeCharge, int ID_BankUSer, String BAcN,double overdraft) {
         setID_Credit(ID_Credit);
         setCreditBalance(creditBalance);
         setCreditLimit(creditLimit);
         setFinanceCharge(financeCharge);
         setID_BankUSer(ID_BankUSer);
         setBAcN(BAcN);
+        setOverdraft(overdraft);
     }
 
 
 
     public int getID_Credit() {
         return ID_Credit;
+    }
+
+    public double getCreditDiff()
+    {
+        return CreditLimit-CreditBalance;
     }
 
     public void setID_Credit(int ID_Credit) {
@@ -68,4 +75,14 @@ public class Credits {
     public void setBAcN(String BAcN) {
         this.BAcN = BAcN;
     }
+
+
+    public double getOverdraft() {
+        return Overdraft;
+    }
+
+    public void setOverdraft(double overdraft) {
+        Overdraft = overdraft;
+    }
+
 }

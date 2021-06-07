@@ -5,8 +5,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import utils.Initializer;
 
-public class ModifyAccountController {
+public class ModifyAccountController implements Initializer {
 
     @FXML
     private Pane Pane_ChangeAccountInfo;
@@ -44,9 +45,15 @@ public class ModifyAccountController {
     @FXML
     private Button Button_Submit;
 
+    private int ID;
+
     @FXML
     void SubmitRegistration(ActionEvent event) {
 
     }
 
+    @Override
+    public void Initialize(Object object) {
+        ID=(int)object;
+    }
 }
