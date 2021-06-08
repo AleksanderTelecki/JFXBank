@@ -1,12 +1,14 @@
 package utils.dbclasses;
 
+import utils.DBcontroller;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Bank {
 
-    private static Date CurrentDate;
+    private static Date CurrentDateTime;
     private static String Adress;
     private static String Name;
     private static String Phone;
@@ -19,12 +21,15 @@ public class Bank {
     private static double SavingsPercentage;
 
 
-    public static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+    public static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 
-    public static void initializeBank(String currentdate,String adress,String name,String phone,String email,String postalcode,String website,int userCount,double depositPercentage,double savingsPercentage)  {
+    public static final SimpleDateFormat DBdateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+
+    public static void initializeBank(String currentdatetime,String adress,String name,String phone,String email,String postalcode,String website,int userCount,double depositPercentage,double savingsPercentage)  {
 
         try {
-            CurrentDate = dateFormat.parse(currentdate);
+            CurrentDateTime = DBdateFormat.parse(currentdatetime);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -42,22 +47,32 @@ public class Bank {
 
     }
 
-    public static void setCurrentDate(Date currentDate) {
-        CurrentDate = currentDate;
+    public static void setCurrentDateTime(Date currentDateTime) {
+        CurrentDateTime = currentDateTime;
+    }
+
+    public static void setCurrentDateTime(String currentDateTime) {
+        try {
+            CurrentDateTime = DBdateFormat.parse(currentDateTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static void setUserCount(int userCount) {
         UserCount = userCount;
     }
 
-    public static Date getCurrentDate() {
-        return CurrentDate;
+    public static Date getCurrentDateTime() {
+        return CurrentDateTime;
     }
 
-    public static String getStringCurrentDate()
+    public static String getStringCurrentDateTime()
     {
 
-        return dateFormat.format(CurrentDate);
+        DBcontroller.updateDateTime();
+        return dateFormat.format(CurrentDateTime);
 
     }
 

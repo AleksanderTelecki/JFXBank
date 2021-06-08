@@ -1,6 +1,9 @@
 package controller;
 
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -8,16 +11,17 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
-import jdk.dynalink.Operation;
-import utils.DBcontroller;
+import javafx.util.Duration;
+import utils.*;
 import utils.dbclasses.Bank;
 import utils.dbclasses.BankUser;
-import utils.Initializer;
-import utils.Message;
-import utils.WindowController;
 import utils.dbclasses.Operations;
 
-public class UserController implements Initializer {
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class UserController implements Initializer, Refreshable {
 
     @FXML
     private BorderPane BorderPane_User;
@@ -143,7 +147,7 @@ public class UserController implements Initializer {
 
     @FXML
     void Refresh(ActionEvent event) {
-        update();
+        refresh();
     }
 
     @Override
@@ -154,12 +158,30 @@ public class UserController implements Initializer {
         Column_Amount.setCellValueFactory(new PropertyValueFactory<Operations, Double>("Amount"));
 
         ID = (Integer) object;
-        update();
+        refresh();
+        new Thread( new Runnable() {
+            public void run() {
+               initClock();
+            }
+        }).start();
+
     }
 
 
-    public void update() {
+    private void initClock()
+    {
+        Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+            Label_BankDate.setText(LocalDateTime.now().format(formatter));
+        }), new KeyFrame(Duration.seconds(1)));
+        clock.setCycleCount(Animation.INDEFINITE);
+        clock.play();
 
+
+    }
+
+    @Override
+    public void refresh() {
         User = DBcontroller.getBankUser(ID);
         TextBox_BanC.setText(User.getBAcN());
         TextBox_Balance.setText(Double.toString(User.getBalance()));
@@ -168,13 +190,10 @@ public class UserController implements Initializer {
         TextBox_Savings.setText(Double.toString(User.getUserSavings().getEarnedSavings()));
         TextBox_Overdraft.setText(Double.toString(User.getUserCredits().getOverdraft()));
 
-        Label_BankDate.setText(Bank.getStringCurrentDate());
+        //Label_BankDate.setText(Bank.getStringCurrentDateTime());
         //Table_UserDate.setItems();
         ObservableList<Operations> data = FXCollections.observableArrayList(DBcontroller.getOperationsList(ID));
         Table_UserDate.setItems(data);
-
     }
-
-
 }
 

@@ -19,7 +19,7 @@ public class Operations implements Comparator<Operations> {
     private int ID_BankUser;
     private int Counter;
 
-    public static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+    public static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 
     public Operations() {
 

@@ -51,10 +51,7 @@ public class LoginController implements Initializer {
         List<BankUser> bankUsers = DBcontroller.getBankUserList();
 
         if (bankUsers.size() != 0) {
-            //starter.Show((Stage) Pane_LogIn.getScene().getWindow(), WindowStarter.windowType.User,bankUsers.get(0));
             starter.Show(WindowController.windowType.User,bankUsers.get(0).getID());
-            Message.showMessage(Alert.AlertType.INFORMATION,"Inf",Double.toString(Bank.getDepositPercentage()));
-
         }else{
 
         }

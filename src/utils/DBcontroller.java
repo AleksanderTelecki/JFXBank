@@ -5,7 +5,6 @@ import utils.dbclasses.*;
 import java.awt.*;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -205,7 +204,7 @@ public class DBcontroller {
 
     public static void insertInvestment(int ID, double investment) {
         executeStatement("INSERT INTO Savings (Investment, StartDate, EarnedSavings, ID_BankUser)" +
-                "VALUES ('" + investment + "', '" + Bank.getStringCurrentDate() + "','" + 0.0 + "', '" + ID + "')");
+                "VALUES ('" + investment + "', '" + Bank.getStringCurrentDateTime() + "','" + 0.0 + "', '" + ID + "')");
         System.out.println("Inserting new Savings row to database");
 
     }
@@ -213,13 +212,32 @@ public class DBcontroller {
     public static void initializeBank() {
         ResultSet result = executeQuery("SELECT * FROM Bank WHERE Bank.ID=" + 1);
         ResultSet percentage = executeQuery("SELECT * FROM Percentage");
+        ResultSet date = executeQuery("SELECT datetime('now','localtime') as time;");
         try {
-            Bank.initializeBank(result.getString("CurrentDate"), result.getString("Adress"), result.getString("Name"), result.getString("Phone"), result.getString("Email"), result.getString("PostalCode"), result.getString("Website"), result.getInt("UserCount"), percentage.getDouble("Deposit"), percentage.getDouble("Savings"));
+            Bank.initializeBank(date.getString("time"),
+                    result.getString("Adress"), result.getString("Name"),
+                    result.getString("Phone"), result.getString("Email"),
+                    result.getString("PostalCode"), result.getString("Website"),
+                    result.getInt("UserCount"), percentage.getDouble("Deposit"),
+                    percentage.getDouble("Savings"));
             System.out.println("Getting Bank info from database");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
+
+    }
+
+    public static void updateDateTime()
+    {
+        executeStatement("UPDATE Bank SET CurrentDateTime=datetime('now','localtime') WHERE Bank.ID=" + 1);
+        ResultSet result = executeQuery("SELECT * FROM Bank WHERE Bank.ID=" + 1);
+        try {
+            Bank.setCurrentDateTime(result.getString("CurrentDateTime"));
+            System.out.println("Getting Bank.CurrentDateTime from database");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
     }
 
@@ -373,14 +391,14 @@ public class DBcontroller {
                 System.out.println("Operations table null!");
                 System.out.println("Inserting initial values to Operations table in database ");
                 executeStatement("INSERT INTO Operations (Date,Description,Type,Amount,ID_BankUser,Counter)" +
-                        "VALUES ('" + Bank.getStringCurrentDate() + "', '" + Description + "','" + Type + "', '" + amount + "','" + ID + "','" + 1 + "')");
+                        "VALUES ('" + Bank.getStringCurrentDateTime() + "', '" + Description + "','" + Type + "', '" + amount + "','" + ID + "','" + 1 + "')");
                 System.out.println("Inserting new Operations row to database");
 
             } else {
                 resultSet = executeQuery("SELECT max(Operations.Counter) as MaxCount FROM Operations WHERE Operations.ID_BankUser=" + ID);
                 int counter = resultSet.getInt("MaxCount") + 1;
                 executeStatement("INSERT INTO Operations (Date,Description,Type,Amount,ID_BankUser,Counter)" +
-                        "VALUES ('" + Bank.getStringCurrentDate() + "', '" + Description + "','" + Type + "', '" + amount + "','" + ID + "','" + counter + "')");
+                        "VALUES ('" + Bank.getStringCurrentDateTime() + "', '" + Description + "','" + Type + "', '" + amount + "','" + ID + "','" + counter + "')");
 
                 System.out.println("Inserting new Operations row to database");
             }

@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="BorderPane_User" maxHeight="550.0" maxWidth="750.0" minHeight="550.0" minWidth="750.0" prefHeight="550.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserController">
+<BorderPane fx:id="BorderPane_User" maxHeight="550.0" maxWidth="750.0" minHeight="550.0" minWidth="750.0" prefHeight="550.0" prefWidth="750.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.UserController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -101,7 +101,7 @@
             <Label layoutX="112.0" layoutY="120.0" text="Savings" />
             <Label layoutX="70.0" layoutY="179.0" text="Credit" />
             <Label layoutX="63.0" layoutY="228.0" text="Overdraft" />
-            <Label layoutX="11.0" layoutY="494.0" text="Bank Date:" />
+            <Label layoutX="11.0" layoutY="494.0" text="DateTime:" />
             <Label fx:id="Label_BankDate" layoutX="72.0" layoutY="494.0" prefHeight="17.0" prefWidth="92.0" />
          </children>
       </Pane>
