@@ -23,6 +23,8 @@ public class Bank {
 
     public static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 
+    public static final SimpleDateFormat shortDateFormat = new SimpleDateFormat("dd.MM.yyyy");
+
     public static final SimpleDateFormat DBdateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 
@@ -73,6 +75,14 @@ public class Bank {
 
         DBcontroller.updateDateTime();
         return dateFormat.format(CurrentDateTime);
+
+    }
+
+    public static String getShortStringCurrentDateTime()
+    {
+
+        DBcontroller.updateDateTime();
+        return shortDateFormat.format(CurrentDateTime);
 
     }
 

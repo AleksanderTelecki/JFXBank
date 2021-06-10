@@ -313,7 +313,7 @@ public class BankUser {
 
         if(UserSavings==null)
         {
-            setUserSavings(DBcontroller.getSavings(ID));
+            setUserSavings(DBcontroller.getSavings(getID()));
         }
 
         return UserSavings;
@@ -327,7 +327,7 @@ public class BankUser {
     public Credits getUserCredits() {
         if(UserCredits==null)
         {
-            setUserCredits(DBcontroller.getCredits(ID,BAcN));
+            setUserCredits(DBcontroller.getCredits(getID(),BAcN));
         }
         return UserCredits;
     }

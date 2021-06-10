@@ -2,9 +2,11 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -12,9 +14,11 @@ import utils.*;
 import utils.dbclasses.Bank;
 import utils.dbclasses.BankUser;
 
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class LoginController implements Initializer {
+public class LoginController implements Initializer, Initializable {
 
     @FXML
     private Pane Pane_LogIn;
@@ -23,7 +27,7 @@ public class LoginController implements Initializer {
     private TextField TextBox_Email;
 
     @FXML
-    private TextField TextBox_Password;
+    private PasswordField TextBox_Password;
 
     @FXML
     private TextField TextBox_BacN;
@@ -55,19 +59,12 @@ public class LoginController implements Initializer {
 
         }
 
-
-
-
-
     }
 
     @FXML
     void NewAccount(ActionEvent event) {
 
-        // TODO: 28.05.2021 Data checking function or class?
         starter.Show((Stage) Pane_LogIn.getScene().getWindow(), WindowController.windowType.Registration);
-
-
     }
 
 
@@ -75,5 +72,16 @@ public class LoginController implements Initializer {
     public void Initialize(Object object) {
         BankUser user = (BankUser) object;
 
+
+
+
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        // TODO: 10.06.2021 Remove when realese
+        TextBox_BacN.setText("c583-4bac-9fe9");
+        TextBox_Email.setText("jbojega@gmail.com");
+        TextBox_Password.setText("alendo1");
     }
 }

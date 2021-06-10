@@ -56,12 +56,13 @@ public class UserController implements Initializer, Refreshable {
     @FXML
     private MenuItem MenuItem_BankAccount;
 
+
     @FXML
     private TableView<Operations> Table_UserDate;
 
 
     @FXML
-    private TableColumn<Operations,String> Column_Date;
+    private TableColumn<Operations, String> Column_Date;
 
     @FXML
     private TableColumn<Operations, String> Column_Description;
@@ -107,7 +108,7 @@ public class UserController implements Initializer, Refreshable {
 
     @FXML
     void BankAccounts(ActionEvent event) {
-        starter.Show(WindowController.windowType.BankAccounts,null);
+        starter.Show(WindowController.windowType.BankAccounts, null);
     }
 
     @FXML
@@ -133,6 +134,8 @@ public class UserController implements Initializer, Refreshable {
         starter.Show(WindowController.windowType.Operation, User.getID());
     }
 
+
+
     @FXML
     void SaveHistory(ActionEvent event) {
 
@@ -156,7 +159,7 @@ public class UserController implements Initializer, Refreshable {
     @Override
     public void Initialize(Object object) {
 
-        Stage thisStage = (Stage)BorderPane_User.getScene().getWindow();
+        Stage thisStage = (Stage) BorderPane_User.getScene().getWindow();
         thisStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             public void handle(WindowEvent we) {
                 starter.Show(WindowController.windowType.LogIn);
@@ -170,17 +173,16 @@ public class UserController implements Initializer, Refreshable {
 
         ID = (Integer) object;
         refresh();
-        new Thread( new Runnable() {
+        new Thread(new Runnable() {
             public void run() {
-               initClock();
+                initClock();
             }
         }).start();
 
     }
 
 
-    private void initClock()
-    {
+    private void initClock() {
         Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
             Label_BankDate.setText(LocalDateTime.now().format(formatter));

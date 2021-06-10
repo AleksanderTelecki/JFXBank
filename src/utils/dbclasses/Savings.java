@@ -1,11 +1,13 @@
 package utils.dbclasses;
 
 import javafx.scene.control.Alert;
+import utils.DBcontroller;
 import utils.Message;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class Savings {
 
@@ -45,8 +47,7 @@ public class Savings {
         return StartDate;
     }
 
-    public String getStringStartDate()
-    {
+    public String getStringStartDate() {
         return dateFormat.format(StartDate);
     }
 
@@ -62,8 +63,23 @@ public class Savings {
         }
     }
 
+    private void calculateEarnedSavings() {
+
+        long timediff=TimeUnit.DAYS.convert((Bank.getCurrentDateTime().getTime() - getStartDate().getTime()),TimeUnit.MILLISECONDS);
+        if(timediff!=0&&Investment!=0)
+        {
+            setEarnedSavings(EarnedSavings + timediff * Bank.getSavingsPercentage() * getInvestment());
+            DBcontroller.updateEarnedSavingsDate(ID_BankUser, Bank.getShortStringCurrentDateTime(), EarnedSavings);
+
+        }else if(timediff!=0&&Investment==0)
+        {
+            DBcontroller.updateEarnedSavingsDate(ID_BankUser, Bank.getShortStringCurrentDateTime(), EarnedSavings);
+        }
+
+    }
 
     public double getEarnedSavings() {
+        calculateEarnedSavings();
         return EarnedSavings;
     }
 

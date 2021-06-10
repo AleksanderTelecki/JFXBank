@@ -8,6 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class DBcontroller {
 
@@ -195,6 +196,27 @@ public class DBcontroller {
 
     }
 
+    public static void updateUser(int ID, BankUser newBankUser) {
+
+        String statment = "UPDATE BankUser SET " +
+                "FirstName='" + newBankUser.getFirstName() + "'," +
+                "LastName='" + newBankUser.getLastName() + "'," +
+                "DOB='" + newBankUser.getStringDOB() + "'," +
+                "City='" + newBankUser.getCity() + "'," +
+                "Street='" + newBankUser.getStreet() + "'," +
+                "PhoneNumber='" + newBankUser.getPhoneNumber() + "'," +
+                "Email='" + newBankUser.getEmail() + "'," +
+                "Password='" + newBankUser.getPassword() + "'," +
+                "PostalCode='" + newBankUser.getPostalCode() + "'" +
+                "WHERE BankUser.ID_BankUser=" + ID;
+
+        System.out.println(statment);
+        executeStatement(statment);
+        System.out.println("Updating BankUser row in database");
+
+
+    }
+
     public static int getID(String BAcN) {
         ResultSet result = executeQuery("SELECT ID_BankUser FROM BankUser WHERE BankUser.BAcN='" + BAcN + "'");
         try {
@@ -225,6 +247,8 @@ public class DBcontroller {
                 double EardedSavings = result.getDouble("EarnedSavings");
                 int ID_BankUser = result.getInt("ID_BankUser");
                 savings = new Savings(ID_Savings, Investment, StartDate, EardedSavings, ID_BankUser);
+
+
                 System.out.println("Getting Savings from database");
             }
         } catch (SQLException throwables) {
@@ -234,6 +258,8 @@ public class DBcontroller {
         return savings;
 
     }
+
+
 
     public static void insertInvestment(int ID, double investment) {
         executeStatement("INSERT INTO Savings (Investment, StartDate, EarnedSavings, ID_BankUser)" +
@@ -288,11 +314,12 @@ public class DBcontroller {
                 int ID_Credit = result.getInt("ID_Credit");
                 double CreditBalance = result.getDouble("CreditBalance");
                 double CreditLimit = result.getDouble("CreditLimit");
-                double FinanceCharge = result.getDouble("FinanceCharge");
+                String StartDate = result.getString("StartDate");
                 int ID_BankUser = result.getInt("ID_BankUser");
                 String bacn = result.getString("BAcN");
                 double overdraft = result.getDouble("Overdraft");
-                credits = new Credits(ID_Credit, CreditBalance, CreditLimit, FinanceCharge, ID_BankUser, bacn, overdraft);
+                credits = new Credits(ID_Credit, CreditBalance, CreditLimit, StartDate, ID_BankUser, bacn, overdraft);
+
                 System.out.println("Getting Credits row from database");
             }
         } catch (SQLException throwables) {
@@ -304,8 +331,8 @@ public class DBcontroller {
     }
 
     public static void insertCredits(int ID, String BAcN) {
-        executeStatement("INSERT INTO Credits (CreditBalance, CreditLimit, FinanceCharge, ID_BankUser,BAcN,Overdraft)" +
-                "VALUES ('" + 0.0 + "', '" + 5000.0 + "','" + 5.0 + "', '" + ID + "','" + BAcN + "','" + 0.0 + "')");
+        executeStatement("INSERT INTO Credits (CreditBalance, CreditLimit, StartDate, ID_BankUser,BAcN,Overdraft)" +
+                "VALUES ('" + 0.0 + "', '" + 5000.0 + "','" + Bank.getShortStringCurrentDateTime() + "', '" + ID + "','" + BAcN + "','" + 0.0 + "')");
         System.out.println("Inserting new Credits row to database");
 
     }
@@ -401,6 +428,11 @@ public class DBcontroller {
         executeStatement("UPDATE Savings SET EarnedSavings=" + amount + " WHERE Savings.ID_BankUser=" + ID);
     }
 
+    public static void updateEarnedSavingsDate(int ID,String date,double amount)
+    {
+        executeStatement("UPDATE Savings SET EarnedSavings=" + amount + ", StartDate='"+date+"' WHERE Savings.ID_BankUser=" + ID);
+    }
+
     public static void updateCreditBalance(int ID, double amount) {
         executeStatement("UPDATE Credits SET CreditBalance=" + amount + " WHERE Credits.ID_BankUser=" + ID);
     }
@@ -413,20 +445,9 @@ public class DBcontroller {
         executeStatement("UPDATE Credits SET Overdraft=" + amount + " WHERE Credits.ID_BankUser=" + ID);
     }
 
-    public static int getTransferID(String BAcN)
-    {
-        ResultSet resultSet = executeQuery("SELECT * FROM BankUser WHERE BankUser.BAcN='" +BAcN+"'");
-         int result = 0;
-        try {
-            result = resultSet.getInt("ID_BankUser");
-        } catch (SQLException throwables) {
-
-            throwables.printStackTrace();
-        }
-
-        return result;
+    public static void updateOverdraftWithDate(int ID,String Date ,double amount) {
+        executeStatement("UPDATE Credits SET Overdraft=" + amount + ",StartDate='"+Date+"' WHERE Credits.ID_BankUser=" + ID);
     }
-
 
 
     public static void insertOperation(int ID, String Description, String Type, double amount) {

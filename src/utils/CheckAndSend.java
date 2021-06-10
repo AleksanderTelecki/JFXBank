@@ -7,7 +7,7 @@ import java.util.List;
 
 public class CheckAndSend {
 
-    public enum operation {None, Balance, Savings, Investment, Credit, Overdraft,Transfer}
+    public enum operation {None, Balance, Savings, Investment, Credit, Overdraft, Transfer}
 
     public enum type {None, Internal, External, Another}
 
@@ -16,7 +16,7 @@ public class CheckAndSend {
 
         refDouble refAmount = new refDouble(amount);
         if (check(From, To, refAmount, ID)) {
-            proceedOperation(From, To, refAmount.getValue(), oType, ID,null);
+            proceedOperation(From, To, refAmount.getValue(), oType, ID, null);
         }
     }
 
@@ -27,26 +27,26 @@ public class CheckAndSend {
         refDouble refAmount = new refDouble(amount);
         if (check(From, To, refAmount, ID)) {
 
-            proceedOperation(From, To, refAmount.getValue(), oType, ID,null);
+            proceedOperation(From, To, refAmount.getValue(), oType, ID, null);
         }
     }
 
-    public static void Send(String stringFrom, String stringTo, double amount, type oType,int ID, String BAcN) {
+    public static void Send(String stringFrom, String stringTo, double amount, type oType, int ID, String BAcN) {
 
         operation From = getEnum(stringFrom);
         operation To = getEnum(stringTo);
         refDouble refAmount = new refDouble(amount);
         if (check(From, To, refAmount, ID)) {
 
-            proceedOperation(From, To, refAmount.getValue(), oType, ID,BAcN);
+            proceedOperation(From, To, refAmount.getValue(), oType, ID, BAcN);
         }
     }
 
-    private static void proceedOperation(operation from, operation to, double amount, type oType, int id,String BAcN) {
+    private static void proceedOperation(operation from, operation to, double amount, type oType, int id, String BAcN) {
 
 
-        double newFrom=0.0;
-        double newTo=0.0;
+        double newFrom = 0.0;
+        double newTo = 0.0;
         switch (from) {
 
             case Balance -> {
@@ -75,30 +75,30 @@ public class CheckAndSend {
         switch (to) {
 
             case Balance -> {
-                newTo=DBcontroller.getBalance(id) + amount;
-                DBcontroller.updateBalance(id,newTo );
+                newTo = DBcontroller.getBalance(id) + amount;
+                DBcontroller.updateBalance(id, newTo);
             }
             case Savings -> {
-                newTo=DBcontroller.getEarnedSavings(id) + amount;
-                DBcontroller.updateEarnedSavings(id,newTo );
+                newTo = DBcontroller.getEarnedSavings(id) + amount;
+                DBcontroller.updateEarnedSavings(id, newTo);
             }
             case Investment -> {
-                newTo=DBcontroller.getInvestment(id) + amount;
+                newTo = DBcontroller.getInvestment(id) + amount;
                 DBcontroller.updateInvestment(id, newTo);
             }
             case Credit -> {
-                newTo=DBcontroller.getCreditBalance(id) - amount;
+                newTo = DBcontroller.getCreditBalance(id) - amount;
                 DBcontroller.updateCreditBalance(id, newTo);
             }
             case Overdraft -> {
-                newTo=DBcontroller.getOverdraft(id) + amount;
-                DBcontroller.updateOverdraft(id,newTo);
+                newTo = DBcontroller.getOverdraft(id) - amount;
+                DBcontroller.updateOverdraft(id, newTo);
             }
 
             case Transfer -> {
-                int transferID = DBcontroller.getTransferID(BAcN);
+                int transferID = DBcontroller.getID(BAcN);
                 newTo = DBcontroller.getBalance(transferID) + amount;
-                DBcontroller.updateBalance(transferID,newTo );
+                DBcontroller.updateBalance(transferID, newTo);
             }
 
 
@@ -110,7 +110,7 @@ public class CheckAndSend {
         }
 
         // TODO: 08.06.2021 Maybe change description property
-        String description =from.toString() + " => " + to.toString();
+        String description = from.toString() + " => " + to.toString();
         String type = oType.toString();
 
         DBcontroller.insertOperation(id, description, type, amount);
@@ -167,7 +167,7 @@ public class CheckAndSend {
 
         switch (to) {
 
-            case Balance, Overdraft, Investment, Savings,Transfer -> {
+            case Balance, Investment, Savings, Transfer -> {
 
             }
             case Credit -> {
@@ -175,12 +175,17 @@ public class CheckAndSend {
                 double creditbalance = DBcontroller.getCreditBalance(id);
                 amount = (creditbalance - amount) <= 0 ? (amount - (amount - creditbalance)) : amount;
                 refAmount.setValue(amount);
-                if(amount==0)
-                {
+                if (amount == 0) {
                     Message.showMessage(Alert.AlertType.ERROR, "Error", "Credit Limit is 5000");
-                    validator=false;
+                    validator = false;
                 }
 
+            }
+
+            case Overdraft -> {
+                double overdraft = DBcontroller.getOverdraft(id);
+                amount = (overdraft - amount) < 0 ? (amount - (amount - overdraft)) : amount;
+                refAmount.setValue(amount);
             }
 
             default -> {

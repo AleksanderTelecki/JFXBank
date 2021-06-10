@@ -2,10 +2,17 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import utils.DBcontroller;
 import utils.Initializer;
+import utils.Message;
+import utils.WindowController;
+import utils.dbclasses.BankUser;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
 
 public class ModifyAccountController implements Initializer {
 
@@ -19,7 +26,7 @@ public class ModifyAccountController implements Initializer {
     private TextField TextBox_LastName;
 
     @FXML
-    private TextField TextBox_DOB;
+    private DatePicker DataPicker_DOB;
 
     @FXML
     private TextField TextBox_CityAdress;
@@ -37,10 +44,10 @@ public class ModifyAccountController implements Initializer {
     private TextField TextBox_Email;
 
     @FXML
-    private TextField TextBox_Password;
+    private PasswordField TextBox_Password;
 
     @FXML
-    private TextField TextBox_PassVerification;
+    private PasswordField TextBox_PassVerification;
 
     @FXML
     private Button Button_Submit;
@@ -48,12 +55,45 @@ public class ModifyAccountController implements Initializer {
     private int ID;
 
     @FXML
-    void SubmitRegistration(ActionEvent event) {
+    void SubmitModification(ActionEvent event) {
+        if (TextBox_Password.getText().equals(TextBox_PassVerification.getText())) {
+            BankUser bankUser = new BankUser(TextBox_FirstName.getText(),
+                    TextBox_LastName.getText(),
+                    DataPicker_DOB.getEditor().getText(),
+                    TextBox_CityAdress.getText(),
+                    TextBox_StreetAdress.getText(),
+                    TextBox_PhoneNumber.getText(),
+                    TextBox_Email.getText(),
+                    TextBox_Password.getText(),
+                    TextBox_PostalCode.getText());
 
+            DBcontroller.updateUser(ID, bankUser);
+            Message.showMessage(Alert.AlertType.INFORMATION, "Modifying", "Success!");
+
+        } else {
+            Message.showMessage(Alert.AlertType.ERROR, "Invalid Data", "Password does not match");
+        }
+
+
+    }
+
+    public void setUserData() {
+        BankUser bankUser = DBcontroller.getBankUser(ID);
+        TextBox_FirstName.setText(bankUser.getFirstName());
+        TextBox_LastName.setText(bankUser.getLastName());
+        DataPicker_DOB.setValue(bankUser.getDOB().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        TextBox_CityAdress.setText(bankUser.getCity());
+        TextBox_StreetAdress.setText(bankUser.getStreet());
+        TextBox_PhoneNumber.setText(bankUser.getPhoneNumber());
+        TextBox_Email.setText(bankUser.getEmail());
+        TextBox_Password.setText(bankUser.getPassword());
+        TextBox_PassVerification.setText(bankUser.getPassword());
+        TextBox_PostalCode.setText(bankUser.getPostalCode());
     }
 
     @Override
     public void Initialize(Object object) {
-        ID=(int)object;
+        ID = (int) object;
+        setUserData();
     }
 }
