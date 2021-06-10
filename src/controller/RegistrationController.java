@@ -63,8 +63,6 @@ public class RegistrationController {
 
     @FXML
     void SubmitRegistration(ActionEvent event) {
-        // TODO: 28.05.2021 Data checking function or class?
-
         if (TextBox_Password.getText().equals(TextBox_PassVerification.getText())) {
             BankUser bankUser = new BankUser(TextBox_FirstName.getText(),
                     TextBox_LastName.getText(),
@@ -77,7 +75,7 @@ public class RegistrationController {
                     TextBox_PostalCode.getText());
 
             DBcontroller.registerUser(bankUser);
-            starter.Show((Stage) Pane_Registration.getScene().getWindow(), WindowController.windowType.User);
+            starter.Show((Stage) Pane_Registration.getScene().getWindow(), WindowController.windowType.User,bankUser.getID());
 
         } else {
             Message.showMessage(Alert.AlertType.ERROR, "Invalid Data", "Password does not match");

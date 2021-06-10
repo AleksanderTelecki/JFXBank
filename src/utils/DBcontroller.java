@@ -1,5 +1,6 @@
 package utils;
 
+import javafx.scene.control.Alert;
 import utils.dbclasses.*;
 
 import java.awt.*;
@@ -93,7 +94,7 @@ public class DBcontroller {
     }
 
     public static BankUser getBankUser(int ID) {
-        ResultSet result = executeQuery("SELECT * FROM BankUser WHERE BankUSer.ID_BankUser="+ID);
+        ResultSet result = executeQuery("SELECT * FROM BankUser WHERE BankUser.ID_BankUser=" + ID);
 
         BankUser bankUser = null;
 
@@ -121,6 +122,38 @@ public class DBcontroller {
         }
 
         System.out.println("Getting BankUser from database");
+        return bankUser;
+
+    }
+
+    public static BankUser getBankUser(String Email, String Password, String BAcN) {
+        ResultSet result = executeQuery("SELECT * FROM BankUser WHERE BankUser.Email='" + Email + "'");
+        boolean validator = true;
+        BankUser bankUser = null;
+        try {
+            if (!result.isBeforeFirst()) {
+                validator = false;
+                Message.showMessage(Alert.AlertType.ERROR, "Log In", "Incorrect Email!");
+            }
+            result = executeQuery("SELECT * FROM BankUser WHERE BankUser.Password='" + Password + "'");
+            if (!result.isBeforeFirst()) {
+                validator = false;
+                Message.showMessage(Alert.AlertType.ERROR, "Log In", "Incorrect Password!");
+            }
+            result = executeQuery("SELECT * FROM BankUser WHERE BankUser.BAcN='" + BAcN + "'");
+            if (!result.isBeforeFirst()) {
+                validator = false;
+                Message.showMessage(Alert.AlertType.ERROR, "Log In", "Incorrect BAcN!");
+            }
+
+            if (validator) {
+                bankUser = getBankUser(result.getInt("ID_BankUser"));
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
         return bankUser;
 
     }
@@ -228,8 +261,7 @@ public class DBcontroller {
 
     }
 
-    public static void updateDateTime()
-    {
+    public static void updateDateTime() {
         executeStatement("UPDATE Bank SET CurrentDateTime=datetime('now','localtime') WHERE Bank.ID=" + 1);
         ResultSet result = executeQuery("SELECT * FROM Bank WHERE Bank.ID=" + 1);
         try {
@@ -322,7 +354,7 @@ public class DBcontroller {
         ResultSet resultSet = executeQuery("SELECT * FROM Credits WHERE Credits.ID_BankUser=" + ID);
         double result = 0;
         try {
-            result = resultSet.getDouble("CreditLimit")-resultSet.getDouble("CreditBalance") ;
+            result = resultSet.getDouble("CreditLimit") - resultSet.getDouble("CreditBalance");
         } catch (SQLException throwables) {
 
             throwables.printStackTrace();
@@ -409,8 +441,7 @@ public class DBcontroller {
 
     }
 
-    public static List<Operations> getOperationsList(int ID)
-    {
+    public static List<Operations> getOperationsList(int ID) {
 
         ResultSet result = executeQuery("SELECT * FROM Operations WHERE Operations.ID_BankUser=" + ID);
         List<Operations> operations = new ArrayList<Operations>();
@@ -418,7 +449,7 @@ public class DBcontroller {
             if (!result.isBeforeFirst()) {
                 System.out.println("Operations table null!");
                 System.out.println("Inserting initial values to Operations table in database ");
-                insertOperation(ID,"Initial operation","Init",0.0);
+                insertOperation(ID, "Initial operation", "Init", 0.0);
                 operations = getOperationsList(ID);
             } else {
                 while (result.next()) {
@@ -429,7 +460,7 @@ public class DBcontroller {
                     double Amount = result.getDouble("Amount");
                     int ID_BankUser = result.getInt("ID_BankUser");
                     int Counter = result.getInt("Counter");
-                    operations.add(new Operations(Date,Description,Type,Amount,ID_BankUser,Counter));
+                    operations.add(new Operations(Date, Description, Type, Amount, ID_BankUser, Counter));
                 }
                 System.out.println("Getting Operations from database");
             }
@@ -437,13 +468,12 @@ public class DBcontroller {
             throwables.printStackTrace();
         }
 
-        Collections.sort(operations,new Operations());
+        Collections.sort(operations, new Operations());
         Collections.reverse(operations);
         return operations;
 
 
     }
-
 
 
 }

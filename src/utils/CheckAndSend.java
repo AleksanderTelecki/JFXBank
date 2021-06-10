@@ -91,7 +91,7 @@ public class CheckAndSend {
         }
 
         // TODO: 08.06.2021 Maybe change description property
-        String description =from.toString() + " => " + to.toString()+" |"+" ("+newFrom+" => "+newTo+")";
+        String description =from.toString() + " => " + to.toString();
         String type = oType.toString();
 
         DBcontroller.insertOperation(id, description, type, amount);

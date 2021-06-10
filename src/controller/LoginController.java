@@ -2,6 +2,7 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -47,14 +48,15 @@ public class LoginController implements Initializer {
 
     @FXML
     void LogIn(ActionEvent event) {
-        // TODO: 28.05.2021 Data checking function or class?
-        List<BankUser> bankUsers = DBcontroller.getBankUserList();
-
-        if (bankUsers.size() != 0) {
-            starter.Show(WindowController.windowType.User,bankUsers.get(0).getID());
-        }else{
+        BankUser bankUser = DBcontroller.getBankUser(TextBox_Email.getText(),TextBox_Password.getText(),TextBox_BacN.getText());
+        if (bankUser!=null)
+        {
+            starter.Show((Stage) Pane_LogIn.getScene().getWindow(),WindowController.windowType.User,bankUser.getID());
 
         }
+
+
+
 
 
     }
