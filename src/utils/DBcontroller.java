@@ -413,6 +413,22 @@ public class DBcontroller {
         executeStatement("UPDATE Credits SET Overdraft=" + amount + " WHERE Credits.ID_BankUser=" + ID);
     }
 
+    public static int getTransferID(String BAcN)
+    {
+        ResultSet resultSet = executeQuery("SELECT * FROM BankUser WHERE BankUser.BAcN='" +BAcN+"'");
+         int result = 0;
+        try {
+            result = resultSet.getInt("ID_BankUser");
+        } catch (SQLException throwables) {
+
+            throwables.printStackTrace();
+        }
+
+        return result;
+    }
+
+
+
     public static void insertOperation(int ID, String Description, String Type, double amount) {
 
         ResultSet resultSet = executeQuery("SELECT * FROM Operations WHERE Operations.ID_BankUser=" + ID);

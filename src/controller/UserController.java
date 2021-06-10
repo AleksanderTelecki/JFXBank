@@ -107,7 +107,7 @@ public class UserController implements Initializer, Refreshable {
 
     @FXML
     void BankAccounts(ActionEvent event) {
-        starter.Show(WindowController.windowType.BankAccounts);
+        starter.Show(WindowController.windowType.BankAccounts,null);
     }
 
     @FXML
@@ -201,8 +201,6 @@ public class UserController implements Initializer, Refreshable {
         TextBox_Savings.setText(Double.toString(User.getUserSavings().getEarnedSavings()));
         TextBox_Overdraft.setText(Double.toString(User.getUserCredits().getOverdraft()));
 
-        //Label_BankDate.setText(Bank.getStringCurrentDateTime());
-        //Table_UserDate.setItems();
         ObservableList<Operations> data = FXCollections.observableArrayList(DBcontroller.getOperationsList(ID));
         Table_UserDate.setItems(data);
     }

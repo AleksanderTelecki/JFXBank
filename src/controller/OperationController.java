@@ -89,6 +89,5 @@ public class OperationController implements Initializer, Refreshable {
         ComboBox_From.setValue("");
         ComboBox_From.setItems(FXCollections.observableArrayList(from));
         ComboBox_To.setValue("");
-        System.out.println("sad");
     }
 }

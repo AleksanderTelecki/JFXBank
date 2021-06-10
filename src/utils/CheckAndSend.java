@@ -1,12 +1,13 @@
 package utils;
 
 import javafx.scene.control.Alert;
+import utils.dbclasses.Bank;
 
 import java.util.List;
 
 public class CheckAndSend {
 
-    public enum operation {None, Balance, Savings, Investment, Credit, Overdraft}
+    public enum operation {None, Balance, Savings, Investment, Credit, Overdraft,Transfer}
 
     public enum type {None, Internal, External, Another}
 
@@ -15,7 +16,7 @@ public class CheckAndSend {
 
         refDouble refAmount = new refDouble(amount);
         if (check(From, To, refAmount, ID)) {
-            proceedOperation(From, To, refAmount.getValue(), oType, ID);
+            proceedOperation(From, To, refAmount.getValue(), oType, ID,null);
         }
     }
 
@@ -26,11 +27,22 @@ public class CheckAndSend {
         refDouble refAmount = new refDouble(amount);
         if (check(From, To, refAmount, ID)) {
 
-            proceedOperation(From, To, refAmount.getValue(), oType, ID);
+            proceedOperation(From, To, refAmount.getValue(), oType, ID,null);
         }
     }
 
-    private static void proceedOperation(operation from, operation to, double amount, type oType, int id) {
+    public static void Send(String stringFrom, String stringTo, double amount, type oType,int ID, String BAcN) {
+
+        operation From = getEnum(stringFrom);
+        operation To = getEnum(stringTo);
+        refDouble refAmount = new refDouble(amount);
+        if (check(From, To, refAmount, ID)) {
+
+            proceedOperation(From, To, refAmount.getValue(), oType, ID,BAcN);
+        }
+    }
+
+    private static void proceedOperation(operation from, operation to, double amount, type oType, int id,String BAcN) {
 
 
         double newFrom=0.0;
@@ -82,6 +94,13 @@ public class CheckAndSend {
                 newTo=DBcontroller.getOverdraft(id) + amount;
                 DBcontroller.updateOverdraft(id,newTo);
             }
+
+            case Transfer -> {
+                int transferID = DBcontroller.getTransferID(BAcN);
+                newTo = DBcontroller.getBalance(transferID) + amount;
+                DBcontroller.updateBalance(transferID,newTo );
+            }
+
 
             default -> {
                 Message.showMessage(Alert.AlertType.ERROR, "Error", "Null Data");
@@ -148,7 +167,7 @@ public class CheckAndSend {
 
         switch (to) {
 
-            case Balance, Overdraft, Investment, Savings -> {
+            case Balance, Overdraft, Investment, Savings,Transfer -> {
 
             }
             case Credit -> {
@@ -195,6 +214,10 @@ public class CheckAndSend {
 
             case "Investment" -> {
                 return operation.Investment;
+            }
+
+            case "Transfer" -> {
+                return operation.Transfer;
             }
 
             default -> {

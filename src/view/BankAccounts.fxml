@@ -4,12 +4,12 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 
-<ScrollPane fx:id="ScrollPane_Users" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="402.0" prefWidth="343.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"  fx:controller="controller.BankAccountsController">
+<ScrollPane fx:id="ScrollPane_Users" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="402.0" prefWidth="343.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.BankAccountsController">
    <content>
-      <TableView fx:id="Table_Users" prefHeight="397.0" prefWidth="338.0">
+      <TableView fx:id="Table_Users" editable="true" prefHeight="397.0" prefWidth="338.0">
         <columns>
-          <TableColumn prefWidth="145.0" text="Name" />
-          <TableColumn prefWidth="188.00001525878906" text="BacN" />
+          <TableColumn fx:id="Column_Name" prefWidth="145.0" style="-fx-alignment: CENTER;" text="Name" />
+          <TableColumn fx:id="Column_BAcN" prefWidth="188.00001525878906" style="-fx-alignment: CENTER;" text="BacN" />
         </columns>
       </TableView>
    </content>

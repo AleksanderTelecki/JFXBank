@@ -16,6 +16,7 @@ public class BankUser {
     private int ID;
     private String FirstName;
     private String LastName;
+    private String FullName;
     private Date DOB;
     private String City;
     private String Street;
@@ -27,8 +28,8 @@ public class BankUser {
     private double Balance;
     private String PostalCode;
 
-    private Savings UserSavings;
 
+    private Savings UserSavings;
     private Credits UserCredits;
 
     private boolean catcherror = false;
@@ -61,6 +62,7 @@ public class BankUser {
     public BankUser(String firstName, String lastName, String DOB, String city, String street, String phoneNumber, String email, String password, String postalCode) {
         setFirstName(firstName);
         setLastName(lastName);
+        setFullName(firstName+" "+lastName);
         setDOB(DOB);
         setCity(city);
         setStreet(street);
@@ -76,6 +78,7 @@ public class BankUser {
         setID(ID);
         setFirstName(firstName);
         setLastName(lastName);
+        setFullName(firstName+" "+lastName);
         setDOB(DOB);
         setCity(city);
         setStreet(street);
@@ -130,6 +133,16 @@ public class BankUser {
         }
 
     }
+
+
+    public String getFullName() {
+        return FullName;
+    }
+
+    public void setFullName(String fullName) {
+        FullName = fullName;
+    }
+
 
     public Date getDOB() {
         return DOB;

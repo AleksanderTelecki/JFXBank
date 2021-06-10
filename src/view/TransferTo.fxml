@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="Pane_TransferTo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="145.0" prefWidth="300.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"  fx:controller="controller.TransferToController">
+<Pane fx:id="Pane_TransferTo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="145.0" prefWidth="300.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.TransferToController">
     <children>
-        <ComboBox fx:id="CheckBox_From" layoutX="21.0" layoutY="28.0" prefWidth="150.0" />
+        <ComboBox fx:id="ComboBox_From" layoutX="21.0" layoutY="28.0" prefWidth="150.0" />
         <TextField fx:id="TextBox_Amount" layoutX="179.0" layoutY="28.0" prefHeight="25.0" prefWidth="107.0" />
         <Label layoutX="21.0" layoutY="2.0" text="From">
             <font>
@@ -33,6 +33,6 @@
             </font>
         </Button>
         <Separator layoutX="-4.0" layoutY="111.0" prefHeight="1.0" prefWidth="308.0" />
-      <TextField fx:id="TextBox_BanC" layoutX="22.0" layoutY="78.0" prefHeight="25.0" prefWidth="267.0" promptText="Bank Account Number" />
+      <ComboBox fx:id="ComboBox_To" layoutX="21.0" layoutY="78.0" prefHeight="25.0" prefWidth="267.0" promptText="Bank Account Number" />
     </children>
 </Pane>
