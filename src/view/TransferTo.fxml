@@ -33,6 +33,6 @@
             </font>
         </Button>
         <Separator layoutX="-4.0" layoutY="111.0" prefHeight="1.0" prefWidth="308.0" />
-      <ComboBox fx:id="ComboBox_To" layoutX="21.0" layoutY="78.0" prefHeight="25.0" prefWidth="267.0" promptText="Bank Account Number" />
+      <ComboBox fx:id="ComboBox_To" layoutX="21.0" layoutY="78.0" prefHeight="25.0" prefWidth="267.0" promptText="Bank Account" />
     </children>
 </Pane>

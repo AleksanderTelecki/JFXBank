@@ -340,8 +340,8 @@ public class BankUser {
 
 
 
-    @Override
-    public String toString() {
+
+    public String toFullString() {
         return "BankUser{" +
                 "ID=" + ID +
                 ", FirstName='" + FirstName + '\'' +
@@ -357,6 +357,11 @@ public class BankUser {
                 ", Balance=" + Balance +
                 ", PostalCode='" + PostalCode + '\'' +
                 '}';
+    }
+
+    @Override
+    public String toString() {
+        return FullName;
     }
 
 

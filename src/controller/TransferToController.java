@@ -30,7 +30,7 @@ public class TransferToController implements Initializer, Refreshable {
     private Button Button_Submit;
 
     @FXML
-    private ComboBox<String> ComboBox_To;
+    private ComboBox<BankUser> ComboBox_To;
 
     private static final String[] from = {"Balance", "Savings", "Investment", "Credit"};
 
@@ -45,7 +45,7 @@ public class TransferToController implements Initializer, Refreshable {
                     Double.parseDouble(TextBox_Amount.getText()),
                     CheckAndSend.type.External,
                     ID,
-                    ComboBox_To.getValue());
+                    ComboBox_To.getValue().getBAcN());
         } catch (NullPointerException e) {
             Message.showMessage(Alert.AlertType.ERROR, "Error", "Please set value in combobox");
         } catch (NumberFormatException e) {
@@ -61,17 +61,14 @@ public class TransferToController implements Initializer, Refreshable {
         refresh();
     }
 
+
+
     @Override
     public void refresh() {
         ComboBox_From.setValue("");
-        ComboBox_To.setValue("");
+        ComboBox_To.setValue(null);
         TextBox_Amount.setText("0.0");
-        ObservableList<BankUser> data = FXCollections.observableArrayList(DBcontroller.getBankUserList());
-        List<String> toList = new ArrayList<String>();
-        for (BankUser value : data) {
-            toList.add(value.getBAcN());
-        }
         ComboBox_From.setItems(FXCollections.observableArrayList(from));
-        ComboBox_To.setItems(FXCollections.observableArrayList(toList));
+        ComboBox_To.setItems(FXCollections.observableArrayList(DBcontroller.getBankUserList()));
     }
 }

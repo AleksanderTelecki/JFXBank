@@ -99,6 +99,7 @@ public class CheckAndSend {
             case Transfer -> {
                 int transferID = DBcontroller.getID(BAcN);
                 newTo = DBcontroller.getBalance(transferID) + amount;
+                DBcontroller.insertOperation(transferID,to.toString() + " => Balance",oType.toString(),amount);
                 DBcontroller.updateBalance(transferID, newTo);
 
             }

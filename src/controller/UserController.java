@@ -89,6 +89,9 @@ public class UserController implements Initializer, Refreshable {
     private TextField TextBox_Credit;
 
     @FXML
+    private TextField TextBox_CreditBalance;
+
+    @FXML
     private TextField TextBox_Overdraft;
 
     @FXML
@@ -121,7 +124,9 @@ public class UserController implements Initializer, Refreshable {
         if (alert.getResult().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
             DBcontroller.deleteUser(ID);
             Stage thisStage = (Stage) BorderPane_User.getScene().getWindow();
+            starter.Show(WindowController.windowType.LogIn);
             thisStage.close();
+
 
         }
 
@@ -201,7 +206,8 @@ public class UserController implements Initializer, Refreshable {
         TextBox_BanC.setText(User.getBAcN());
         TextBox_Balance.setText(Double.toString(User.getBalance()));
         TextBox_Invested.setText(Double.toString(User.getUserSavings().getInvestment()));
-        TextBox_Credit.setText(Double.toString(User.getUserCredits().getCreditDiff()));
+        TextBox_Credit.setText(Double.toString(User.getUserCredits().getCreditLimit()));
+        TextBox_CreditBalance.setText(Double.toString(User.getUserCredits().getCreditBalance()));
         TextBox_Savings.setText(Double.toString(User.getUserSavings().getEarnedSavings()));
         TextBox_Overdraft.setText(Double.toString(User.getUserCredits().getOverdraft()));
 
