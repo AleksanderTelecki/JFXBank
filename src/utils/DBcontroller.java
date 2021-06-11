@@ -210,11 +210,15 @@ public class DBcontroller {
                 "PostalCode='" + newBankUser.getPostalCode() + "'" +
                 "WHERE BankUser.ID_BankUser=" + ID;
 
-        System.out.println(statment);
         executeStatement(statment);
         System.out.println("Updating BankUser row in database");
 
 
+    }
+
+    public static void deleteUser(int ID)
+    {
+        executeStatement("DELETE FROM BankUser WHERE BankUser.ID_BankUser="+ID);
     }
 
     public static int getID(String BAcN) {
@@ -269,6 +273,7 @@ public class DBcontroller {
     }
 
     public static void initializeBank() {
+        executeStatement("PRAGMA foreign_keys = ON");//To on cascade deletion in foreign keys
         ResultSet result = executeQuery("SELECT * FROM Bank WHERE Bank.ID=" + 1);
         ResultSet percentage = executeQuery("SELECT * FROM Percentage");
         ResultSet date = executeQuery("SELECT datetime('now','localtime') as time;");

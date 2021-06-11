@@ -119,7 +119,10 @@ public class UserController implements Initializer, Refreshable {
                 "Do you want to delete this account?");
 
         if (alert.getResult().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
-            Message.showMessage(Alert.AlertType.ERROR, "Yes", "yes");
+            DBcontroller.deleteUser(ID);
+            Stage thisStage = (Stage) BorderPane_User.getScene().getWindow();
+            thisStage.close();
+
         }
 
     }
@@ -133,7 +136,6 @@ public class UserController implements Initializer, Refreshable {
     void Operation(ActionEvent event) {
         starter.Show(WindowController.windowType.Operation, User.getID());
     }
-
 
 
     @FXML
