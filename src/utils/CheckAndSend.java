@@ -45,6 +45,7 @@ public class CheckAndSend {
     private static void proceedOperation(operation from, operation to, double amount, type oType, int id, String BAcN) {
 
 
+        String message="Successful!";
         double newFrom = 0.0;
         double newTo = 0.0;
         switch (from) {
@@ -99,6 +100,7 @@ public class CheckAndSend {
                 int transferID = DBcontroller.getID(BAcN);
                 newTo = DBcontroller.getBalance(transferID) + amount;
                 DBcontroller.updateBalance(transferID, newTo);
+
             }
 
 
@@ -113,8 +115,9 @@ public class CheckAndSend {
         String description = from.toString() + " => " + to.toString();
         String type = oType.toString();
 
+        message="Successful!\n"+amount+" has been withdrawn from the "+from.toString()+" to "+to.toString();
         DBcontroller.insertOperation(id, description, type, amount);
-        Message.showMessage(Alert.AlertType.INFORMATION, "Operation", "Successful");
+        Message.showMessage(Alert.AlertType.INFORMATION, "Operation", message);
 
 
     }

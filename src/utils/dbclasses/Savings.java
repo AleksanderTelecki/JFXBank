@@ -53,8 +53,7 @@ public class Savings {
 
     public void setStartDate(String startDate) {
         try {
-            Date date = dateFormat.parse(startDate);
-            this.StartDate = date;
+            StartDate = !startDate.equals("null") ? dateFormat.parse(startDate) : null;
 
 
         } catch (ParseException e) {
@@ -65,15 +64,14 @@ public class Savings {
 
     private void calculateEarnedSavings() {
 
-        long timediff=TimeUnit.DAYS.convert((Bank.getCurrentDateTime().getTime() - getStartDate().getTime()),TimeUnit.MILLISECONDS);
-        if(timediff!=0&&Investment!=0)
-        {
+        long timediff = StartDate != null ? TimeUnit.DAYS.convert((Bank.getCurrentDateTime().getTime() - getStartDate().getTime()), TimeUnit.MILLISECONDS) : 0;
+        if (Investment != 0 && (StartDate == null)) {//Setting Date value to Savings column StartDate
+            DBcontroller.updateEarnedSavingsDate(ID_BankUser, Bank.getShortStringCurrentDateTime(), 0.0);
+        } else if (Investment != 0 && timediff != 0) {//Setting EarnedSavings counted by for each day
             setEarnedSavings(EarnedSavings + timediff * Bank.getSavingsPercentage() * getInvestment());
             DBcontroller.updateEarnedSavingsDate(ID_BankUser, Bank.getShortStringCurrentDateTime(), EarnedSavings);
-
-        }else if(timediff!=0&&Investment==0)
-        {
-            DBcontroller.updateEarnedSavingsDate(ID_BankUser, Bank.getShortStringCurrentDateTime(), EarnedSavings);
+        } else if ((Investment == 0) && (StartDate != null)) {//Setting Date value to null in Savings column StartDate
+            DBcontroller.updateEarnedSavingsDate(ID_BankUser, null, EarnedSavings);
         }
 
     }

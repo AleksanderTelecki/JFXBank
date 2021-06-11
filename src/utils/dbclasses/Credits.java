@@ -71,7 +71,7 @@ public class Credits {
 
     public void setStartDate(String startDate) {
         try {
-            StartDate = !startDate.equals("null") ?shortDateFormat.parse(startDate):null;
+            StartDate = !startDate.equals("null") ? shortDateFormat.parse(startDate) : null;
 
 
         } catch (ParseException e) {
@@ -99,22 +99,13 @@ public class Credits {
 
     private void calculateOverdraft() {
 
-        long timediff =StartDate!=null?TimeUnit.DAYS.convert((Bank.getCurrentDateTime().getTime() - getStartDate().getTime()), TimeUnit.MILLISECONDS):0;
-        if (CreditBalance != 0 && (StartDate == null) && timediff != 0) {
-            setOverdraft(CreditBalance * Bank.getDepositPercentage() * timediff);
-            DBcontroller.updateOverdraftWithDate(getID_BankUser(), Bank.getShortStringCurrentDateTime(), Overdraft);
-
-        }else if (CreditBalance != 0 && timediff == 0&&(StartDate == null)) {
-            setOverdraft(CreditBalance * Bank.getDepositPercentage() * timediff);
-            DBcontroller.updateOverdraftWithDate(getID_BankUser(), Bank.getShortStringCurrentDateTime(), Overdraft);
-            System.out.println(timediff);
-        } else if (CreditBalance != 0 && timediff != 0) {
-            setOverdraft(CreditBalance * Bank.getDepositPercentage() * timediff);
-            DBcontroller.updateOverdraft(ID_BankUser, Overdraft);
-            System.out.println(timediff);
-        }
-        else if((CreditBalance == 0) && (StartDate != null)&&(Overdraft==0))
-        {
+        long timediff = StartDate != null ? TimeUnit.DAYS.convert((Bank.getCurrentDateTime().getTime() - getStartDate().getTime()), TimeUnit.MILLISECONDS) : 0;
+        if (CreditBalance != 0 && (StartDate == null)) {//Setting Date value to Credit column StartDate
+            DBcontroller.updateOverdraftWithDate(getID_BankUser(), Bank.getShortStringCurrentDateTime(), 0.0);
+        } else if (CreditBalance != 0 && timediff != 0) {//Setting Overdraft counted by for each day
+            setOverdraft(Overdraft+CreditBalance * Bank.getDepositPercentage() * timediff);
+            DBcontroller.updateOverdraftWithDate(ID_BankUser,Bank.getShortStringCurrentDateTime() ,Overdraft);
+        } else if ((CreditBalance == 0) && (StartDate != null)) {//Setting Date value to null in Credit column StartDate
             DBcontroller.updateOverdraftWithDate(getID_BankUser(), null, Overdraft);
         }
 
