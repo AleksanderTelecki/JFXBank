@@ -71,6 +71,24 @@ public class DBcontroller {
         }
     }
 
+    public static boolean isAdminKey(String adminKey)
+    {
+        ResultSet result = executeQuery("SELECT * FROM Admin WHERE Admin.AdminKey='"+adminKey+"'");
+        boolean isadminkey=false;
+        try {
+            if (!result.isBeforeFirst()) {
+                Message.showMessage(Alert.AlertType.ERROR, "AdminLog In", "Incorrect AdminKey!");
+            }else {
+                isadminkey=true;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return isadminkey;
+
+    }
+
     public static void registerUser(BankUser bankUser) {
 
 
