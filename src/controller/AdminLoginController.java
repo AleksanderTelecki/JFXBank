@@ -8,9 +8,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import utils.DBcontroller;
+import utils.Initializer;
 import utils.WindowController;
 
-public class AdminLoginController {
+public class AdminLoginController implements Initializer {
 
 
     @FXML
@@ -41,4 +42,8 @@ public class AdminLoginController {
         }
     }
 
+    @Override
+    public void Initialize(Object object) {
+        TextBox_AdminKey.setText("027186D790F04E4BB0FECF2D86A69536");
+    }
 }

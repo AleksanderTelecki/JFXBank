@@ -32,6 +32,13 @@ public class BankUser {
     private Savings UserSavings;
     private Credits UserCredits;
 
+    //Created only for table in AdminController
+    private double Invested;
+    private double CreditBalance;
+    private double Overdraft;
+    private double Savings;
+    //Created only for table in AdminController
+
     private boolean catcherror = false;
 
     public static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
@@ -62,7 +69,6 @@ public class BankUser {
     public BankUser(String firstName, String lastName, String DOB, String city, String street, String phoneNumber, String email, String password, String postalCode) {
         setFirstName(firstName);
         setLastName(lastName);
-        setFullName(firstName+" "+lastName);
         setDOB(DOB);
         setCity(city);
         setStreet(street);
@@ -78,7 +84,6 @@ public class BankUser {
         setID(ID);
         setFirstName(firstName);
         setLastName(lastName);
-        setFullName(firstName+" "+lastName);
         setDOB(DOB);
         setCity(city);
         setStreet(street);
@@ -136,7 +141,7 @@ public class BankUser {
 
 
     public String getFullName() {
-        return FullName;
+        return getFirstName() + " " + getLastName();
     }
 
     public void setFullName(String fullName) {
@@ -308,11 +313,9 @@ public class BankUser {
     }
 
 
-
     public Savings getUserSavings() {
 
-        if(UserSavings==null)
-        {
+        if (UserSavings == null) {
             setUserSavings(DBcontroller.getSavings(getID()));
         }
 
@@ -325,20 +328,34 @@ public class BankUser {
 
 
     public Credits getUserCredits() {
-        if(UserCredits==null)
-        {
-            setUserCredits(DBcontroller.getCredits(getID(),BAcN));
+        if (UserCredits == null) {
+            setUserCredits(DBcontroller.getCredits(getID(), BAcN));
         }
         return UserCredits;
     }
 
-    public void setUserCredits(Credits userCredits) {
-        UserCredits = userCredits;
+
+    public double getInvested() {
+        return getUserSavings().getInvestment();
+    }
+
+    public double getCreditBalance() {
+        return getUserCredits().getCreditBalance();
+    }
+
+    public double getOverdraft() {
+        return getUserCredits().getOverdraft();
+    }
+
+    public double getSavings() {
+        return getUserSavings().getEarnedSavings();
     }
 
 
 
-
+    public void setUserCredits(Credits userCredits) {
+        UserCredits = userCredits;
+    }
 
 
     public String toFullString() {
@@ -361,7 +378,7 @@ public class BankUser {
 
     @Override
     public String toString() {
-        return FullName;
+        return getFullName();
     }
 
 

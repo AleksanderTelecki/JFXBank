@@ -1,0 +1,438 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": ""
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": false,
+    "cutInterfaceStructures": false,
+    "cutDataStructures": false,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 6,
+    "backwardDepth": 6,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false // root node is included
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "controller.UserController"
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_111612081 { 
+   	label=utils
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   WindowController111612081[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)WindowController</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ Show(stage: Stage, windowtype: windowType)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ Show(windowtype: windowType)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ Show(stage: Stage, windowtype: windowType, object: Object)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ Show(windowtype: windowType, object: Object)</TD></TR>
+<TR><TD ALIGN="LEFT" >- getWindow(windowtype: windowType, stage: Stage): Pair&lt;Stage, FXMLLoader&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_506478104 { 
+   	label=dbclasses
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   BankUser640990443[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)BankUser</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   BAcN: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   Balance: double [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   Blocked: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   City: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   DOB: Date [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   Email: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   FirstName: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   FullName: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   ID: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   LastName: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   Password: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   PhoneNumber: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   PostalCode: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   Street: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   UserCredits: Credits [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   UserSavings: Savings [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   catcherror: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   regexEmailPattern: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   regexNamePattern: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   regexNumberPatterns: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   regexPostalCodePattern: String [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ toFullString(): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Credits640990443[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Credits</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   BAcN: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   CreditBalance: double [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   CreditLimit: double [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   ID_BankUser: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   ID_Credit: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   Overdraft: double [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   StartDate: Date [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- calculateOverdraft()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Operations640990443[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Operations</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   Amount: double [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   Counter: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   Date: Date [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   Description: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   ID_BankUser: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   ID_Operation: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   Sdate: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   Type: String [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ compare(o1: Operations, o2: Operations): int</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Savings640990443[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Savings</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   EarnedSavings: double [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   ID_BankUser: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   ID_Savings: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   Investment: double [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   StartDate: Date [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- calculateEarnedSavings()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_637428636 { 
+   	label=controller
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   AdminController637428636[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)AdminController</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   BorderPane_Admin: BorderPane [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   MenuItem_ManageAcc: MenuItem [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   MenuItem_Refresh: MenuItem [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   MenuItem_SaveHistory: MenuItem [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   TableView_UserInfo: TableView&lt;?&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   starter: WindowController [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ Initialize(object: Object)</TD></TR>
+<TR><TD ALIGN="LEFT" ># ManageAccount(event: ActionEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" ># Refresh(event: ActionEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" ># SaveHistory(event: ActionEvent)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+BankAccountsController637428636[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)BankAccountsController</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   Column_BAcN: TableColumn&lt;BankUser, String&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   Column_Name: TableColumn&lt;BankUser, String&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   ScrollPane_Users: ScrollPane [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   Table_Users: TableView&lt;BankUser&gt; [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ Initialize(object: Object)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ refresh()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+LoginController637428636[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)LoginController</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   Button_Admin: Button [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   Button_LogIn: Button [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   Button_NewAccount: Button [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   Pane_LogIn: Pane [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   TextBox_BacN: TextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   TextBox_Email: TextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   TextBox_Password: PasswordField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   starter: WindowController [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># AdminLogin(event: ActionEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ Initialize(object: Object)</TD></TR>
+<TR><TD ALIGN="LEFT" ># LogIn(event: ActionEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" ># NewAccount(event: ActionEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ initialize(url: URL, resourceBundle: ResourceBundle)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+ModifyAccountController637428636[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ModifyAccountController</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   Button_Submit: Button [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   DataPicker_DOB: DatePicker [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   ID: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   Pane_ChangeAccountInfo: Pane [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   TextBox_CityAdress: TextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   TextBox_Email: TextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   TextBox_FirstName: TextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   TextBox_LastName: TextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   TextBox_PassVerification: PasswordField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   TextBox_Password: PasswordField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   TextBox_PhoneNumber: TextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   TextBox_PostalCode: TextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   TextBox_StreetAdress: TextField [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ Initialize(object: Object)</TD></TR>
+<TR><TD ALIGN="LEFT" ># SubmitModification(event: ActionEvent)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+OperationController637428636[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)OperationController</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   Button_Submit: Button [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   ComboBox_From: ComboBox&lt;String&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   ComboBox_To: ComboBox&lt;String&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   ID: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   Pane_Operation: Pane [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   TextBox_Amount: TextField [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># ComboChange(event: ActionEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ Initialize(object: Object)</TD></TR>
+<TR><TD ALIGN="LEFT" ># Submit(event: ActionEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" >- comboboxWithoutRepeats()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ refresh()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+TransferToController637428636[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)TransferToController</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   Button_Submit: Button [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   ComboBox_From: ComboBox&lt;String&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   ComboBox_To: ComboBox&lt;BankUser&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   ID: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   Pane_TransferTo: Pane [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   TextBox_Amount: TextField [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ Initialize(object: Object)</TD></TR>
+<TR><TD ALIGN="LEFT" ># Submit(event: ActionEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ refresh()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+UserController637428636[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)UserController</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   BorderPane_User: BorderPane [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   Column_Amount: TableColumn&lt;Operations, Double&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   Column_Date: TableColumn&lt;Operations, String&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   Column_Description: TableColumn&lt;Operations, String&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   Column_Type: TableColumn&lt;Operations, String&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   ID: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   Label_BankDate: Label [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   MenuItem: MenuItem [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   MenuItem_About: MenuItem [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   MenuItem_Admin: MenuItem [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   MenuItem_BankAccount: MenuItem [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   MenuItem_DeleteAccount: MenuItem [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   MenuItem_Operate: MenuItem [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   MenuItem_Refresh: MenuItem [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   MenuItem_SaveHistory: MenuItem [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   MenuItem_TransferTo: MenuItem [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   Table_UserDate: TableView&lt;Operations&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   TextBox_Balance: TextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   TextBox_BanC: TextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   TextBox_Credit: TextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   TextBox_CreditBalance: TextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   TextBox_Invested: TextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   TextBox_Overdraft: TextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   TextBox_Savings: TextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   User: BankUser [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   starter: WindowController [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># About(event: ActionEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" ># AdminWindow(event: ActionEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" ># BankAccounts(event: ActionEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" ># DeleteAccount(event: ActionEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ Initialize(object: Object)</TD></TR>
+<TR><TD ALIGN="LEFT" ># ModifyAccount(event: ActionEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" ># Operation(event: ActionEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" ># Refresh(event: ActionEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" ># SaveHistory(event: ActionEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" ># TransferTo(event: ActionEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" >- initClock()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ refresh()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+'edges    
+AdminController637428636 -> WindowController111612081[label="starter
+[0..1]"];
+BankAccountsController637428636 -> BankUser640990443[label="Column_BAcN
+[0..1]"];
+BankAccountsController637428636 -> BankUser640990443[label="Column_Name
+[0..1]"];
+BankAccountsController637428636 -> BankUser640990443[label="Table_Users
+[0..1]"];
+BankUser640990443 -> Credits640990443[label="UserCredits
+[0..1]"];
+BankUser640990443 -> Savings640990443[label="UserSavings
+[0..1]"];
+LoginController637428636 -> WindowController111612081[label="starter
+[0..1]"];
+TransferToController637428636 -> BankUser640990443[label="ComboBox_To
+[0..1]"];
+UserController637428636 -> AdminController637428636[arrowhead=none, arrowtail=empty, dir=both];
+UserController637428636 -> BankAccountsController637428636[arrowhead=none, arrowtail=empty, dir=both];
+UserController637428636 -> BankUser640990443[label="User
+[0..1]"];
+UserController637428636 -> LoginController637428636[arrowhead=none, arrowtail=empty, dir=both];
+UserController637428636 -> ModifyAccountController637428636[arrowhead=none, arrowtail=empty, dir=both];
+UserController637428636 -> OperationController637428636[arrowhead=none, arrowtail=empty, dir=both];
+UserController637428636 -> Operations640990443[label="Column_Amount
+[0..1]"];
+UserController637428636 -> Operations640990443[label="Column_Date
+[0..1]"];
+UserController637428636 -> Operations640990443[label="Column_Description
+[0..1]"];
+UserController637428636 -> Operations640990443[label="Column_Type
+[0..1]"];
+UserController637428636 -> Operations640990443[label="Table_UserDate
+[0..1]"];
+UserController637428636 -> TransferToController637428636[arrowhead=none, arrowtail=empty, dir=both];
+UserController637428636 -> WindowController111612081[label="starter
+[0..1]"];
+    
+}
+@enduml

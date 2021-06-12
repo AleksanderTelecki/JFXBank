@@ -147,7 +147,6 @@ public class UserController implements Initializer, Refreshable {
     void SaveHistory(ActionEvent event) {
 
     }
-
     @FXML
     void TransferTo(ActionEvent event) {
         starter.Show(WindowController.windowType.TransferTo, User.getID());
@@ -155,7 +154,7 @@ public class UserController implements Initializer, Refreshable {
 
     @FXML
     void AdminWindow(ActionEvent event) {
-        starter.Show(WindowController.windowType.AdminLogIn);
+        starter.Show(WindowController.windowType.AdminLogIn,null);
     }
 
     @FXML
@@ -169,6 +168,7 @@ public class UserController implements Initializer, Refreshable {
         Stage thisStage = (Stage) BorderPane_User.getScene().getWindow();
         thisStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             public void handle(WindowEvent we) {
+                WindowController.userController=null;
                 starter.Show(WindowController.windowType.LogIn);
             }
         });

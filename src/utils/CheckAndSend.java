@@ -7,7 +7,7 @@ import java.util.List;
 
 public class CheckAndSend {
 
-    public enum operation {None, Balance, Savings, Investment, Credit, Overdraft, Transfer}
+    public enum operation {None, Balance, Savings, Investment, Credit, CreditLimit, CreditBalance, Overdraft, Transfer, Admin}
 
     public enum type {None, Internal, External, Another}
 
@@ -45,7 +45,7 @@ public class CheckAndSend {
     private static void proceedOperation(operation from, operation to, double amount, type oType, int id, String BAcN) {
 
 
-        String message="Successful!";
+        String message = "Successful!";
         double newFrom = 0.0;
         double newTo = 0.0;
         switch (from) {
@@ -65,6 +65,10 @@ public class CheckAndSend {
             case Credit -> {
                 newFrom = DBcontroller.getCreditBalance(id) + amount;
                 DBcontroller.updateCreditBalance(id, newFrom);
+            }
+
+            case Admin ->{
+
             }
 
             default -> {
@@ -92,14 +96,28 @@ public class CheckAndSend {
                 DBcontroller.updateCreditBalance(id, newTo);
             }
             case Overdraft -> {
-                newTo = DBcontroller.getOverdraft(id) - amount;
-                DBcontroller.updateOverdraft(id, newTo);
+                if(!from.equals(operation.Admin))
+                {
+                    newTo = DBcontroller.getOverdraft(id) - amount;
+                    DBcontroller.updateOverdraft(id, newTo);
+                }else {
+                    DBcontroller.updateOverdraft(id, amount);
+                }
+
+            }
+
+            case CreditBalance ->{
+                DBcontroller.updateCreditBalance(id, amount);
+            }
+
+            case CreditLimit ->{
+                DBcontroller.updateCreditLimit(id, amount);
             }
 
             case Transfer -> {
                 int transferID = DBcontroller.getID(BAcN);
                 newTo = DBcontroller.getBalance(transferID) + amount;
-                DBcontroller.insertOperation(transferID,to.toString() + " => Balance",oType.toString(),amount);
+                DBcontroller.insertOperation(transferID, to.toString() + " => Balance", oType.toString(), amount);
                 DBcontroller.updateBalance(transferID, newTo);
 
             }
@@ -116,7 +134,7 @@ public class CheckAndSend {
         String description = from.toString() + " => " + to.toString();
         String type = oType.toString();
 
-        message="Successful!\n"+amount+" has been withdrawn from the "+from.toString()+" to "+to.toString();
+        message = "Successful!\n" + amount + " has been withdrawn from the " + from.toString() + " to " + to.toString();
         DBcontroller.insertOperation(id, description, type, amount);
         Message.showMessage(Alert.AlertType.INFORMATION, "Operation", message);
 
@@ -155,10 +173,17 @@ public class CheckAndSend {
                 }
             }
             case Credit -> {
-                // TODO: 07.06.2021 Maybe set access to get credit minus for -100000
                 double creditdiff = DBcontroller.getCreditDiff(id) - amount;
                 if (creditdiff < 0) {
-                    Message.showMessage(Alert.AlertType.ERROR, "Error", "Credit Limit is 5000");
+                    Message.showMessage(Alert.AlertType.ERROR, "Error", "Credit Limit is " + DBcontroller.getCreditLimit(id) + "!");
+                    validator = false;
+                }
+            }
+
+
+            case Admin ->{
+                if (amount < 0) {
+                    Message.showMessage(Alert.AlertType.ERROR, "Error", "Value can't be less then 0!");
                     validator = false;
                 }
             }
@@ -187,9 +212,34 @@ public class CheckAndSend {
             }
 
             case Overdraft -> {
-                double overdraft = DBcontroller.getOverdraft(id);
-                amount = (overdraft - amount) < 0 ? (amount - (amount - overdraft)) : amount;
-                refAmount.setValue(amount);
+                if(!from.equals(operation.Admin))
+                {
+                    double overdraft = DBcontroller.getOverdraft(id);
+                    amount = (overdraft - amount) < 0 ? (amount - (amount - overdraft)) : amount;
+                    refAmount.setValue(amount);
+                }else {
+
+                    if(amount<0){
+                        Message.showMessage(Alert.AlertType.ERROR, "Error", "Overdraft can't be less then 0!");
+                        validator = false;
+                    }
+                }
+
+            }
+
+            case CreditLimit -> {
+                if (amount < 0) {
+                    Message.showMessage(Alert.AlertType.ERROR, "Error", "Credit Limit can't be less then 0!");
+                    validator = false;
+                }
+            }
+
+            case CreditBalance -> {
+                double creditlimit = DBcontroller.getCreditLimit(id);
+                if (amount < 0 || amount > creditlimit) {
+                    Message.showMessage(Alert.AlertType.ERROR, "Error", "Credit Limit is " + creditlimit + "\n CreditBalance can't be less then 0!");
+                    validator = false;
+                }
             }
 
             default -> {
@@ -217,6 +267,14 @@ public class CheckAndSend {
                 return operation.Credit;
             }
 
+            case "CreditLimit" -> {
+                return operation.CreditLimit;
+            }
+
+            case "CreditBalance" -> {
+                return operation.CreditBalance;
+            }
+
             case "Overdraft" -> {
                 return operation.Overdraft;
             }
@@ -227,6 +285,10 @@ public class CheckAndSend {
 
             case "Transfer" -> {
                 return operation.Transfer;
+            }
+
+            case "Admin" -> {
+                return operation.Admin;
             }
 
             default -> {

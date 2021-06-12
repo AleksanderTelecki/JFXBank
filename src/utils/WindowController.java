@@ -13,7 +13,7 @@ import java.io.IOException;
 public class WindowController {
 
 
-    public enum windowType {None, LogIn, Registration, AdminLogIn, User, Operation, TransferTo, BankAccounts, ModifyAccounts, BankInfo, Admin, ManageAccounts, ShowHistory, SetValue}
+    public enum windowType {None, LogIn, Registration, AdminLogIn, User, Operation, TransferTo, BankAccounts, ModifyAccounts, BankInfo, Admin, ManageAccounts, SetValue}
 
     public static UserController userController;
     public static OperationController operationController;
@@ -72,6 +72,7 @@ public class WindowController {
                     loader = new FXMLLoader(getClass().getResource("../view/User.fxml"));
                     window = loader.load();
                     thisStage.setTitle("User");
+                    // TODO: 12.06.2021 Maybe create list of userWindows to refresh more than one window
                     userController = loader.getController();
 
                 }
@@ -124,12 +125,6 @@ public class WindowController {
                     loader = new FXMLLoader(getClass().getResource("../view/ManageAccounts.fxml"));
                     window = loader.load();
                     thisStage.setTitle("Manage Account");
-                }
-
-                case ShowHistory -> {
-                    loader = new FXMLLoader(getClass().getResource("../view/ShowHistory.fxml"));
-                    window = loader.load();
-                    thisStage.setTitle("History");
                 }
 
                 case SetValue -> {

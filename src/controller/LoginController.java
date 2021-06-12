@@ -46,7 +46,7 @@ public class LoginController implements Initializer, Initializable {
 
     @FXML
     void AdminLogin(ActionEvent event) {
-        starter.Show((Stage) Pane_LogIn.getScene().getWindow(), WindowController.windowType.AdminLogIn);
+        starter.Show((Stage) Pane_LogIn.getScene().getWindow(), WindowController.windowType.AdminLogIn,null);
 
     }
 

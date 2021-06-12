@@ -428,6 +428,19 @@ public class DBcontroller {
         return result;
     }
 
+    public static double getCreditLimit(int ID) {
+        ResultSet resultSet = executeQuery("SELECT * FROM Credits WHERE Credits.ID_BankUser=" + ID);
+        double result = 0;
+        try {
+            result = resultSet.getDouble("CreditLimit");
+        } catch (SQLException throwables) {
+
+            throwables.printStackTrace();
+        }
+
+        return result;
+    }
+
     public static double getOverdraft(int ID) {
         ResultSet resultSet = executeQuery("SELECT * FROM Credits WHERE Credits.ID_BankUser=" + ID);
         double result = 0;

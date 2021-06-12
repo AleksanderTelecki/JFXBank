@@ -18,11 +18,6 @@
                   <MenuItem fx:id="MenuItem_Refresh" mnemonicParsing="false" onAction="#Refresh" text="Refresh" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Manage">
-            <items>
-              <MenuItem fx:id="MenuItem_ManageAcc" mnemonicParsing="false" onAction="#ManageAccount" text="Manage Account" />
-            </items>
-          </Menu>
         </menus>
       </MenuBar>
    </top>
@@ -31,14 +26,14 @@
          <content>
             <TableView fx:id="TableView_UserInfo" prefHeight="471.0" prefWidth="696.0">
               <columns>
-                <TableColumn prefWidth="67.2000076174736" text="Account ID" />
-                <TableColumn prefWidth="144.79999542236328" text="Bank Account Number" />
-                  <TableColumn prefWidth="88.80006408691406" text="Name" />
-                  <TableColumn prefWidth="74.39996337890625" text="Balance" />
-                  <TableColumn prefWidth="77.60003662109375" text="Invested" />
-                  <TableColumn prefWidth="78.39999389648438" text="Savings" />
-                  <TableColumn prefWidth="56.79998779296875" text="Credit" />
-                  <TableColumn prefWidth="120.00006103515625" text="Overdraft" />
+                <TableColumn fx:id="Table_Column_ID" prefWidth="67.2000076174736" style="-fx-alignment: CENTER;" text="Account ID" />
+                <TableColumn fx:id="Table_Column_BAcN" prefWidth="120.0" style="-fx-alignment: CENTER;" text="BAcN" />
+                  <TableColumn fx:id="Table_Column_FullName" prefWidth="125.0" style="-fx-alignment: CENTER;" text="Name" />
+                  <TableColumn fx:id="Table_Column_Balance" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Balance" />
+                  <TableColumn fx:id="Table_Column_Invested" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Invested" />
+                  <TableColumn fx:id="Table_Column_Savings" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Savings" />
+                  <TableColumn fx:id="Table_Column_Credit" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Credit" />
+                  <TableColumn fx:id="Table_Column_Overdraft" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Overdraft" />
               </columns>
             </TableView>
          </content>

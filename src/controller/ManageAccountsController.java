@@ -2,38 +2,31 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import utils.Initializer;
 import utils.Message;
 import utils.WindowController;
+import utils.dbclasses.BankUser;
 
-public class ManageAccountsController {
-
-    @FXML
-    private TextField TextBox_AccountID;
+public class ManageAccountsController implements Initializer {
 
     @FXML
     private Button Button_Delete;
 
     @FXML
-    private Button Button_ShowHistory;
-
-    @FXML
-    private Button Button_Transfer;
-
-    @FXML
-    private Button Button_Operation;
+    private Button Button_EnterAccount;
 
     @FXML
     private Button Button_BlockAccount;
 
     @FXML
-    private Button Button_CreditLimit;
+    private Button Button_SetValue;
 
     @FXML
-    private Button Button_Overdraft;
+    private Label Label_Name;
+
+
+    private BankUser choosedUser;
 
     private WindowController starter = new WindowController();
 
@@ -59,29 +52,20 @@ public class ManageAccountsController {
         }
     }
 
+
     @FXML
-    void Operation(ActionEvent event) {
-        starter.Show(WindowController.windowType.Operation);
+    void EnterAccount(ActionEvent event) {
+        starter.Show(WindowController.windowType.User, choosedUser.getID());
     }
 
     @FXML
-    void SetCreditLimit(ActionEvent event) {
-        starter.Show(WindowController.windowType.SetValue);
+    void SetValue(ActionEvent event) {
+        starter.Show(WindowController.windowType.SetValue, choosedUser);
     }
 
-    @FXML
-    void SetOverdraft(ActionEvent event) {
-        starter.Show(WindowController.windowType.SetValue);
+    @Override
+    public void Initialize(Object object) {
+        choosedUser = (BankUser) object;
+        Label_Name.setText(choosedUser.getFullName());
     }
-
-    @FXML
-    void ShowHistory(ActionEvent event) {
-        starter.Show(WindowController.windowType.ShowHistory);
-    }
-
-    @FXML
-    void Transfer(ActionEvent event) {
-        starter.Show(WindowController.windowType.TransferTo);
-    }
-
 }
