@@ -3,12 +3,19 @@ package controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import utils.DBcontroller;
 import utils.Initializer;
 import utils.Message;
 import utils.WindowController;
 import utils.dbclasses.BankUser;
 
 public class ManageAccountsController implements Initializer {
+
+
+    @FXML
+    private Pane Pane_ManageAccounts;
 
     @FXML
     private Button Button_Delete;
@@ -23,6 +30,9 @@ public class ManageAccountsController implements Initializer {
     private Button Button_SetValue;
 
     @FXML
+    private Button Button_UnblockAccount;
+
+    @FXML
     private Label Label_Name;
 
 
@@ -33,11 +43,24 @@ public class ManageAccountsController implements Initializer {
     @FXML
     void BlockAccount(ActionEvent event) {
         Alert alert = Message.showMessageAndReturnAlertReference(Alert.AlertType.CONFIRMATION,
-                "Delete Account",
-                "Do you want to delete this account?");
+                "Block Account",
+                "Do you want to block this account?");
 
         if (alert.getResult().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
-            Message.showMessage(Alert.AlertType.ERROR, "Yes", "yes");
+            DBcontroller.blockUser(choosedUser.getID());
+            Message.showMessage(Alert.AlertType.INFORMATION,"Account","Successful");
+        }
+    }
+
+    @FXML
+    void UnblockAccount(ActionEvent event) {
+        Alert alert = Message.showMessageAndReturnAlertReference(Alert.AlertType.CONFIRMATION,
+                "Block Account",
+                "Do you want to block this account?");
+
+        if (alert.getResult().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
+            DBcontroller.unblockUser(choosedUser.getID());
+            Message.showMessage(Alert.AlertType.INFORMATION,"Account","Successful");
         }
     }
 
@@ -48,7 +71,11 @@ public class ManageAccountsController implements Initializer {
                 "Do you want to delete this account?");
 
         if (alert.getResult().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
-            Message.showMessage(Alert.AlertType.ERROR, "Yes", "yes");
+            DBcontroller.deleteUser(choosedUser.getID());
+            Stage thisStage = (Stage) Pane_ManageAccounts.getScene().getWindow();
+            Message.showMessage(Alert.AlertType.INFORMATION,"Account","Successful");
+            thisStage.close();
+
         }
     }
 

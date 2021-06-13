@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
@@ -21,8 +22,12 @@ import utils.dbclasses.BankUser;
 import utils.dbclasses.Operations;
 
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserController implements Initializer, Refreshable {
 
@@ -135,21 +140,51 @@ public class UserController implements Initializer, Refreshable {
     @FXML
     void ModifyAccount(ActionEvent event) {
         starter.Show(WindowController.windowType.ModifyAccounts, User.getID());
+
     }
 
     @FXML
     void Operation(ActionEvent event) {
-        starter.Show(WindowController.windowType.Operation, User.getID());
+        if(User.getBlocked().equals("1"))
+        {
+            Message.showMessage(Message.ERROR,"Account","Account is blocked!");
+        }else {
+            starter.Show(WindowController.windowType.Operation, User.getID());
+        }
+
     }
 
 
     @FXML
     void SaveHistory(ActionEvent event) {
+        CsvWriter csvWriter = new CsvWriter();
+        List<Operations> list = DBcontroller.getOperationsList(ID);
+        List<String[]> stringList = new ArrayList<>();
 
+        String[] header = {"Date", "Description", "Type", "Amount"};
+        stringList.add(header);
+
+        for (Operations item:list) {
+            String [] tableValue = {item.getStringDate(),item.getDescription(),item.getType(),Double.toString(item.getAmount())};
+            stringList.add(tableValue);
+        }
+
+        try {
+            csvWriter.writeToCsvFile(stringList,getFilePath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     @FXML
     void TransferTo(ActionEvent event) {
-        starter.Show(WindowController.windowType.TransferTo, User.getID());
+        if(User.getBlocked().equals("1"))
+        {
+            Message.showMessage(Message.ERROR,"Account","Account is blocked!");
+        }else {
+            starter.Show(WindowController.windowType.TransferTo, User.getID());
+        }
+
+
     }
 
     @FXML
@@ -160,6 +195,21 @@ public class UserController implements Initializer, Refreshable {
     @FXML
     void Refresh(ActionEvent event) {
         refresh();
+    }
+
+    private File getFilePath()
+    {
+        FileChooser fileChooser = new FileChooser();
+
+        //Set extension filter for text files
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV Files", "*.csv", "*.csv");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        //Show save file dialog
+        File file = fileChooser.showSaveDialog(new Stage());
+
+        return file;
+
     }
 
     @Override

@@ -214,6 +214,30 @@ public class DBcontroller {
 
     }
 
+    public static void blockUser(int ID) {
+
+        String statment = "UPDATE BankUser SET " +
+                "Blocked='1'," +
+                "WHERE BankUser.ID_BankUser=" + ID;
+
+        executeStatement(statment);
+        System.out.println("Blocking BankUser in database");
+
+
+    }
+
+    public static void unblockUser(int ID) {
+
+        String statment = "UPDATE BankUser SET " +
+                "Blocked='0'," +
+                "WHERE BankUser.ID_BankUser=" + ID;
+
+        executeStatement(statment);
+        System.out.println("Unblocking BankUser in database");
+
+
+    }
+
     public static void updateUser(int ID, BankUser newBankUser) {
 
         String statment = "UPDATE BankUser SET " +

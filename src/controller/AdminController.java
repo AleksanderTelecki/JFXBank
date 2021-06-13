@@ -14,15 +14,18 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import utils.DBcontroller;
-import utils.Initializer;
-import utils.Refreshable;
-import utils.WindowController;
+import utils.*;
 import utils.dbclasses.BankUser;
+import utils.dbclasses.Operations;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class AdminController implements Initializer, Refreshable {
@@ -49,6 +52,9 @@ public class AdminController implements Initializer, Refreshable {
     private TableColumn<BankUser, String> Table_Column_FullName;
 
     @FXML
+    private TableColumn<BankUser, String> Table_Column_Blocked;
+
+    @FXML
     private TableColumn<BankUser, Double> Table_Column_Balance;
 
     @FXML
@@ -58,7 +64,10 @@ public class AdminController implements Initializer, Refreshable {
     private TableColumn<BankUser, Double> Table_Column_Savings;
 
     @FXML
-    private TableColumn<BankUser, Double> Table_Column_Credit;
+    private TableColumn<BankUser, Double> Table_Column_CreditBalance;
+
+    @FXML
+    private TableColumn<BankUser, Double> Table_Column_CreditLimit;
 
     @FXML
     private TableColumn<BankUser, Double> Table_Column_Overdraft;
@@ -69,6 +78,26 @@ public class AdminController implements Initializer, Refreshable {
     @FXML
     void SaveHistory(ActionEvent event) {
 
+        CsvWriter csvWriter = new CsvWriter();
+        List<BankUser> list = DBcontroller.getBankUserList();
+        List<String[]> stringList = new ArrayList<>();
+
+        String[] header = {"Account ID", "BAcN", "Name","Blocked" ,"Balance","Invested","Savings","CreditBalance","CreditLimit","Overdraft"};
+        stringList.add(header);
+
+        for (BankUser item:list) {
+            String [] tableValue = {Integer.toString(item.getID()),item.getBAcN(),item.getFullName(),item.getBlocked(),Double.toString(item.getBalance()),Double.toString(item.getInvested()),Double.toString(item.getSavings()),Double.toString(item.getCreditBalance()),Double.toString(item.getUserCredits().getCreditLimit()),Double.toString(item.getOverdraft())};
+            stringList.add(tableValue);
+        }
+
+        try {
+            csvWriter.writeToCsvFile(stringList,getFilePath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
     }
 
     @FXML
@@ -76,6 +105,20 @@ public class AdminController implements Initializer, Refreshable {
         refresh();
     }
 
+    private File getFilePath()
+    {
+        FileChooser fileChooser = new FileChooser();
+
+        //Set extension filter for text files
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV Files", "*.csv", "*.csv");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        //Show save file dialog
+        File file = fileChooser.showSaveDialog(new Stage());
+
+        return file;
+
+    }
 
     @Override
     public void Initialize(Object object) {
@@ -99,10 +142,12 @@ public class AdminController implements Initializer, Refreshable {
         Table_Column_ID.setCellValueFactory(new PropertyValueFactory<BankUser, Integer>("ID"));
         Table_Column_BAcN.setCellValueFactory(new PropertyValueFactory<BankUser, String>("BAcN"));
         Table_Column_FullName.setCellValueFactory(new PropertyValueFactory<BankUser, String>("FullName"));
+        Table_Column_Blocked.setCellValueFactory(new PropertyValueFactory<BankUser, String>("Blocked"));
         Table_Column_Balance.setCellValueFactory(new PropertyValueFactory<BankUser, Double>("Balance"));
         Table_Column_Invested.setCellValueFactory(new PropertyValueFactory<BankUser, Double>("Invested"));
         Table_Column_Savings.setCellValueFactory(new PropertyValueFactory<BankUser, Double>("Savings"));
-        Table_Column_Credit.setCellValueFactory(new PropertyValueFactory<BankUser, Double>("CreditBalance"));
+        Table_Column_CreditBalance.setCellValueFactory(new PropertyValueFactory<BankUser, Double>("CreditBalance"));
+        Table_Column_CreditLimit.setCellValueFactory(new PropertyValueFactory<BankUser, Double>("CreditLimit"));
         Table_Column_Overdraft.setCellValueFactory(new PropertyValueFactory<BankUser, Double>("Overdraft"));
         refresh();
 

@@ -8,13 +8,13 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane fx:id="BorderPane_Admin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.AdminController">
+<BorderPane fx:id="BorderPane_Admin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="835.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.AdminController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem fx:id="MenuItem_SaveHistory" mnemonicParsing="false" onAction="#SaveHistory" text="Save History" />
+              <MenuItem fx:id="MenuItem_SaveHistory" mnemonicParsing="false" onAction="#SaveHistory" text="Save" />
                   <MenuItem fx:id="MenuItem_Refresh" mnemonicParsing="false" onAction="#Refresh" text="Refresh" />
             </items>
           </Menu>
@@ -22,18 +22,20 @@
       </MenuBar>
    </top>
    <center>
-      <ScrollPane BorderPane.alignment="CENTER">
+      <ScrollPane prefHeight="474.0" prefWidth="834.0" BorderPane.alignment="CENTER">
          <content>
-            <TableView fx:id="TableView_UserInfo" prefHeight="471.0" prefWidth="696.0">
+            <TableView fx:id="TableView_UserInfo" prefHeight="471.0" prefWidth="833.0">
               <columns>
                 <TableColumn fx:id="Table_Column_ID" prefWidth="67.2000076174736" style="-fx-alignment: CENTER;" text="Account ID" />
                 <TableColumn fx:id="Table_Column_BAcN" prefWidth="120.0" style="-fx-alignment: CENTER;" text="BAcN" />
                   <TableColumn fx:id="Table_Column_FullName" prefWidth="125.0" style="-fx-alignment: CENTER;" text="Name" />
-                  <TableColumn fx:id="Table_Column_Balance" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Balance" />
-                  <TableColumn fx:id="Table_Column_Invested" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Invested" />
-                  <TableColumn fx:id="Table_Column_Savings" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Savings" />
-                  <TableColumn fx:id="Table_Column_Credit" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Credit" />
-                  <TableColumn fx:id="Table_Column_Overdraft" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Overdraft" />
+                  <TableColumn fx:id="Table_Column_Blocked" prefWidth="50.0" style="-fx-alignment: CENTER;" text="Blocked" />
+                  <TableColumn fx:id="Table_Column_Balance" prefWidth="70.0" style="-fx-alignment: CENTER;" text="Balance" />
+                  <TableColumn fx:id="Table_Column_Invested" prefWidth="70.0" style="-fx-alignment: CENTER;" text="Invested" />
+                  <TableColumn fx:id="Table_Column_Savings" prefWidth="70.0" style="-fx-alignment: CENTER;" text="Savings" />
+                  <TableColumn fx:id="Table_Column_CreditBalance" prefWidth="90.0" style="-fx-alignment: CENTER;" text="CreditBalance" />
+                  <TableColumn fx:id="Table_Column_CreditLimit" prefWidth="90.0" style="-fx-alignment: CENTER;" text="CreditLimit" />
+                  <TableColumn fx:id="Table_Column_Overdraft" prefWidth="70.0" style="-fx-alignment: CENTER;" text="Overdraft" />
               </columns>
             </TableView>
          </content>

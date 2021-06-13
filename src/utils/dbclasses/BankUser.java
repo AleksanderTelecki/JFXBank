@@ -35,6 +35,7 @@ public class BankUser {
     //Created only for table in AdminController
     private double Invested;
     private double CreditBalance;
+    private double CreditLimit;
     private double Overdraft;
     private double Savings;
     //Created only for table in AdminController
@@ -341,6 +342,10 @@ public class BankUser {
 
     public double getCreditBalance() {
         return getUserCredits().getCreditBalance();
+    }
+
+    public double getCreditLimit() {
+        return getUserCredits().getCreditLimit();
     }
 
     public double getOverdraft() {

@@ -1,0 +1,198 @@
+@startuml
+
+title __JBANK's Class Diagram__\n
+
+  namespace controller {
+    class controller.AdminController {
+    }
+  }
+  
+
+  namespace controller {
+    class controller.AdminLoginController {
+    }
+  }
+  
+
+  namespace controller {
+    class controller.BankAccountsController {
+    }
+  }
+  
+
+  namespace controller {
+    class controller.BankInfoController {
+    }
+  }
+  
+
+  namespace controller {
+    class controller.LoginController {
+    }
+  }
+  
+
+  namespace controller {
+    class controller.ManageAccountsController {
+    }
+  }
+  
+
+  namespace controller {
+    class controller.ModifyAccountController {
+    }
+  }
+  
+
+  namespace controller {
+    class controller.OperationController {
+    }
+  }
+  
+
+  namespace controller {
+    class controller.RegistrationController {
+    }
+  }
+  
+
+  namespace controller {
+    class controller.SetValueController {
+    }
+  }
+  
+
+  namespace controller {
+    class controller.TransferToController {
+    }
+  }
+  
+
+  namespace controller {
+    class controller.UserController {
+    }
+  }
+  
+
+  namespace main {
+    class main.Main {
+    }
+  }
+  
+
+  namespace utils {
+    class utils.CheckAndSend {
+    }
+  }
+  
+
+  namespace utils {
+    class utils.DBcontroller {
+    }
+  }
+  
+
+  namespace utils {
+    interface utils.Initializer {
+    }
+  }
+  
+
+  namespace utils {
+    class utils.Message {
+    }
+  }
+  
+
+  namespace utils {
+    interface utils.Refreshable {
+    }
+  }
+  
+
+  namespace utils {
+    class utils.WindowController {
+    }
+  }
+  
+
+  namespace utils {
+    namespace dbclasses {
+      class utils.dbclasses.Bank {
+      }
+    }
+  }
+  
+
+  namespace utils {
+    namespace dbclasses {
+      class utils.dbclasses.BankUser {
+      }
+    }
+  }
+  
+
+  namespace utils {
+    namespace dbclasses {
+      class utils.dbclasses.Credits {
+      }
+    }
+  }
+  
+
+  namespace utils {
+    namespace dbclasses {
+      class utils.dbclasses.Operations {
+      }
+    }
+  }
+  
+
+  namespace utils {
+    namespace dbclasses {
+      class utils.dbclasses.Savings {
+      }
+    }
+  }
+  
+
+  controller.AdminController .up.|> utils.Initializer
+  controller.AdminController .up.|> utils.Refreshable
+  controller.AdminController o-- utils.WindowController : starter
+  controller.AdminLoginController .up.|> utils.Initializer
+  controller.AdminLoginController o-- utils.WindowController : starter
+  controller.BankAccountsController .up.|> utils.Initializer
+  controller.BankAccountsController .up.|> utils.Refreshable
+  controller.BankInfoController .up.|> javafx.fxml.Initializable
+  controller.LoginController .up.|> javafx.fxml.Initializable
+  controller.LoginController .up.|> utils.Initializer
+  controller.LoginController o-- utils.WindowController : starter
+  controller.ManageAccountsController .up.|> utils.Initializer
+  controller.ManageAccountsController o-- utils.dbclasses.BankUser : choosedUser
+  controller.ManageAccountsController o-- utils.WindowController : starter
+  controller.ModifyAccountController .up.|> utils.Initializer
+  controller.OperationController .up.|> utils.Initializer
+  controller.OperationController .up.|> utils.Refreshable
+  controller.RegistrationController o-- utils.WindowController : starter
+  controller.SetValueController .up.|> utils.Initializer
+  controller.SetValueController .up.|> utils.Refreshable
+  controller.SetValueController o-- utils.dbclasses.BankUser : bankUser
+  controller.TransferToController .up.|> utils.Initializer
+  controller.TransferToController .up.|> utils.Refreshable
+  controller.UserController .up.|> utils.Initializer
+  controller.UserController .up.|> utils.Refreshable
+  controller.UserController o-- utils.dbclasses.BankUser : User
+  controller.UserController o-- utils.WindowController : starter
+  main.Main -up-|> javafx.application.Application
+  utils.dbclasses.BankUser o-- utils.dbclasses.Credits : UserCredits
+  utils.dbclasses.BankUser o-- utils.dbclasses.Savings : UserSavings
+  utils.dbclasses.Operations .up.|> java.util.Comparator
+
+
+right footer
+
+
+
+endfooter
+
+@enduml

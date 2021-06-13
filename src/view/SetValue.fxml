@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane fx:id="Pane_SetValue" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="97.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SetValueController">
+<Pane fx:id="Pane_SetValue" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="97.0" prefWidth="335.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.SetValueController">
    <children>
       <TextField fx:id="TextBox_Value" layoutX="174.0" layoutY="24.0" promptText="Amount" />
       <Button fx:id="Button_Set" layoutX="14.0" layoutY="58.0" mnemonicParsing="false" onAction="#SetValue" prefHeight="25.0" prefWidth="309.0" text="Set" />
