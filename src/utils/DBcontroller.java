@@ -217,7 +217,7 @@ public class DBcontroller {
     public static void blockUser(int ID) {
 
         String statment = "UPDATE BankUser SET " +
-                "Blocked='1'," +
+                "Blocked='1' " +
                 "WHERE BankUser.ID_BankUser=" + ID;
 
         executeStatement(statment);
@@ -229,7 +229,7 @@ public class DBcontroller {
     public static void unblockUser(int ID) {
 
         String statment = "UPDATE BankUser SET " +
-                "Blocked='0'," +
+                "Blocked='0' " +
                 "WHERE BankUser.ID_BankUser=" + ID;
 
         executeStatement(statment);

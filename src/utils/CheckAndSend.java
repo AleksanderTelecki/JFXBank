@@ -67,7 +67,7 @@ public class CheckAndSend {
                 DBcontroller.updateCreditBalance(id, newFrom);
             }
 
-            case Admin ->{
+            case Admin -> {
 
             }
 
@@ -80,37 +80,54 @@ public class CheckAndSend {
         switch (to) {
 
             case Balance -> {
-                newTo = DBcontroller.getBalance(id) + amount;
-                DBcontroller.updateBalance(id, newTo);
+                if (from.equals(operation.Admin)) {
+                    DBcontroller.updateBalance(id, amount);
+                }else {
+                    newTo = DBcontroller.getBalance(id) + amount;
+                    DBcontroller.updateBalance(id, newTo);
+                }
+
             }
             case Savings -> {
-                newTo = DBcontroller.getEarnedSavings(id) + amount;
-                DBcontroller.updateEarnedSavings(id, newTo);
+                if (from.equals(operation.Admin)) {
+                    DBcontroller.updateEarnedSavings(id, amount);
+                }else {
+                    newTo = DBcontroller.getEarnedSavings(id) + amount;
+                    DBcontroller.updateEarnedSavings(id, newTo);
+                }
             }
             case Investment -> {
-                newTo = DBcontroller.getInvestment(id) + amount;
-                DBcontroller.updateInvestment(id, newTo);
+
+                if (from.equals(operation.Admin)) {
+                    DBcontroller.updateInvestment(id, amount);
+
+                }else {
+                    newTo = DBcontroller.getInvestment(id) + amount;
+                    DBcontroller.updateInvestment(id, newTo);
+                }
+
+
             }
             case Credit -> {
                 newTo = DBcontroller.getCreditBalance(id) - amount;
                 DBcontroller.updateCreditBalance(id, newTo);
             }
             case Overdraft -> {
-                if(!from.equals(operation.Admin))
-                {
+                if (from.equals(operation.Admin)) {
+                    DBcontroller.updateOverdraft(id, amount);
+
+                } else {
                     newTo = DBcontroller.getOverdraft(id) - amount;
                     DBcontroller.updateOverdraft(id, newTo);
-                }else {
-                    DBcontroller.updateOverdraft(id, amount);
                 }
 
             }
 
-            case CreditBalance ->{
+            case CreditBalance -> {
                 DBcontroller.updateCreditBalance(id, amount);
             }
 
-            case CreditLimit ->{
+            case CreditLimit -> {
                 DBcontroller.updateCreditLimit(id, amount);
             }
 
@@ -181,7 +198,7 @@ public class CheckAndSend {
             }
 
 
-            case Admin ->{
+            case Admin -> {
                 if (amount < 0) {
                     Message.showMessage(Alert.AlertType.ERROR, "Error", "Value can't be less then 0!");
                     validator = false;
@@ -197,6 +214,10 @@ public class CheckAndSend {
         switch (to) {
 
             case Balance, Investment, Savings, Transfer -> {
+                if (amount<0) {
+                    Message.showMessage(Alert.AlertType.ERROR, "Error", "Value can't be less then 0!");
+                    validator = false;
+                }
 
             }
             case Credit -> {
@@ -212,14 +233,13 @@ public class CheckAndSend {
             }
 
             case Overdraft -> {
-                if(!from.equals(operation.Admin))
-                {
+                if (!from.equals(operation.Admin)) {
                     double overdraft = DBcontroller.getOverdraft(id);
                     amount = (overdraft - amount) < 0 ? (amount - (amount - overdraft)) : amount;
                     refAmount.setValue(amount);
-                }else {
+                } else {
 
-                    if(amount<0){
+                    if (amount < 0) {
                         Message.showMessage(Alert.AlertType.ERROR, "Error", "Overdraft can't be less then 0!");
                         validator = false;
                     }

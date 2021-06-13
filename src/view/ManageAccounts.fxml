@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="Pane_ManageAccounts" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="267.0" prefWidth="209.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManageAccountsController">
+<Pane fx:id="Pane_ManageAccounts" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="267.0" prefWidth="209.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.ManageAccountsController">
    <children>
       <Button fx:id="Button_Delete" layoutX="30.0" layoutY="70.0" mnemonicParsing="false" onAction="#DeleteAccount" prefHeight="25.0" prefWidth="149.0" text="Delete" />
       <Button fx:id="Button_EnterAccount" layoutX="30.0" layoutY="210.0" mnemonicParsing="false" onAction="#EnterAccount" prefHeight="25.0" prefWidth="149.0" text="Enter" />

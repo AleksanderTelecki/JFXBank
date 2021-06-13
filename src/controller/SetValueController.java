@@ -10,6 +10,7 @@ import javafx.scene.layout.Pane;
 import utils.CheckAndSend;
 import utils.Initializer;
 import utils.Refreshable;
+import utils.WindowController;
 import utils.dbclasses.BankUser;
 
 import java.util.UUID;
@@ -37,6 +38,7 @@ public class SetValueController implements Initializer, Refreshable {
     void SetValue(ActionEvent event) {
 
         CheckAndSend.Send("Admin",ComboBox_Account.getValue(),Double.parseDouble(TextBox_Value.getText()), CheckAndSend.type.Another, bankUser.getID());
+        WindowController.adminController.refresh();
         refresh();
     }
 
@@ -48,6 +50,7 @@ public class SetValueController implements Initializer, Refreshable {
 
     @Override
     public void refresh() {
+        TextBox_Value.setText("");
         ComboBox_Account.setValue("");
         ComboBox_Account.setItems(FXCollections.observableArrayList(accounts));
     }

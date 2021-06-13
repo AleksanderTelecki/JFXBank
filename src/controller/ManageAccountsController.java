@@ -48,6 +48,7 @@ public class ManageAccountsController implements Initializer {
 
         if (alert.getResult().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
             DBcontroller.blockUser(choosedUser.getID());
+            WindowController.adminController.refresh();
             Message.showMessage(Alert.AlertType.INFORMATION,"Account","Successful");
         }
     }
@@ -56,10 +57,11 @@ public class ManageAccountsController implements Initializer {
     void UnblockAccount(ActionEvent event) {
         Alert alert = Message.showMessageAndReturnAlertReference(Alert.AlertType.CONFIRMATION,
                 "Block Account",
-                "Do you want to block this account?");
+                "Do you want to unblock this account?");
 
         if (alert.getResult().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
             DBcontroller.unblockUser(choosedUser.getID());
+            WindowController.adminController.refresh();
             Message.showMessage(Alert.AlertType.INFORMATION,"Account","Successful");
         }
     }
@@ -74,6 +76,7 @@ public class ManageAccountsController implements Initializer {
             DBcontroller.deleteUser(choosedUser.getID());
             Stage thisStage = (Stage) Pane_ManageAccounts.getScene().getWindow();
             Message.showMessage(Alert.AlertType.INFORMATION,"Account","Successful");
+            WindowController.adminController.refresh();
             thisStage.close();
 
         }

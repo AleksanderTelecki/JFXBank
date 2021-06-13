@@ -1,5 +1,6 @@
 package utils;
 
+import controller.AdminController;
 import controller.OperationController;
 import controller.UserController;
 import javafx.fxml.FXML;
@@ -17,6 +18,7 @@ public class WindowController {
 
     public static UserController userController;
     public static OperationController operationController;
+    public static AdminController adminController;
 
     public void Show(Stage stage, windowType windowtype) {
 
@@ -119,6 +121,7 @@ public class WindowController {
                     loader = new FXMLLoader(getClass().getResource("../view/Admin.fxml"));
                     window = loader.load();
                     thisStage.setTitle("Admin");
+                    adminController=loader.getController();
                 }
 
                 case ManageAccounts -> {
