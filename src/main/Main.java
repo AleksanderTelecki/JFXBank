@@ -9,6 +9,11 @@ import utils.DBcontroller;
 
 public class Main extends Application {
 
+    /**
+     * utworzenie stage'a i nawiazanie polaczenia z baza danych
+     * @param primaryStage
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("../view/Login.fxml"));

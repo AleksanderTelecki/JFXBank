@@ -8,9 +8,11 @@ import utils.dbclasses.Bank;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
+/**
+ *klasa zawiera metode wyswietlajaca w nowym okienku informacje o banku
+ */
 public class BankInfoController implements Initializable {
-
+    //elementy interfejsu graficznego
     @FXML
     private Label Label_Name;
 
@@ -34,13 +36,13 @@ public class BankInfoController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Label_Name.setText("Name: "+Bank.getName());
-        Label_Phone.setText("Phone: "+Bank.getPhone());
+        Label_Name.setText("Nazwa: "+Bank.getName());
+        Label_Phone.setText("Numer telefonu: "+Bank.getPhone());
         Label_Email.setText("Email: "+Bank.getEmail());
-        Label_Adress.setText("Address:"+Bank.getAdress());
-        Label_Website.setText("Website: "+Bank.getWebsite());
-        Label_PostalCode.setText("Postal Code: "+Bank.getPostalCode());
-        Label_BankDate.setText("Date: "+Bank.getShortStringCurrentDateTime());
+        Label_Adress.setText("Adres:"+Bank.getAdress());
+        Label_Website.setText("Adres www: "+Bank.getWebsite());
+        Label_PostalCode.setText("Kod pocztowy: "+Bank.getPostalCode());
+        Label_BankDate.setText("Aktualna czas: "+Bank.getShortStringCurrentDateTime());
     }
 }
 

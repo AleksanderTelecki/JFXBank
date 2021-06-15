@@ -10,17 +10,17 @@
    <children>
       <Separator layoutY="41.0" prefHeight="2.0" prefWidth="257.0" />
       <Separator layoutX="-1.0" layoutY="273.0" prefHeight="2.0" prefWidth="257.0" />
-      <Label layoutX="67.0" layoutY="14.0" text="Bank Information">
+      <Label layoutX="67.0" layoutY="14.0" text="Informacje o banku">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label fx:id="Label_Name" layoutX="14.0" layoutY="55.0" text="Name:">
+      <Label fx:id="Label_Name" layoutX="14.0" layoutY="55.0" text="Nazwa:">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label fx:id="Label_Phone" layoutX="14.0" layoutY="87.0" text="Phone number:">
+      <Label fx:id="Label_Phone" layoutX="14.0" layoutY="87.0" text="Nr telefonu:">
          <font>
             <Font size="16.0" />
          </font>
@@ -30,22 +30,22 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Label fx:id="Label_Adress" layoutX="16.0" layoutY="163.0" text="Adress:">
+      <Label fx:id="Label_Adress" layoutX="16.0" layoutY="163.0" text="Adres:">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label fx:id="Label_Website" layoutX="16.0" layoutY="199.0" text="Website:">
+      <Label fx:id="Label_Website" layoutX="16.0" layoutY="199.0" text="Adres www:">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label fx:id="Label_PostalCode" layoutX="16.0" layoutY="233.0" text="Postal code:">
+      <Label fx:id="Label_PostalCode" layoutX="16.0" layoutY="233.0" text="Kod pocztowy:">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label fx:id="Label_BankDate" layoutX="14.0" layoutY="289.0" text="Bank Date:">
+      <Label fx:id="Label_BankDate" layoutX="14.0" layoutY="289.0" text="Data:">
          <font>
             <Font size="16.0" />
          </font>

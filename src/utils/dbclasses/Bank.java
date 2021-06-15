@@ -20,7 +20,6 @@ public class Bank {
     private static double DepositPercentage;
     private static double SavingsPercentage;
 
-
     public static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 
     public static final SimpleDateFormat shortDateFormat = new SimpleDateFormat("dd.MM.yyyy");
@@ -35,7 +34,6 @@ public class Bank {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
         Adress=adress;
         Name=name;
         Phone=phone;
@@ -72,7 +70,6 @@ public class Bank {
 
     public static String getStringCurrentDateTime()
     {
-
         DBcontroller.updateDateTime();
         return dateFormat.format(CurrentDateTime);
 
@@ -80,10 +77,8 @@ public class Bank {
 
     public static String getShortStringCurrentDateTime()
     {
-
         DBcontroller.updateDateTime();
         return shortDateFormat.format(CurrentDateTime);
-
     }
 
     public static String getAdress() {

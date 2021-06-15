@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * klasa definiujaca metody pozwalajace na zapisanie danych do pliku csv
+ */
 public class CsvWriter {
 
     private static final String COMMA = ",";

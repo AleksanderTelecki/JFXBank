@@ -11,6 +11,9 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * klasa zawiera metody i konstuktory dla obiektu BankUser(dla klienta banku)
+ */
 public class BankUser {
 
     private int ID;
@@ -52,7 +55,8 @@ public class BankUser {
     4. is between 1 and 25 characters: "(?i)[a-z](.{0,24}[a-z])?"
     5. can contain a-z and [ '-,.]: "(?i)[a-z]([- ',.a-z]{0,24}[a-z])?"
     */
-
+    //regex okresla dozwolony format wporwadzonych danych,
+    //jest uzywany do sprawdzenia poprawnosci wprowadzonych danych
     String regexNamePattern = "(?i)(^[a-z])((?![ .,'-]$)[a-z .,'-]){0,24}$";
 
     //https://www.baeldung.com/java-regex-validate-phone-numbers
@@ -77,6 +81,7 @@ public class BankUser {
         setEmail(email);
         setPassword(password);
         setPostalCode(postalCode);
+        //jezeli wprowadzone dane nie beda spelnialy wzoru z regexow konto nie zostanie stworzone
         if (catcherror == true)
             throw new IllegalArgumentException();
     }
@@ -95,6 +100,7 @@ public class BankUser {
         setBlocked(blocked);
         setBalance(balance);
         setPostalCode(postalCode);
+        //jezeli wprowadzone dane nie beda spelnialy wzoru z regexow konto nie zostanie stworzone
         if (catcherror == true)
             throw new IllegalArgumentException();
     }
@@ -362,7 +368,8 @@ public class BankUser {
         UserCredits = userCredits;
     }
 
-
+    // TODO: do usuniecia nieuzywane
+    /*
     public String toFullString() {
         return "BankUser{" +
                 "ID=" + ID +
@@ -380,6 +387,8 @@ public class BankUser {
                 ", PostalCode='" + PostalCode + '\'' +
                 '}';
     }
+    */
+
 
     @Override
     public String toString() {

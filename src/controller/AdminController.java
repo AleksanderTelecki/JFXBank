@@ -28,6 +28,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * klasa zawaiera metody dostepne w okienku pracownika banku
+ */
 public class AdminController implements Initializer, Refreshable {
 
     @FXML
@@ -75,6 +78,10 @@ public class AdminController implements Initializer, Refreshable {
     private WindowController starter = new WindowController();
 
 
+    /**
+     * zapisanie wartosci wyswietlanych w okienku do pliku csv
+     * @param event
+     */
     @FXML
     void SaveHistory(ActionEvent event) {
 
@@ -83,37 +90,47 @@ public class AdminController implements Initializer, Refreshable {
         List<String[]> stringList = new ArrayList<>();
 
         String[] header = {"Account ID", "BAcN", "Name","Blocked" ,"Balance","Invested","Savings","CreditBalance","CreditLimit","Overdraft"};
+       //wypisanie naglowkow w pierwszej komorce pliku csv
         stringList.add(header);
 
         for (BankUser item:list) {
             String [] tableValue = {Integer.toString(item.getID()),item.getBAcN(),item.getFullName(),item.getBlocked(),Double.toString(item.getBalance()),Double.toString(item.getInvested()),Double.toString(item.getSavings()),Double.toString(item.getCreditBalance()),Double.toString(item.getUserCredits().getCreditLimit()),Double.toString(item.getOverdraft())};
+           //wypisywanie danych w kolejnych komorkach pliku csv
             stringList.add(tableValue);
         }
-
+        //wybor gdzie ma zostac zapisany plik csv
         try {
-            csvWriter.writeToCsvFile(stringList,getFilePath());
+            File filePath= getFilePath();
+            if(filePath==null)
+                return;
+            csvWriter.writeToCsvFile(stringList,filePath);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-
     }
 
+    /**
+     * metoda wywoluje metode aktualizujaca zawartosc wyswietlanego okienka
+     * @param event
+     */
     @FXML
     void Refresh(ActionEvent event) {
         refresh();
     }
 
+    /**
+     * metoda sluzy wybraniu miejsca gdzie ma zostac zapisany plik csv
+     * @return
+     */
     private File getFilePath()
     {
         FileChooser fileChooser = new FileChooser();
 
-        //Set extension filter for text files
+        //ustawienie filtru dla plikow tesktowych by wyswietlane byly tylko pliki o rozszerzeniu csv
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV Files", "*.csv", "*.csv");
         fileChooser.getExtensionFilters().add(extFilter);
 
-        //Show save file dialog
+        //okno dialogowe zapisywania pliku csv
         File file = fileChooser.showSaveDialog(new Stage());
 
         return file;
@@ -128,7 +145,7 @@ public class AdminController implements Initializer, Refreshable {
                 starter.Show(WindowController.windowType.LogIn);
             }
         });
-
+        //dwukrotne klikniecie na rejestr klienta otwiera okienko z mozliwymi dla tego konta akcjami
         TableView_UserInfo.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -138,7 +155,7 @@ public class AdminController implements Initializer, Refreshable {
             }
         });
 
-
+        //dane klientow wyswietlane w okienku pracownika banku
         Table_Column_ID.setCellValueFactory(new PropertyValueFactory<BankUser, Integer>("ID"));
         Table_Column_BAcN.setCellValueFactory(new PropertyValueFactory<BankUser, String>("BAcN"));
         Table_Column_FullName.setCellValueFactory(new PropertyValueFactory<BankUser, String>("FullName"));
@@ -153,13 +170,16 @@ public class AdminController implements Initializer, Refreshable {
 
     }
 
+    /**
+     * metoda tworzy  nowy watek i odswieza zawartosc kolekcji
+     */
     @Override
     public void refresh() {
-        new Thread(new Runnable() {
-            public void run() {
+       // new Thread(new Runnable() {
+        //    public void run() {
                 ObservableList<BankUser> data = FXCollections.observableArrayList(DBcontroller.getBankUserList());
                 TableView_UserInfo.setItems(data);
-            }
-        }).start();
+        //    }
+      //  }).start();
     }
 }

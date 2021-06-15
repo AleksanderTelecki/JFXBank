@@ -15,8 +15,11 @@ import utils.dbclasses.BankUser;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * klasa z metodami pozwalajacymi na transfer pieniedzy miedzy kontami klientow
+ */
 public class TransferToController implements Initializer, Refreshable {
-
+    //elementy interfejsu graficznego
     @FXML
     private Pane Pane_TransferTo;
 
@@ -36,6 +39,10 @@ public class TransferToController implements Initializer, Refreshable {
 
     private int ID;
 
+    /**
+     * metoda wywoluje metode przenoszaca srodki ze wskazanego konta klienta na konto bankowe innego klienta
+     * @param event
+     */
     @FXML
     void Submit(ActionEvent event) {
         try {
@@ -60,8 +67,6 @@ public class TransferToController implements Initializer, Refreshable {
         ID = (int) object;
         refresh();
     }
-
-
 
     @Override
     public void refresh() {

@@ -18,8 +18,12 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class LoginController implements Initializer, Initializable {
-
+/**
+ * klasa zawiera metody pozwalajace logowac sie klientom banku
+ */
+//TODO: usunac komentarz
+public class LoginController implements Initializer, Initializable /*interfejs Initializable wywoluje sie w momencie tworzenie klasy, wczesniej od Initializer*/ {
+    //elementy interfejsu graficznego
     @FXML
     private Pane Pane_LogIn;
 
@@ -44,12 +48,19 @@ public class LoginController implements Initializer, Initializable {
     private WindowController starter = new WindowController();
 
 
+    /**
+     * metoda wyswietla okienko logowania dla pracownika banku
+     * @param event
+     */
     @FXML
     void AdminLogin(ActionEvent event) {
         starter.Show((Stage) Pane_LogIn.getScene().getWindow(), WindowController.windowType.AdminLogIn,null);
-
     }
 
+    /**
+     * metoda wyswietla okienko zalogowanego klienta, jezeli dane logowania sa poprawne
+     * @param event
+     */
     @FXML
     void LogIn(ActionEvent event) {
         BankUser bankUser = DBcontroller.getBankUser(TextBox_Email.getText(),TextBox_Password.getText(),TextBox_BacN.getText());
@@ -61,27 +72,35 @@ public class LoginController implements Initializer, Initializable {
 
     }
 
+    /**
+     * metoda wyswietla okienko rejestracji nowego klienta banku
+     * @param event
+     */
     @FXML
     void NewAccount(ActionEvent event) {
 
         starter.Show((Stage) Pane_LogIn.getScene().getWindow(), WindowController.windowType.Registration);
     }
 
-
     @Override
     public void Initialize(Object object) {
         BankUser user = (BankUser) object;
-
-
-
-
     }
 
+    //TODO:  do usuniecia razem z interfejsem javaFX Initializable
+    /**
+     * metoda wypelnia formularz logowania klienta by nie trzeba bylo robic tego recznie
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // TODO: 10.06.2021 Remove when realese
         TextBox_BacN.setText("c583-4bac-9fe9");
         TextBox_Email.setText("jbojega@gmail.com");
         TextBox_Password.setText("alendo1");
     }
+
+
+
+
 }

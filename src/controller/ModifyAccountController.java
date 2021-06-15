@@ -14,8 +14,11 @@ import utils.dbclasses.BankUser;
 import java.time.LocalDate;
 import java.time.ZoneId;
 
+/**
+ *metody dla okienka modyfikacji danych osobowych dla klienta
+ */
 public class ModifyAccountController implements Initializer {
-
+    //elementy interfejsu graficznego
     @FXML
     private Pane Pane_ChangeAccountInfo;
 
@@ -54,6 +57,10 @@ public class ModifyAccountController implements Initializer {
 
     private int ID;
 
+    /**
+     * metoda aktualizuje dane klienta banku
+     * @param event
+     */
     @FXML
     void SubmitModification(ActionEvent event) {
         if (TextBox_Password.getText().equals(TextBox_PassVerification.getText())) {
@@ -77,6 +84,9 @@ public class ModifyAccountController implements Initializer {
 
     }
 
+    /**
+     * metoda wypelnia TextBoxy w okienku modyfikacji danych klienta danymi wybranego klienta
+     */
     public void setUserData() {
         BankUser bankUser = DBcontroller.getBankUser(ID);
         TextBox_FirstName.setText(bankUser.getFirstName());

@@ -8,8 +8,8 @@
    <content>
       <TableView fx:id="Table_Users" editable="true" prefHeight="397.0" prefWidth="338.0">
         <columns>
-          <TableColumn fx:id="Column_Name" prefWidth="145.0" style="-fx-alignment: CENTER;" text="Name" />
-          <TableColumn fx:id="Column_BAcN" prefWidth="188.00001525878906" style="-fx-alignment: CENTER;" text="BacN" />
+          <TableColumn fx:id="Column_Name" prefWidth="145.0" style="-fx-alignment: CENTER;" text="Klient" />
+          <TableColumn fx:id="Column_BAcN" prefWidth="188.00001525878906" style="-fx-alignment: CENTER;" text="Numer konta" />
         </columns>
       </TableView>
    </content>

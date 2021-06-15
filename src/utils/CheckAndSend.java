@@ -5,34 +5,60 @@ import utils.dbclasses.Bank;
 
 import java.util.List;
 
+/**
+ *
+ */
 public class CheckAndSend {
-
+    //
     public enum operation {None, Balance, Savings, Investment, Credit, CreditLimit, CreditBalance, Overdraft, Transfer, Admin}
-
+    //typy przelewow miedzy kontami
     public enum type {None, Internal, External, Another}
 
+    //TODO: nieuzywane moze byc usuniete
+    /*
+    /**
+     * metoda przenosi srodki miedzy kontami klienta
+     * @param From
+     * @param To
+     * @param amount
+     * @param oType
+     * @param ID
 
     public static void Send(operation From, operation To, double amount, type oType, int ID) {
-
         refDouble refAmount = new refDouble(amount);
         if (check(From, To, refAmount, ID)) {
             proceedOperation(From, To, refAmount.getValue(), oType, ID, null);
         }
     }
+    */
 
+    /**
+     * metoda przenosi srodki z jednego konta na drugie przez pracownika banku
+     * @param stringFrom
+     * @param stringTo
+     * @param amount
+     * @param oType
+     * @param ID
+     */
     public static void Send(String stringFrom, String stringTo, double amount, type oType, int ID) {
-
         operation From = getEnum(stringFrom);
         operation To = getEnum(stringTo);
         refDouble refAmount = new refDouble(amount);
         if (check(From, To, refAmount, ID)) {
-
             proceedOperation(From, To, refAmount.getValue(), oType, ID, null);
         }
     }
 
+    /**
+     * metoda dokonuje przenesienia srodkow miedzy kontami roznych klientow
+     * @param stringFrom
+     * @param stringTo
+     * @param amount
+     * @param oType
+     * @param ID
+     * @param BAcN
+     */
     public static void Send(String stringFrom, String stringTo, double amount, type oType, int ID, String BAcN) {
-
         operation From = getEnum(stringFrom);
         operation To = getEnum(stringTo);
         refDouble refAmount = new refDouble(amount);
@@ -42,9 +68,16 @@ public class CheckAndSend {
         }
     }
 
+    /**
+     * metoda aktualizuje stan bazy danych na wartosci po wykonaniu operacji
+     * @param from
+     * @param to
+     * @param amount
+     * @param oType
+     * @param id
+     * @param BAcN
+     */
     private static void proceedOperation(operation from, operation to, double amount, type oType, int id, String BAcN) {
-
-
         String message = "Successful!";
         double newFrom = 0.0;
         double newTo = 0.0;
@@ -78,7 +111,6 @@ public class CheckAndSend {
         }
 
         switch (to) {
-
             case Balance -> {
                 if (from.equals(operation.Admin)) {
                     DBcontroller.updateBalance(id, amount);
@@ -86,7 +118,6 @@ public class CheckAndSend {
                     newTo = DBcontroller.getBalance(id) + amount;
                     DBcontroller.updateBalance(id, newTo);
                 }
-
             }
             case Savings -> {
                 if (from.equals(operation.Admin)) {
@@ -105,8 +136,6 @@ public class CheckAndSend {
                     newTo = DBcontroller.getInvestment(id) + amount;
                     DBcontroller.updateInvestment(id, newTo);
                 }
-
-
             }
             case Credit -> {
                 newTo = DBcontroller.getCreditBalance(id) - amount;
@@ -120,7 +149,6 @@ public class CheckAndSend {
                     newTo = DBcontroller.getOverdraft(id) - amount;
                     DBcontroller.updateOverdraft(id, newTo);
                 }
-
             }
 
             case CreditBalance -> {
@@ -136,10 +164,7 @@ public class CheckAndSend {
                 newTo = DBcontroller.getBalance(transferID) + amount;
                 DBcontroller.insertOperation(transferID, to.toString() + " => Balance", oType.toString(), amount);
                 DBcontroller.updateBalance(transferID, newTo);
-
             }
-
-
             default -> {
                 Message.showMessage(Alert.AlertType.ERROR, "Error", "Null Data");
                 return;
@@ -147,7 +172,6 @@ public class CheckAndSend {
 
         }
 
-        // TODO: 08.06.2021 Maybe change description property
         String description = from.toString() + " => " + to.toString();
         String type = oType.toString();
 
@@ -158,12 +182,20 @@ public class CheckAndSend {
 
     }
 
+    /**
+     * metoda sprawdza czy wybrana operacja jest mozliwa do wykonania
+     * @param from
+     * @param to
+     * @param refAmount
+     * @param id
+     * @return
+     */
     private static boolean check(operation from, operation to, refDouble refAmount, int id) {
-
+        //przenoszona miedzy kontami suma
         double amount = refAmount.getValue();
         boolean validator = true;
         switch (from) {
-
+        //sprawdzenie czy przenoszone srodki nie sa wieksze niz srodki znajdujace sie na koncie z ktorego beda przenoszone
             case Balance -> {
                 double balance = DBcontroller.getBalance(id) - amount;
 
@@ -197,7 +229,6 @@ public class CheckAndSend {
                 }
             }
 
-
             case Admin -> {
                 if (amount < 0) {
                     Message.showMessage(Alert.AlertType.ERROR, "Error", "Value can't be less then 0!");
@@ -210,19 +241,18 @@ public class CheckAndSend {
                 validator = false;
             }
         }
-
+        //sprawdzenie czy przenoszone srodki sa wieksze 0
         switch (to) {
-
             case Balance, Investment, Savings, Transfer -> {
                 if (amount<0) {
                     Message.showMessage(Alert.AlertType.ERROR, "Error", "Value can't be less then 0!");
                     validator = false;
                 }
 
-            }
+            }//pobrany kredyt dla konta nie moze wyniesc wiecej niz 5000
             case Credit -> {
-
                 double creditbalance = DBcontroller.getCreditBalance(id);
+
                 amount = (creditbalance - amount) <= 0 ? (amount - (amount - creditbalance)) : amount;
                 refAmount.setValue(amount);
                 if (amount == 0) {
@@ -231,14 +261,12 @@ public class CheckAndSend {
                 }
 
             }
-
             case Overdraft -> {
                 if (!from.equals(operation.Admin)) {
                     double overdraft = DBcontroller.getOverdraft(id);
                     amount = (overdraft - amount) < 0 ? (amount - (amount - overdraft)) : amount;
                     refAmount.setValue(amount);
                 } else {
-
                     if (amount < 0) {
                         Message.showMessage(Alert.AlertType.ERROR, "Error", "Overdraft can't be less then 0!");
                         validator = false;
@@ -272,7 +300,12 @@ public class CheckAndSend {
         return validator;
     }
 
-
+    /**
+     * w metodzie wybierana jest konto na ktorym\dla ktorego wykonywane beda operacje
+     * String z ComboBoxu jest konwenterowany na String
+     * @param combostring
+     * @return
+     */
     public static operation getEnum(String combostring) {
         switch (combostring) {
             case "Balance" -> {
@@ -321,10 +354,14 @@ public class CheckAndSend {
 
     }
 
+    /**
+     *klasa wewnetrzna by moc przekazywac kwote w parametrze jako referencja
+     */
     public static class refDouble {
 
         private double value;
 
+        //konstruktor klasy
         public refDouble(double value) {
             setValue(value);
         }

@@ -31,7 +31,7 @@ public class Credits {
         setOverdraft(overdraft);
     }
 
-
+    // TODO: nieuzywane ZOSTAJE
     public int getID_Credit() {
         return ID_Credit;
     }
@@ -80,7 +80,6 @@ public class Credits {
         }
     }
 
-
     public int getID_BankUser() {
         return ID_BankUser;
     }
@@ -97,18 +96,24 @@ public class Credits {
         this.BAcN = BAcN;
     }
 
+    /**
+     * metoda nalicz odsetki dla kredytu
+     */
     private void calculateOverdraft() {
 
         long timediff = StartDate != null ? TimeUnit.DAYS.convert((Bank.getCurrentDateTime().getTime() - getStartDate().getTime()), TimeUnit.MILLISECONDS) : 0;
-        if (CreditBalance != 0 && (StartDate == null)) {//Setting Date value to Credit column StartDate
+        if (CreditBalance != 0 && (StartDate == null)) {
+            //wprowadzenie daty dnia wziecia kredytu
             DBcontroller.updateOverdraftWithDate(getID_BankUser(), Bank.getShortStringCurrentDateTime(), 0.0);
-        } else if (CreditBalance != 0 && timediff != 0) {//Setting Overdraft counted by for each day
+        } else if (CreditBalance != 0 && timediff != 0) {
+            //odsetki sa naliczane w zaleznosci od czasu jaki uplynal od dnia wziecia kredytu
             setOverdraft(Overdraft+CreditBalance * Bank.getDepositPercentage() * timediff);
             DBcontroller.updateOverdraftWithDate(ID_BankUser,Bank.getShortStringCurrentDateTime() ,Overdraft);
-        } else if ((CreditBalance == 0) && (StartDate != null)) {//Setting Date value to null in Credit column StartDate
+        } else if ((CreditBalance == 0) && (StartDate != null)) {
+            //gdy kredyt nie byl wziety badz zostal splacony dzien wziecia kredytu
+            //jest ustawiany na null by nie obliczac timediff
             DBcontroller.updateOverdraftWithDate(getID_BankUser(), null, Overdraft);
         }
-
     }
 
     public double getOverdraft() {

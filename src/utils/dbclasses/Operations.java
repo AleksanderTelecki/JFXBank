@@ -12,7 +12,11 @@ public class Operations implements Comparator<Operations> {
 
     private int ID_Operation;
     private Date Date;
+
+    //korzystamy z niej w kontorlerze UserContorller by kolumna z tablicy z bazy danych
+    //mogla pobrac wartosc Date jako String by mogla byc wyswietlona w kolumnie
     private String Sdate;
+
     private String Description;
     private String Type;
     private double Amount;
@@ -21,10 +25,22 @@ public class Operations implements Comparator<Operations> {
 
     public static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 
+    /**
+     * konstruktor bezargumentowy
+     */
     public Operations() {
 
     }
 
+    /**
+     * konstruktor klasy
+     * @param date
+     * @param description
+     * @param type
+     * @param amount
+     * @param ID_BankUser
+     * @param counter
+     */
     public Operations(String date, String description, String type, double amount, int ID_BankUser, int counter) {
         setDate(date);
         setDescription(description);
@@ -42,7 +58,6 @@ public class Operations implements Comparator<Operations> {
     public void setType(String type) {
         Type = type;
     }
-
 
     public int getID_Operation() {
         return ID_Operation;

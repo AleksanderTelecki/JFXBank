@@ -9,6 +9,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * klasa definiujaca metody dal konta oszczednosciowego klienta
+ */
 public class Savings {
 
     private int ID_Savings;
@@ -26,7 +29,7 @@ public class Savings {
         setEarnedSavings(earnedSavings);
         setID_BankUser(ID_BankUser);
     }
-
+    //TODO: ??czy jest to gdzie uzywane
     public int getID_Savings() {
         return ID_Savings;
     }
@@ -46,7 +49,7 @@ public class Savings {
     public Date getStartDate() {
         return StartDate;
     }
-
+    //TODO: ??? czy jest uzywane?
     public String getStringStartDate() {
         return dateFormat.format(StartDate);
     }
@@ -62,12 +65,17 @@ public class Savings {
         }
     }
 
+    /**
+     * metoda oblicza wartosc zaoszczedzonych srodkow
+     */
     private void calculateEarnedSavings() {
 
         long timediff = StartDate != null ? TimeUnit.DAYS.convert((Bank.getCurrentDateTime().getTime() - getStartDate().getTime()), TimeUnit.MILLISECONDS) : 0;
-        if (Investment != 0 && (StartDate == null)) {//Setting Date value to Savings column StartDate
+        if (Investment != 0 && (StartDate == null)) {
+            //ustawienie poczatkowej daty rozpoczecia
             DBcontroller.updateEarnedSavingsDate(ID_BankUser, Bank.getShortStringCurrentDateTime(), 0.0);
-        } else if (Investment != 0 && timediff != 0) {//Setting EarnedSavings counted by for each day
+        } else if (Investment != 0 && timediff != 0) {
+            //obliczanie wartosci oszczedznosci w zaleznosci od czasu jaki uplynal oraz oprocentowania konta
             setEarnedSavings(EarnedSavings + timediff * Bank.getSavingsPercentage() * getInvestment());
             DBcontroller.updateEarnedSavingsDate(ID_BankUser, Bank.getShortStringCurrentDateTime(), EarnedSavings);
         } else if ((Investment == 0) && (StartDate != null)) {//Setting Date value to null in Savings column StartDate
@@ -84,7 +92,7 @@ public class Savings {
     public void setEarnedSavings(double earnedSavings) {
         EarnedSavings = earnedSavings;
     }
-
+    //TODO: ????czy uzywane
     public int getID_BankUser() {
         return ID_BankUser;
     }

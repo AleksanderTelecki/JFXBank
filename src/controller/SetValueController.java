@@ -15,6 +15,9 @@ import utils.dbclasses.BankUser;
 
 import java.util.UUID;
 
+/**
+ *
+ */
 public class SetValueController implements Initializer, Refreshable {
 
 
@@ -34,6 +37,10 @@ public class SetValueController implements Initializer, Refreshable {
 
     private static final String[] accounts = {"Balance", "Savings", "Investment", "CreditLimit","CreditBalance","Overdraft"};
 
+    /**
+     * metoda umozliwia pracownikowi banku na ustawienie wartosci srodkow na koncie klienta
+     * @param event
+     */
     @FXML
     void SetValue(ActionEvent event) {
 

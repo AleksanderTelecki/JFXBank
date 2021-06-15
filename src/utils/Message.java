@@ -2,7 +2,9 @@ package utils;
 
 import javafx.scene.control.Alert;
 
-
+/**
+ * klasa zawierajaca metody dla monitow wyswietlanych podczas dzialania aplikacji
+ */
 public class Message
 {
 
@@ -28,7 +30,8 @@ public class Message
         alert.showAndWait();
         return alert;
     }
-
+    //TODO: mozna usunac
+    /*
     public static void showClientCreationSuccessMessage(String title, String firstName, String lastName)
     {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -37,5 +40,7 @@ public class Message
         alert.setContentText(firstName + " " + lastName + " added to Bank");
         alert.showAndWait();
     }
+    */
+
 
 }

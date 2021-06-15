@@ -10,14 +10,19 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * klasa kontorluje operacje wykonywane na bazie danych
+ */
 public class DBcontroller {
 
     private static final String DBpath = "jbankDB.db";
     private static Connection connection;
 
 
+    /**
+     * metoda nawiazuje polaczenie z baza danych
+     */
     public static void Connect() {
-
         try {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:" + DBpath);
@@ -29,15 +34,17 @@ public class DBcontroller {
         }
 
     }
-
+   //TODO: nieuzywane monza usunac
+    /*
     public static Connection getConnection() {
         return connection;
     }
 
+     */
+
     /**
-     * Executes sql against the database.
-     *
-     * @param statementToExecute the sql statement.
+     * wykonuje zapytanie na bazie danych
+     * @param statementToExecute zapytanie do bazy danych
      */
     public static void executeStatement(String statementToExecute) {
         try {
@@ -52,10 +59,9 @@ public class DBcontroller {
     }
 
     /**
-     * Executes a select on the database
-     *
-     * @param queryToExecute the select statemetn
-     * @return the resultset
+     * wykonuje zapytanie SELECT na bazie danych
+     * @param queryToExecute zapytanie SELECT
+     * @return wynik zapytania
      */
     public static ResultSet executeQuery(String queryToExecute) {
         ResultSet resultSet;
@@ -71,11 +77,20 @@ public class DBcontroller {
         }
     }
 
+    /**
+     * metoda sprawdza czy wprowadzone haslo administratora znajduje sie w bazie danych
+     * @param adminKey
+     * @return wartosc bool true jesli haslo znajduje sie w bazie danych
+     * lub wartosc false gdy go tam nie ma
+     */
     public static boolean isAdminKey(String adminKey)
-    {
+    {   //result zawiera wynik operacji SELECT szukajacej wprowadzonego hasla
+        // w bazie danych
         ResultSet result = executeQuery("SELECT * FROM Admin WHERE Admin.AdminKey='"+adminKey+"'");
         boolean isadminkey=false;
         try {
+            //jezeli po wykonaniu zapytania szukania wprowadzonego hasla admina w bazie danych
+            //kursor znajduje sie na koncu tabeli(isBeforeFirst()==true) oznacza to, ze nie znaleziono takiego hasla
             if (!result.isBeforeFirst()) {
                 Message.showMessage(Alert.AlertType.ERROR, "AdminLog In", "Incorrect AdminKey!");
             }else {
@@ -89,8 +104,11 @@ public class DBcontroller {
 
     }
 
+    /**
+     * metoda dodaje nowego klienta banku do bazy danych
+     * @param bankUser
+     */
     public static void registerUser(BankUser bankUser) {
-
 
         String statment = "INSERT INTO BankUser " +
                 "(FirstName,LastName,DOB,City,Street,PhoneNumber,Email,Password,BAcN,Balance,PostalCode) " +
@@ -108,17 +126,19 @@ public class DBcontroller {
 
         System.out.println("Inserting new BankUser row to database");
         executeStatement(statment);
-
-
     }
 
+    /**
+     * metoda wyswietla w okienku dane z tabeli o kliencie z numerem ID przekazanym jako parametr
+     * @param ID numer ID klienta
+     * @return
+     */
     public static BankUser getBankUser(int ID) {
         ResultSet result = executeQuery("SELECT * FROM BankUser WHERE BankUser.ID_BankUser=" + ID);
 
         BankUser bankUser = null;
 
         try {
-
             int ID_BankUser = result.getInt("ID_BankUser");
             String firstname = result.getString("FirstName");
             String lastname = result.getString("LastName");
@@ -132,7 +152,7 @@ public class DBcontroller {
             String blocked = result.getString("Blocked");
             double balance = result.getDouble("Balance");
             String postalcode = result.getString("PostalCode");
-
+            //stworzenie instancji klasy BankUser z danymi zalogowanego klienta
             bankUser = new BankUser(ID_BankUser, firstname, lastname, dob, city, street, phoneNumber, email, password, bAcN, blocked, balance, postalcode);
 
 
@@ -145,7 +165,15 @@ public class DBcontroller {
 
     }
 
+    /**
+     * metoda sprawdza czy w bazie danych istnieje konto klienta o wporwadzonych danych logowania
+     * @param Email
+     * @param Password
+     * @param BAcN
+     * @return
+     */
     public static BankUser getBankUser(String Email, String Password, String BAcN) {
+        //zapytanie kierowane do bazy danych
         ResultSet result = executeQuery("SELECT * FROM BankUser WHERE BankUser.Email='" + Email + "'");
         boolean validator = true;
         BankUser bankUser = null;
@@ -164,7 +192,7 @@ public class DBcontroller {
                 validator = false;
                 Message.showMessage(Alert.AlertType.ERROR, "Log In", "Incorrect BAcN!");
             }
-
+            //jezeli dane logowania sa poprawne (validator==true) metoda zwraca ID klienta
             if (validator) {
                 bankUser = getBankUser(result.getInt("ID_BankUser"));
             }
@@ -177,6 +205,10 @@ public class DBcontroller {
 
     }
 
+    /**
+     * metoda wyswietla zawartosc tabeli z danymi dostepnymi dla pracownika banku
+     * @return
+     */
     public static List<BankUser> getBankUserList() {
 
         ResultSet result = executeQuery("SELECT * FROM BankUser");
@@ -184,9 +216,9 @@ public class DBcontroller {
         List<BankUser> bankUsers = new ArrayList<BankUser>();
 
         try {
-
+            //wypisywanie w okienku zawartosci tabeli bazy danych z danymi kolejnych klientow banku
+            //tak dlugo dopoki istnieje kolejny klient
             while (result.next()) {
-
                 int ID_BankUser = result.getInt("ID_BankUser");
                 String firstname = result.getString("FirstName");
                 String lastname = result.getString("LastName");
@@ -214,6 +246,10 @@ public class DBcontroller {
 
     }
 
+    /**
+     * metoda blokuje konto klienta o przekazanym w parametrze numerze ID
+     * @param ID
+     */
     public static void blockUser(int ID) {
 
         String statment = "UPDATE BankUser SET " +
@@ -226,6 +262,10 @@ public class DBcontroller {
 
     }
 
+    /**
+     * metoda odblokowuje zablokowane konto klienta o przekazanym w parametrze numerze ID
+     * @param ID
+     */
     public static void unblockUser(int ID) {
 
         String statment = "UPDATE BankUser SET " +
@@ -238,6 +278,11 @@ public class DBcontroller {
 
     }
 
+    /**
+     * metoda aktualizuje dane klienta o wprowadzonym numerze ID
+     * @param ID
+     * @param newBankUser
+     */
     public static void updateUser(int ID, BankUser newBankUser) {
 
         String statment = "UPDATE BankUser SET " +
@@ -258,11 +303,20 @@ public class DBcontroller {
 
     }
 
+    /**
+     * metoda usuwa klienta o wskazanym numerze ID z tabeli BankUser
+     * @param ID
+     */
     public static void deleteUser(int ID)
     {
         executeStatement("DELETE FROM BankUser WHERE BankUser.ID_BankUser="+ID);
     }
 
+    /**
+     * metoda zwraca numer ID klienta o przekazanym w parametrze numerze konta bankowego
+     * @param BAcN
+     * @return
+     */
     public static int getID(String BAcN) {
         ResultSet result = executeQuery("SELECT ID_BankUser FROM BankUser WHERE BankUser.BAcN='" + BAcN + "'");
         try {
@@ -276,8 +330,11 @@ public class DBcontroller {
         return 0;
     }
 
-
-
+    /**
+     * metoda zwraca wartosc oszczednosci jakie posiada klient o podanym numerze ID na koncie oszczednosciowym
+     * @param ID
+     * @return
+     */
     public static Savings getSavings(int ID) {
 
         ResultSet result = executeQuery("SELECT * FROM Savings WHERE Savings.ID_BankUser=" + ID);
@@ -296,7 +353,6 @@ public class DBcontroller {
                 int ID_BankUser = result.getInt("ID_BankUser");
                 savings = new Savings(ID_Savings, Investment, StartDate, EardedSavings, ID_BankUser);
 
-
                 System.out.println("Getting Savings from database");
             }
         } catch (SQLException throwables) {
@@ -308,7 +364,11 @@ public class DBcontroller {
     }
 
 
-
+    /**
+     * metoda przenosi srodki z konta klienta na konto oszczednosciowe
+     * @param ID
+     * @param investment
+     */
     public static void insertInvestment(int ID, double investment) {
         executeStatement("INSERT INTO Savings (Investment, StartDate, EarnedSavings, ID_BankUser)" +
                 "VALUES ('" + investment + "', '" + Bank.getStringCurrentDateTime() + "','" + 0.0 + "', '" + ID + "')");
@@ -317,7 +377,8 @@ public class DBcontroller {
     }
 
     public static void initializeBank() {
-        executeStatement("PRAGMA foreign_keys = ON");//To on cascade deletion in foreign keys
+        //usuwanie kaskadowe konta bankowego z wszystkich tabel
+        executeStatement("PRAGMA foreign_keys = ON");
         ResultSet result = executeQuery("SELECT * FROM Bank WHERE Bank.ID=" + 1);
         ResultSet percentage = executeQuery("SELECT * FROM Percentage");
         ResultSet date = executeQuery("SELECT datetime('now','localtime') as time;");
@@ -336,6 +397,9 @@ public class DBcontroller {
 
     }
 
+    /**
+     * metoda zapusje aktualny czas
+     */
     public static void updateDateTime() {
         executeStatement("UPDATE Bank SET CurrentDateTime=datetime('now','localtime') WHERE Bank.ID=" + 1);
         ResultSet result = executeQuery("SELECT * FROM Bank WHERE Bank.ID=" + 1);
@@ -348,6 +412,12 @@ public class DBcontroller {
 
     }
 
+    /**
+     * metoda pobiera informacje o wzietmy kredycie dla wskazanego konta bankowego
+     * @param ID
+     * @param BAcN
+     * @return
+     */
     public static Credits getCredits(int ID, String BAcN) {
 
         ResultSet result = executeQuery("SELECT * FROM Credits WHERE Credits.BAcN='" + BAcN + "'");
@@ -379,6 +449,11 @@ public class DBcontroller {
 
     }
 
+    /**
+     * metoda dodaje kredyt dla konta bankowego o przekazanym numerze
+     * @param ID
+     * @param BAcN
+     */
     public static void insertCredits(int ID, String BAcN) {
         executeStatement("INSERT INTO Credits (CreditBalance, CreditLimit, StartDate, ID_BankUser,BAcN,Overdraft)" +
                 "VALUES ('" + 0.0 + "', '" + 5000.0 + "','" + Bank.getShortStringCurrentDateTime() + "', '" + ID + "','" + BAcN + "','" + 0.0 + "')");
@@ -386,6 +461,11 @@ public class DBcontroller {
 
     }
 
+    /**
+     * metoda pobiera stan konta dla klienta o przekazanym numerze ID
+     * @param ID
+     * @return
+     */
     public static double getBalance(int ID) {
         ResultSet resultSet = executeQuery("SELECT * FROM BankUser WHERE BankUser.ID_BankUser=" + ID);
         double result = 0;
@@ -399,6 +479,11 @@ public class DBcontroller {
         return result;
     }
 
+    /**
+     * metoda pobiera stan konta oszczednosciowego dla klienta o przekazanym numerze ID
+     * @param ID
+     * @return
+     */
     public static double getInvestment(int ID) {
         ResultSet resultSet = executeQuery("SELECT * FROM Savings WHERE Savings.ID_BankUser=" + ID);
         double result = 0;
@@ -412,6 +497,11 @@ public class DBcontroller {
         return result;
     }
 
+    /**
+     * metoda pobiera sume zaoszczedzonych pieniedzy przez klienta o przekazanym numerze ID od otwarcia konta
+     * @param ID
+     * @return
+     */
     public static double getEarnedSavings(int ID) {
         ResultSet resultSet = executeQuery("SELECT * FROM Savings WHERE Savings.ID_BankUser=" + ID);
         double result = 0;
@@ -426,19 +516,28 @@ public class DBcontroller {
     }
 
 
+    /**
+     * metoda oblicza roznice miedzy aktualna wartoscia posiadanego kredytu i maksymalnym mozliwym posiadanym kredytem
+     * @param ID
+     * @return
+     */
     public static double getCreditDiff(int ID) {
         ResultSet resultSet = executeQuery("SELECT * FROM Credits WHERE Credits.ID_BankUser=" + ID);
         double result = 0;
         try {
             result = resultSet.getDouble("CreditLimit") - resultSet.getDouble("CreditBalance");
         } catch (SQLException throwables) {
-
             throwables.printStackTrace();
         }
 
         return result;
     }
 
+    /**
+     * metoda pobiera aktualna sume pobranego kredytu przez klienta o przekazanym numerze ID
+     * @param ID
+     * @return
+     */
     public static double getCreditBalance(int ID) {
         ResultSet resultSet = executeQuery("SELECT * FROM Credits WHERE Credits.ID_BankUser=" + ID);
         double result = 0;
@@ -452,6 +551,11 @@ public class DBcontroller {
         return result;
     }
 
+    /**
+     * metoda zwraca maksymalna wartosc kredytu jaki moze wziac klient o przekazanym numerze ID
+     * @param ID
+     * @return
+     */
     public static double getCreditLimit(int ID) {
         ResultSet resultSet = executeQuery("SELECT * FROM Credits WHERE Credits.ID_BankUser=" + ID);
         double result = 0;
@@ -465,6 +569,11 @@ public class DBcontroller {
         return result;
     }
 
+    /**
+     * metoda zwraca wartosc naliczonych odsetek dla konta klienta o przekazanym numerze ID
+     * @param ID
+     * @return
+     */
     public static double getOverdraft(int ID) {
         ResultSet resultSet = executeQuery("SELECT * FROM Credits WHERE Credits.ID_BankUser=" + ID);
         double result = 0;
@@ -477,7 +586,7 @@ public class DBcontroller {
 
         return result;
     }
-
+    //metody aktualizuja stan konta klienta o przekazanym numerze ID
     public static void updateBalance(int ID, double amount) {
         executeStatement("UPDATE BankUser SET Balance=" + amount + " WHERE BankUser.ID_BankUser=" + ID);
     }
@@ -512,6 +621,13 @@ public class DBcontroller {
     }
 
 
+    /**
+     * metoda dodaje wykonana akcje przez klienta do historii operacji dla jego konta bankowego
+     * @param ID
+     * @param Description
+     * @param Type
+     * @param amount
+     */
     public static void insertOperation(int ID, String Description, String Type, double amount) {
 
         ResultSet resultSet = executeQuery("SELECT * FROM Operations WHERE Operations.ID_BankUser=" + ID);
@@ -540,6 +656,11 @@ public class DBcontroller {
 
     }
 
+    /**
+     * metoda wyswietla w okienku zalogowanego klienta historie dzialan wykonanych na jego koncie
+     * @param ID
+     * @return
+     */
     public static List<Operations> getOperationsList(int ID) {
 
         ResultSet result = executeQuery("SELECT * FROM Operations WHERE Operations.ID_BankUser=" + ID);

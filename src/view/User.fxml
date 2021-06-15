@@ -17,29 +17,29 @@
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+          <Menu mnemonicParsing="false" text="Okno">
             <items>
-              <MenuItem fx:id="MenuItem_SaveHistory" mnemonicParsing="false" onAction="#SaveHistory" text="Save History" />
-                  <MenuItem fx:id="MenuItem_Refresh" mnemonicParsing="false" onAction="#Refresh" text="Refresh" />
+              <MenuItem fx:id="MenuItem_SaveHistory" mnemonicParsing="false" onAction="#SaveHistory" text="Zapisz do pliku" />
+                  <MenuItem fx:id="MenuItem_Refresh" mnemonicParsing="false" onAction="#Refresh" text="Odswiez" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Operations">
+          <Menu mnemonicParsing="false" text="Przelewy">
             <items>
-              <MenuItem fx:id="MenuItem_Operate" mnemonicParsing="false" onAction="#Operation" text="Operate" />
-                  <MenuItem fx:id="MenuItem_TransferTo" mnemonicParsing="false" onAction="#TransferTo" text="Transfer To" />
+              <MenuItem fx:id="MenuItem_Operate" mnemonicParsing="false" onAction="#Operation" text="Przelew miedzy kontami" />
+                  <MenuItem fx:id="MenuItem_TransferTo" mnemonicParsing="false" onAction="#TransferTo" text="Przelew zwykly" />
             </items>
           </Menu>
-            <Menu mnemonicParsing="false" text="Account">
+            <Menu mnemonicParsing="false" text="Konto">
               <items>
-                  <MenuItem fx:id="MenuItem" mnemonicParsing="false" onAction="#ModifyAccount" text="Modify Account" />
-                <MenuItem fx:id="MenuItem_DeleteAccount" mnemonicParsing="false" onAction="#DeleteAccount" text="Delete Account" />
+                  <MenuItem fx:id="MenuItem" mnemonicParsing="false" onAction="#ModifyAccount" text="Ustawienia konta" />
+                <MenuItem fx:id="MenuItem_DeleteAccount" mnemonicParsing="false" onAction="#DeleteAccount" text="Usun konto" />
               </items>
             </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+          <Menu mnemonicParsing="false" text="Pomoc">
             <items>
-              <MenuItem fx:id="MenuItem_About" mnemonicParsing="false" onAction="#About" text="About" />
-                  <MenuItem fx:id="MenuItem_BankAccount" mnemonicParsing="false" onAction="#BankAccounts" text="Bank Accounts" />
-                  <MenuItem fx:id="MenuItem_Admin" mnemonicParsing="false" onAction="#AdminWindow" text="Admin" />
+              <MenuItem fx:id="MenuItem_About" mnemonicParsing="false" onAction="#About" text="Informacje o banku" />
+                  <MenuItem fx:id="MenuItem_BankAccount" mnemonicParsing="false" onAction="#BankAccounts" text="Konta klientow" />
+                  <MenuItem fx:id="MenuItem_Admin" mnemonicParsing="false" onAction="#AdminWindow" text="Pracownik" />
             </items>
           </Menu>
         </menus>
@@ -50,10 +50,10 @@
          <content>
             <TableView fx:id="Table_UserDate" prefHeight="523.0" prefWidth="572.0">
               <columns>
-                <TableColumn fx:id="Column_Date" prefWidth="96.80001217126846" style="-fx-alignment: CENTER;" text="Date" />
-                  <TableColumn fx:id="Column_Description" prefWidth="201.60000610351562" style="-fx-alignment: CENTER;" text="Description" />
-                <TableColumn fx:id="Column_Type" prefWidth="124.79998779296875" style="-fx-alignment: CENTER;" text="Type" />
-                  <TableColumn fx:id="Column_Amount" prefWidth="128.79998779296875" style="-fx-alignment: CENTER;" text="Amount" />
+                <TableColumn fx:id="Column_Date" prefWidth="96.80001217126846" style="-fx-alignment: CENTER;" text="Data" />
+                  <TableColumn fx:id="Column_Description" prefWidth="201.60000610351562" style="-fx-alignment: CENTER;" text="Operacja" />
+                <TableColumn fx:id="Column_Type" prefWidth="124.79998779296875" style="-fx-alignment: CENTER;" text="Typ przelewu" />
+                  <TableColumn fx:id="Column_Amount" prefWidth="128.79998779296875" style="-fx-alignment: CENTER;" text="Kwota" />
               </columns>
             </TableView>
          </content>
@@ -95,20 +95,20 @@
                   <Font size="10.0" />
                </font>
             </TextField>
-            <Label layoutX="27.0" layoutY="14.0" text="Bank Account Number" />
-            <Label layoutX="66.0" layoutY="60.0" text="Balance" />
-            <Label layoutX="23.0" layoutY="120.0" text="Invested" />
-            <Label layoutX="112.0" layoutY="120.0" text="Savings" />
-            <Label layoutX="101.0" layoutY="179.0" text="Credit Limit" />
-            <Label layoutX="63.0" layoutY="228.0" text="Overdraft" />
-            <Label layoutX="11.0" layoutY="494.0" text="DateTime:" />
+            <Label layoutX="27.0" layoutY="14.0" text="Numer konta bankowego" />
+            <Label layoutX="60.0" layoutY="60.0" text="Stan konta" />
+            <Label layoutX="10.0" layoutY="120.0" text="Oszczednosci" />
+            <Label layoutX="117.0" layoutY="120.0" text="Zysk" />
+            <Label layoutX="101.0" layoutY="179.0" text="Limit kredytu" />
+            <Label layoutX="70.0" layoutY="228.0" text="Odsetki" />
+            <Label layoutX="11.0" layoutY="494.0" text="Czas:" />
             <Label fx:id="Label_BankDate" layoutX="72.0" layoutY="494.0" prefHeight="17.0" prefWidth="92.0" />
             <TextField fx:id="TextBox_CreditBalance" alignment="CENTER" editable="false" layoutX="9.0" layoutY="196.0" prefHeight="21.0" prefWidth="72.0">
                <font>
                   <Font size="10.0" />
                </font>
             </TextField>
-            <Label layoutX="7.0" layoutY="179.0" text="Credit Balance" />
+            <Label layoutX="24.0" layoutY="179.0" text="Kredyt" />
          </children>
       </Pane>
    </right>

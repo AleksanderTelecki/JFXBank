@@ -29,8 +29,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * klasa zawiera metody dla okienka zalogowanego klienta
+ */
 public class UserController implements Initializer, Refreshable {
-
+    //elementy GUI
     @FXML
     private BorderPane BorderPane_User;
 
@@ -108,41 +111,60 @@ public class UserController implements Initializer, Refreshable {
 
     private int ID;
 
+    /**
+     * metoda wyswietla okienko z informacjami o banku
+     * @param event
+     */
     @FXML
     void About(ActionEvent event) {
 
         starter.Show(WindowController.windowType.BankInfo);
     }
 
+    /**
+     * metoda wyswietla okinko z informacjami o numerach kont bankowych pozostalych klientow banku
+     * @param event
+     */
     @FXML
     void BankAccounts(ActionEvent event) {
         starter.Show(WindowController.windowType.BankAccounts, null);
     }
 
+    /**
+     * metoda pozwala klientowi zamknac swoje konto w banku
+     * @param event
+     */
     @FXML
     void DeleteAccount(ActionEvent event) {
-
+        //monit z prosba o potwierdzenie akcji
         Alert alert = Message.showMessageAndReturnAlertReference(Alert.AlertType.CONFIRMATION,
                 "Delete Account",
-                "Do you want to delete this account?");
-
+                "Czy na pewno chcesz zamknac konto?");
+        //po potwierdzeniu akcji konto zostaje usuniete z bazy danych
+        // i otwierane jest okienko logowania dla klienta
         if (alert.getResult().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
             DBcontroller.deleteUser(ID);
             Stage thisStage = (Stage) BorderPane_User.getScene().getWindow();
             starter.Show(WindowController.windowType.LogIn);
             thisStage.close();
-
-
         }
-
     }
 
+    /**
+     * metoda pozwala na modyfikacje danych osobowych klienta banku
+     * @param event
+     */
     @FXML
     void ModifyAccount(ActionEvent event) {
         starter.Show(WindowController.windowType.ModifyAccounts, User.getID());
 
     }
 
+    /**
+     * metoda pozwala na przenoszenie srodkow miedzy kontami klienta,
+     * jezeli jego konto nie zostalo zablokowane
+     * @param event
+     */
     @FXML
     void Operation(ActionEvent event) {
         if(User.getBlocked().equals("1"))
@@ -155,6 +177,10 @@ public class UserController implements Initializer, Refreshable {
     }
 
 
+    /**
+     * metoda zapisuje historie akcji wykonanych z konta klienta do pliku csv
+     * @param event
+     */
     @FXML
     void SaveHistory(ActionEvent event) {
         CsvWriter csvWriter = new CsvWriter();
@@ -162,19 +188,31 @@ public class UserController implements Initializer, Refreshable {
         List<String[]> stringList = new ArrayList<>();
 
         String[] header = {"Date", "Description", "Type", "Amount"};
+        //wypisanie naglowkow w pierwszej komorce pliku csv
         stringList.add(header);
 
         for (Operations item:list) {
             String [] tableValue = {item.getStringDate(),item.getDescription(),item.getType(),Double.toString(item.getAmount())};
+            //wypisywanie danych w kolejnych komorkach pliku csv
             stringList.add(tableValue);
         }
-
+        //wybor gdzie ma zostac zapisany plik csv
         try {
-            csvWriter.writeToCsvFile(stringList,getFilePath());
+            File filePath= getFilePath();
+            if(filePath==null)
+                return;
+            csvWriter.writeToCsvFile(stringList,filePath);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    /**
+     * metoda przenoszaca srodki z konta klienta na konto innego klienta,
+     * jezeli  konto klienta nie zostalo zablokowane
+     * @param event
+     */
     @FXML
     void TransferTo(ActionEvent event) {
         if(User.getBlocked().equals("1"))
@@ -187,9 +225,15 @@ public class UserController implements Initializer, Refreshable {
 
     }
 
+    /**
+     * metoda wyswietla okinko logowania dla pracownika banku
+     * @param event
+     */
     @FXML
     void AdminWindow(ActionEvent event) {
+        Stage thisStage = (Stage) BorderPane_User.getScene().getWindow();
         starter.Show(WindowController.windowType.AdminLogIn,null);
+        thisStage.close();
     }
 
     @FXML
@@ -197,15 +241,17 @@ public class UserController implements Initializer, Refreshable {
         refresh();
     }
 
+    /**
+     * metoda pozwala wybrac miejsce gdzie ma zostac zapisany plik csv
+     * @return
+     */
     private File getFilePath()
     {
         FileChooser fileChooser = new FileChooser();
 
-        //Set extension filter for text files
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV Files", "*.csv", "*.csv");
         fileChooser.getExtensionFilters().add(extFilter);
 
-        //Show save file dialog
         File file = fileChooser.showSaveDialog(new Stage());
 
         return file;
@@ -230,6 +276,7 @@ public class UserController implements Initializer, Refreshable {
 
         ID = (Integer) object;
         refresh();
+
         new Thread(new Runnable() {
             public void run() {
                 initClock();
@@ -237,8 +284,9 @@ public class UserController implements Initializer, Refreshable {
         }).start();
 
     }
-
-
+    /**
+     * zegar wyswietlany w prawym dolnym rogu okienka zalogowanego klienta
+     */
     private void initClock() {
         Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
@@ -246,8 +294,6 @@ public class UserController implements Initializer, Refreshable {
         }), new KeyFrame(Duration.seconds(1)));
         clock.setCycleCount(Animation.INDEFINITE);
         clock.play();
-
-
     }
 
     @Override
@@ -260,7 +306,6 @@ public class UserController implements Initializer, Refreshable {
         TextBox_CreditBalance.setText(Double.toString(User.getUserCredits().getCreditBalance()));
         TextBox_Savings.setText(Double.toString(User.getUserSavings().getEarnedSavings()));
         TextBox_Overdraft.setText(Double.toString(User.getUserCredits().getOverdraft()));
-
         ObservableList<Operations> data = FXCollections.observableArrayList(DBcontroller.getOperationsList(ID));
         Table_UserDate.setItems(data);
     }

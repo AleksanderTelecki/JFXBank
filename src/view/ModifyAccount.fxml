@@ -17,12 +17,12 @@
         <TextField fx:id="TextBox_PhoneNumber" alignment="CENTER" layoutX="28.0" layoutY="314.0" prefHeight="25.0" prefWidth="220.0" />
         <TextField fx:id="TextBox_PostalCode" alignment="CENTER" layoutX="28.0" layoutY="364.0" prefHeight="25.0" prefWidth="220.0" />
         <TextField fx:id="TextBox_Email" alignment="CENTER" layoutX="28.0" layoutY="414.0" prefHeight="25.0" prefWidth="220.0" />
-        <Label layoutX="102.0" layoutY="39.0" text="FirstName">
+        <Label layoutX="122.0" layoutY="39.0" text="Imie">
             <font>
                 <Font size="16.0" />
             </font>
         </Label>
-        <Label layoutX="103.0" layoutY="89.0" text="LastName">
+        <Label layoutX="103.0" layoutY="89.0" text="Nazwisko">
             <font>
                 <Font size="16.0" />
             </font>
@@ -32,37 +32,37 @@
                 <Font size="16.0" />
             </font>
         </Label>
-        <Label layoutX="93.0" layoutY="139.0" text="Date of birth">
+        <Label layoutX="93.0" layoutY="139.0" text="Data urodzenia">
             <font>
                 <Font size="16.0" />
             </font>
         </Label>
-        <Label layoutX="96.0" layoutY="189.0" text="City Adress">
+        <Label layoutX="96.0" layoutY="189.0" text="Miejscowosc">
             <font>
                 <Font size="16.0" />
             </font>
         </Label>
-        <Label layoutX="91.0" layoutY="239.0" text="Street Adress">
+        <Label layoutX="120.0" layoutY="239.0" text="Ulica">
             <font>
                 <Font size="16.0" />
             </font>
         </Label>
-        <Label layoutX="84.0" layoutY="289.0" text="Phone Number">
+        <Label layoutX="90.0" layoutY="289.0" text="Numer telefonu">
             <font>
                 <Font size="16.0" />
             </font>
         </Label>
-        <Label layoutX="97.0" layoutY="339.0" text="Postal code">
+        <Label layoutX="97.0" layoutY="339.0" text="Kod pocztowy">
             <font>
                 <Font size="16.0" />
             </font>
         </Label>
-        <Label layoutX="102.0" layoutY="439.0" text="Password">
+        <Label layoutX="125.0" layoutY="439.0" text="Haslo">
             <font>
                 <Font size="16.0" />
             </font>
         </Label>
-        <Button fx:id="Button_Submit" layoutX="16.0" layoutY="540.0" mnemonicParsing="false" onAction="#SubmitModification" prefHeight="30.0" prefWidth="245.0" text="Submit">
+        <Button fx:id="Button_Submit" layoutX="16.0" layoutY="540.0" mnemonicParsing="false" onAction="#SubmitModification" prefHeight="30.0" prefWidth="245.0" text="Zatwierdz">
             <font>
                 <Font size="16.0" />
             </font>
