@@ -149,7 +149,7 @@ public class WindowController {
             thisStage.setMaximized(false);
             thisStage.setResizable(false);
             thisStage.setScene(new Scene(window));
-            pair = new Pair<Stage, FXMLLoader>(thisStage, loader);
+            pair = new Pair<Stage, FXMLLoader>(thisStage, loader);//
 
         } catch (IOException e) {
             e.printStackTrace();
