@@ -52,13 +52,13 @@ public class ManageAccountsController implements Initializer {
         //monit o potwierdzenie akcji
         Alert alert = Message.showMessageAndReturnAlertReference(Alert.AlertType.CONFIRMATION,
                 "Block Account",
-                "Do you want to block this account?");
+                "Czy chcesz zablokowac to konto?");
         //po potwierdzeniu przyciskiem dane w oknie sa odswiezane
         //i wyswietlany jest monit z potwierdzeniem zablokowania konta
         if (alert.getResult().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
             DBcontroller.blockUser(choosedUser.getID());
             WindowController.adminController.refresh();
-            Message.showMessage(Alert.AlertType.INFORMATION,"Account","Successful");
+            Message.showMessage(Alert.AlertType.INFORMATION,"Account","Operacja sie powiodla");
         }
     }
 
@@ -71,13 +71,13 @@ public class ManageAccountsController implements Initializer {
         //monit o potwierdzenie akcji
         Alert alert = Message.showMessageAndReturnAlertReference(Alert.AlertType.CONFIRMATION,
                 "Block Account",
-                "Do you want to unblock this account?");
+                "Czy chesz odblokowac to konto?");
         //po potwierdzeniu przyciskiem dane w oknie sa odswiezane i wyswietlany jest
         //monit z potwierdzeniem odblokowania konta
         if (alert.getResult().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
             DBcontroller.unblockUser(choosedUser.getID());
             WindowController.adminController.refresh();
-            Message.showMessage(Alert.AlertType.INFORMATION,"Account","Successful");
+            Message.showMessage(Alert.AlertType.INFORMATION,"Account","Operacja sie powiodla");
         }
     }
 
@@ -90,14 +90,14 @@ public class ManageAccountsController implements Initializer {
         //monit o potwierdzenie akcji
         Alert alert = Message.showMessageAndReturnAlertReference(Alert.AlertType.CONFIRMATION,
                 "Delete Account",
-                "Do you want to delete this account?");
+                "Czy chesz usunac to konto?");
         //po potwierdzeniu przyciskiem dane w oknie sa odswiezane i wyswietlany jest
         //monit z potwierdzeniem odblokowania konta
         if (alert.getResult().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
             DBcontroller.deleteUser(choosedUser.getID());
             //wyswietlane jest nowe okno nie zawierajace usunietego rejestru
             Stage thisStage = (Stage) Pane_ManageAccounts.getScene().getWindow();
-            Message.showMessage(Alert.AlertType.INFORMATION,"Account","Successful");
+            Message.showMessage(Alert.AlertType.INFORMATION,"Account","Operacja sie powiodla");
             WindowController.adminController.refresh();
             thisStage.close();
         }
