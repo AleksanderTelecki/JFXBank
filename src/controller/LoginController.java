@@ -21,8 +21,7 @@ import java.util.ResourceBundle;
 /**
  * klasa zawiera metody pozwalajace logowac sie klientom banku
  */
-//TODO: usunac komentarz
-public class LoginController implements Initializer, Initializable /*interfejs Initializable wywoluje sie w momencie tworzenie klasy, wczesniej od Initializer*/ {
+public class LoginController implements Initializer{
     //elementy interfejsu graficznego
     @FXML
     private Pane Pane_LogIn;
@@ -46,7 +45,6 @@ public class LoginController implements Initializer, Initializable /*interfejs I
     private Button Button_NewAccount;
 
     private WindowController starter = new WindowController();
-
 
     /**
      * metoda wyswietla okienko logowania dla pracownika banku
@@ -86,21 +84,4 @@ public class LoginController implements Initializer, Initializable /*interfejs I
     public void Initialize(Object object) {
         BankUser user = (BankUser) object;
     }
-
-    //TODO:  do usuniecia razem z interfejsem javaFX Initializable
-    /**
-     * metoda wypelnia formularz logowania klienta by nie trzeba bylo robic tego recznie
-     * @param url
-     * @param resourceBundle
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        TextBox_BacN.setText("c583-4bac-9fe9");
-        TextBox_Email.setText("jbojega@gmail.com");
-        TextBox_Password.setText("alendo1");
-    }
-
-
-
-
 }

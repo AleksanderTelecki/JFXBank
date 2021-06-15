@@ -179,7 +179,6 @@ public class BankUser {
         } catch (ParseException e) {
             Message.showMessage(Alert.AlertType.ERROR, "Invalid Data", "invalid Date!\nDate Format: dd.MM.yyy");
             catcherror = true;
-
         }
     }
 
@@ -192,11 +191,9 @@ public class BankUser {
         if (city.length() < 2) {
             Message.showMessage(Alert.AlertType.ERROR, "Invalid Data", "invalid City Adress!");
             catcherror = true;
-
         } else {
             City = city;
         }
-
     }
 
     public String getStreet() {
@@ -207,12 +204,10 @@ public class BankUser {
         if (street.length() < 2) {
             Message.showMessage(Alert.AlertType.ERROR, "Invalid Data", "invalid Street Adress!");
             catcherror = true;
-
         } else {
 
             Street = street;
         }
-
     }
 
     public String getPhoneNumber() {
@@ -227,9 +222,7 @@ public class BankUser {
         } else {
             Message.showMessage(Alert.AlertType.ERROR, "Invalid Data", "invalid PhoneNumber!");
             catcherror = true;
-
         }
-
     }
 
     public String getEmail() {
@@ -246,8 +239,6 @@ public class BankUser {
             Message.showMessage(Alert.AlertType.ERROR, "Invalid Data", "invalid Email!");
             catcherror = true;
         }
-
-
     }
 
     public String getPassword() {
@@ -262,7 +253,6 @@ public class BankUser {
 
             Password = password;
         }
-
     }
 
     public String getBAcN() {
@@ -273,8 +263,6 @@ public class BankUser {
         } else {
             return BAcN;
         }
-
-
     }
 
     public void setBAcN(String BAcN) {
@@ -292,8 +280,6 @@ public class BankUser {
         } else {
             Blocked = blocked;
         }
-
-
     }
 
     public double getBalance() {
@@ -315,10 +301,7 @@ public class BankUser {
             Message.showMessage(Alert.AlertType.ERROR, "Invalid Data", "invalid PostalCode!\nPostal code format: NN-NNN");
             catcherror = true;
         }
-
-
     }
-
 
     public Savings getUserSavings() {
 
@@ -333,14 +316,12 @@ public class BankUser {
         UserSavings = userSavings;
     }
 
-
     public Credits getUserCredits() {
         if (UserCredits == null) {
             setUserCredits(DBcontroller.getCredits(getID(), BAcN));
         }
         return UserCredits;
     }
-
 
     public double getInvested() {
         return getUserSavings().getInvestment();
@@ -362,38 +343,12 @@ public class BankUser {
         return getUserSavings().getEarnedSavings();
     }
 
-
-
     public void setUserCredits(Credits userCredits) {
         UserCredits = userCredits;
     }
-
-    // TODO: do usuniecia nieuzywane
-    /*
-    public String toFullString() {
-        return "BankUser{" +
-                "ID=" + ID +
-                ", FirstName='" + FirstName + '\'' +
-                ", LastName='" + LastName + '\'' +
-                ", DOB=" + DOB +
-                ", City='" + City + '\'' +
-                ", Street='" + Street + '\'' +
-                ", PhoneNumber='" + PhoneNumber + '\'' +
-                ", Email='" + Email + '\'' +
-                ", Password='" + Password + '\'' +
-                ", BAcN='" + BAcN + '\'' +
-                ", Blocked='" + Blocked + '\'' +
-                ", Balance=" + Balance +
-                ", PostalCode='" + PostalCode + '\'' +
-                '}';
-    }
-    */
-
 
     @Override
     public String toString() {
         return getFullName();
     }
-
-
 }

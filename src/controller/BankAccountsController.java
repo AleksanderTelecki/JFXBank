@@ -13,11 +13,7 @@ import utils.Refreshable;
 import utils.dbclasses.BankUser;
 
 public class BankAccountsController implements Initializer, Refreshable {
-    // TODO: narazie nieuzywane
-    /*
-    @FXML
-    private ScrollPane ScrollPane_Users;
-*/
+
     @FXML
     private TableView<BankUser> Table_Users;
 

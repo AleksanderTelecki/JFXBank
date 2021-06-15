@@ -14,7 +14,7 @@ import utils.WindowController;
 /**
  * klasa zawiera metody pozwalajace zalogowac sie pracownikowi banku
  */
-public class AdminLoginController implements Initializer {
+public class AdminLoginController implements Initializer{
 
     //elementy GUI
     @FXML
@@ -54,9 +54,8 @@ public class AdminLoginController implements Initializer {
         }
     }
 
-    // TODO: mozna usunac
     /**
-     * nadpisanie  metody by nie trzeba bylo wprowadzac danych po starcie aplikacji
+     * wprowadzenie hasla dla pracownika
      * @param object
      */
     @Override

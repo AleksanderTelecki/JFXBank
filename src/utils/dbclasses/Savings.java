@@ -29,7 +29,7 @@ public class Savings {
         setEarnedSavings(earnedSavings);
         setID_BankUser(ID_BankUser);
     }
-    //TODO: ??czy jest to gdzie uzywane
+
     public int getID_Savings() {
         return ID_Savings;
     }
@@ -49,7 +49,7 @@ public class Savings {
     public Date getStartDate() {
         return StartDate;
     }
-    //TODO: ??? czy jest uzywane?
+
     public String getStringStartDate() {
         return dateFormat.format(StartDate);
     }
@@ -92,7 +92,7 @@ public class Savings {
     public void setEarnedSavings(double earnedSavings) {
         EarnedSavings = earnedSavings;
     }
-    //TODO: ????czy uzywane
+
     public int getID_BankUser() {
         return ID_BankUser;
     }

@@ -31,7 +31,6 @@ public class Credits {
         setOverdraft(overdraft);
     }
 
-    // TODO: nieuzywane ZOSTAJE
     public int getID_Credit() {
         return ID_Credit;
     }

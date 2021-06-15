@@ -6,31 +6,13 @@ import utils.dbclasses.Bank;
 import java.util.List;
 
 /**
- *
+ *klasa zawiera metody umoziliwajace przenoszenie srodkow miedzy kontami
  */
 public class CheckAndSend {
-    //
+    //typy kont na ktore mozliwe jest przelewanie srodkow
     public enum operation {None, Balance, Savings, Investment, Credit, CreditLimit, CreditBalance, Overdraft, Transfer, Admin}
     //typy przelewow miedzy kontami
     public enum type {None, Internal, External, Another}
-
-    //TODO: nieuzywane moze byc usuniete
-    /*
-    /**
-     * metoda przenosi srodki miedzy kontami klienta
-     * @param From
-     * @param To
-     * @param amount
-     * @param oType
-     * @param ID
-
-    public static void Send(operation From, operation To, double amount, type oType, int ID) {
-        refDouble refAmount = new refDouble(amount);
-        if (check(From, To, refAmount, ID)) {
-            proceedOperation(From, To, refAmount.getValue(), oType, ID, null);
-        }
-    }
-    */
 
     /**
      * metoda przenosi srodki z jednego konta na drugie przez pracownika banku
@@ -200,7 +182,7 @@ public class CheckAndSend {
                 double balance = DBcontroller.getBalance(id) - amount;
 
                 if (balance < 0) {
-                    Message.showMessage(Alert.AlertType.ERROR, "Error", "Not enough funds in (Balance) to perform operation");
+                    Message.showMessage(Alert.AlertType.ERROR, "Error", "Niewystarczajace srodki na wskazanym koncie by wykonac operacje");
                     validator = false;
                 }
 
@@ -209,7 +191,7 @@ public class CheckAndSend {
                 double savings = DBcontroller.getEarnedSavings(id) - amount;
 
                 if (savings < 0) {
-                    Message.showMessage(Alert.AlertType.ERROR, "Error", "Not enough funds in (Savings) to perform operation");
+                    Message.showMessage(Alert.AlertType.ERROR, "Error", "Niewystarczajace srodki na wskazanym koncie by wykonac operacje");
                     validator = false;
                 }
             }
@@ -217,21 +199,21 @@ public class CheckAndSend {
                 double investment = DBcontroller.getInvestment(id) - amount;
 
                 if (investment < 0) {
-                    Message.showMessage(Alert.AlertType.ERROR, "Error", "Not enough funds in (Investment) to perform operation");
+                    Message.showMessage(Alert.AlertType.ERROR, "Error", "Niewystarczajace srodki na wskazanym koncie by wykonac operacje");
                     validator = false;
                 }
             }
             case Credit -> {
                 double creditdiff = DBcontroller.getCreditDiff(id) - amount;
                 if (creditdiff < 0) {
-                    Message.showMessage(Alert.AlertType.ERROR, "Error", "Credit Limit is " + DBcontroller.getCreditLimit(id) + "!");
+                    Message.showMessage(Alert.AlertType.ERROR, "Error", "Maksymalna dopuszczlna kwota kredytu to " + DBcontroller.getCreditLimit(id) + "!");
                     validator = false;
                 }
             }
 
             case Admin -> {
                 if (amount < 0) {
-                    Message.showMessage(Alert.AlertType.ERROR, "Error", "Value can't be less then 0!");
+                    Message.showMessage(Alert.AlertType.ERROR, "Error", "Kwota nie moze byc mniejsza od 0");
                     validator = false;
                 }
             }
@@ -245,7 +227,7 @@ public class CheckAndSend {
         switch (to) {
             case Balance, Investment, Savings, Transfer -> {
                 if (amount<0) {
-                    Message.showMessage(Alert.AlertType.ERROR, "Error", "Value can't be less then 0!");
+                    Message.showMessage(Alert.AlertType.ERROR, "Error", "Kwota nie moze byc mniejsza od 0");
                     validator = false;
                 }
 
@@ -256,7 +238,7 @@ public class CheckAndSend {
                 amount = (creditbalance - amount) <= 0 ? (amount - (amount - creditbalance)) : amount;
                 refAmount.setValue(amount);
                 if (amount == 0) {
-                    Message.showMessage(Alert.AlertType.ERROR, "Error", "Credit Limit is 5000");
+                    Message.showMessage(Alert.AlertType.ERROR, "Error", "Dopuszczlna kwota kredytu to 5000");
                     validator = false;
                 }
 
@@ -268,7 +250,7 @@ public class CheckAndSend {
                     refAmount.setValue(amount);
                 } else {
                     if (amount < 0) {
-                        Message.showMessage(Alert.AlertType.ERROR, "Error", "Overdraft can't be less then 0!");
+                        Message.showMessage(Alert.AlertType.ERROR, "Error", "Odsetki nie moga byc mniejsze niz 0");
                         validator = false;
                     }
                 }
@@ -277,7 +259,7 @@ public class CheckAndSend {
 
             case CreditLimit -> {
                 if (amount < 0) {
-                    Message.showMessage(Alert.AlertType.ERROR, "Error", "Credit Limit can't be less then 0!");
+                    Message.showMessage(Alert.AlertType.ERROR, "Error", "Kredyt nie moze wynosic mniej niz 0");
                     validator = false;
                 }
             }
@@ -285,7 +267,7 @@ public class CheckAndSend {
             case CreditBalance -> {
                 double creditlimit = DBcontroller.getCreditLimit(id);
                 if (amount < 0 || amount > creditlimit) {
-                    Message.showMessage(Alert.AlertType.ERROR, "Error", "Credit Limit is " + creditlimit + "\n CreditBalance can't be less then 0!");
+                    Message.showMessage(Alert.AlertType.ERROR, "Error", "Dopuszczalna wartosc kredytu wynosi " + creditlimit + "\n Kredyt nie moze wynosic mniej niz 0");
                     validator = false;
                 }
             }
@@ -301,7 +283,7 @@ public class CheckAndSend {
     }
 
     /**
-     * w metodzie wybierana jest konto na ktorym\dla ktorego wykonywane beda operacje
+     * w metodzie wybierana jest konto na ktorym i dla ktorego wykonywane beda operacje
      * String z ComboBoxu jest konwenterowany na String
      * @param combostring
      * @return
@@ -373,7 +355,6 @@ public class CheckAndSend {
         public void setValue(double value) {
             this.value = value;
         }
-
 
     }
 

@@ -34,13 +34,6 @@ public class DBcontroller {
         }
 
     }
-   //TODO: nieuzywane monza usunac
-    /*
-    public static Connection getConnection() {
-        return connection;
-    }
-
-     */
 
     /**
      * wykonuje zapytanie na bazie danych
@@ -92,7 +85,7 @@ public class DBcontroller {
             //jezeli po wykonaniu zapytania szukania wprowadzonego hasla admina w bazie danych
             //kursor znajduje sie na koncu tabeli(isBeforeFirst()==true) oznacza to, ze nie znaleziono takiego hasla
             if (!result.isBeforeFirst()) {
-                Message.showMessage(Alert.AlertType.ERROR, "AdminLog In", "Incorrect AdminKey!");
+                Message.showMessage(Alert.AlertType.ERROR, "AdminLog In", "Niepoprawne haslo");
             }else {
                 isadminkey=true;
             }
@@ -180,17 +173,17 @@ public class DBcontroller {
         try {
             if (!result.isBeforeFirst()) {
                 validator = false;
-                Message.showMessage(Alert.AlertType.ERROR, "Log In", "Incorrect Email!");
+                Message.showMessage(Alert.AlertType.ERROR, "Log In", "Niepoprawny adres email");
             }
             result = executeQuery("SELECT * FROM BankUser WHERE BankUser.Password='" + Password + "'");
             if (!result.isBeforeFirst()) {
                 validator = false;
-                Message.showMessage(Alert.AlertType.ERROR, "Log In", "Incorrect Password!");
+                Message.showMessage(Alert.AlertType.ERROR, "Log In", "Niepoprawne haslo");
             }
             result = executeQuery("SELECT * FROM BankUser WHERE BankUser.BAcN='" + BAcN + "'");
             if (!result.isBeforeFirst()) {
                 validator = false;
-                Message.showMessage(Alert.AlertType.ERROR, "Log In", "Incorrect BAcN!");
+                Message.showMessage(Alert.AlertType.ERROR, "Log In", "Niewlasciwy numer konta");
             }
             //jezeli dane logowania sa poprawne (validator==true) metoda zwraca ID klienta
             if (validator) {
